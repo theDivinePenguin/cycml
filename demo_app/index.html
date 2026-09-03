@@ -22,7 +22,8 @@
         <span class="status-pulse"></span>
         <span class="status-text">OPERATIONAL INFERENCE ACTIVE</span>
       </div>
-      <div class="model-tag">CNN + Temporal Transformer (K=5)</div>
+      <div class="model-tag">Multi-Modal Fusion Transformer (K=7, 18h Lookback + SHIPS)</div>
+      <div class="benchmark-pill" title="Held-Out Test Set Performance (187 Unseen Cyclones)">RI PR-AUC: 0.4042 | Trend Acc: 64.71%</div>
     </div>
   </header>
 
@@ -78,6 +79,51 @@
             <div class="sub-item">
               <span class="sub-label">Timestamp:</span>
               <span id="val-timestamp" class="sub-value mono">--</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Environmental Thermodynamics Telemetry Card -->
+        <section class="metric-card glass-card" id="card-environmental-telemetry">
+          <div class="card-header">
+            <span class="card-title">ENVIRONMENTAL THERMODYNAMICS</span>
+            <span class="card-tag">SHIPS Reanalysis</span>
+          </div>
+          <div class="env-metrics-grid">
+            <div class="env-item">
+              <span class="env-label">Sea Surface Temp (SST)</span>
+              <div class="env-val-row">
+                <span id="env-val-sst" class="env-value">--.- °C</span>
+                <span id="env-badge-sst" class="env-pill pill-warm">Warm Pool</span>
+              </div>
+            </div>
+            <div class="env-item">
+              <span class="env-label">Ocean Heat Content (OHC)</span>
+              <div class="env-val-row">
+                <span id="env-val-ohc" class="env-value">--.- kJ/cm²</span>
+                <span id="env-badge-ohc" class="env-pill pill-energy">High Energy</span>
+              </div>
+            </div>
+            <div class="env-item">
+              <span class="env-label">Vertical Wind Shear (200-850 hPa)</span>
+              <div class="env-val-row">
+                <span id="env-val-shear" class="env-value">--.- kt</span>
+                <span id="env-badge-shear" class="env-pill pill-low">Low Shear</span>
+              </div>
+            </div>
+            <div class="env-item">
+              <span class="env-label">Mid-Tropospheric RH (700-500 hPa)</span>
+              <div class="env-val-row">
+                <span id="env-val-rh" class="env-value">-- %</span>
+                <span id="env-badge-rh" class="env-pill pill-moist">Moist Core</span>
+              </div>
+            </div>
+            <div class="env-item">
+              <span class="env-label">Central Pressure (MSLP)</span>
+              <div class="env-val-row">
+                <span id="env-val-mslp" class="env-value">---- hPa</span>
+                <span class="env-pill pill-neutral">Barometric</span>
+              </div>
             </div>
           </div>
         </section>
@@ -163,40 +209,52 @@
           </div>
         </section>
 
-        <!-- 5-Frame Satellite Sequence Strip -->
+        <!-- 7-Frame Satellite Sequence Strip -->
         <section class="satellite-strip-card glass-card">
           <div class="card-header">
-            <span class="card-title">MULTI-SOURCE SATELLITE SEQUENCE [t-12h → t]</span>
-            <span class="card-tag">IR1 + WV + VIS</span>
+            <span class="card-title">MULTI-SOURCE SPATIO-TEMPORAL SEQUENCE [t-18h → t]</span>
+            <span class="card-tag">IR1 + WV + VIS (K=7)</span>
           </div>
-          <div class="frames-sequence-grid">
+          <div class="frames-sequence-grid frames-k7">
+            <div class="frame-item">
+              <div class="frame-thumb-box" id="frame-t18">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f0">t-18h</span></div>
+              </div>
+              <span class="frame-time">t-18h</span>
+            </div>
+            <div class="frame-item">
+              <div class="frame-thumb-box" id="frame-t15">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f1">t-15h</span></div>
+              </div>
+              <span class="frame-time">t-15h</span>
+            </div>
             <div class="frame-item">
               <div class="frame-thumb-box" id="frame-t12">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-12h</div>
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f2">t-12h</span></div>
               </div>
               <span class="frame-time">t-12h</span>
             </div>
             <div class="frame-item">
               <div class="frame-thumb-box" id="frame-t9">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-9h</div>
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f3">t-9h</span></div>
               </div>
               <span class="frame-time">t-9h</span>
             </div>
             <div class="frame-item">
               <div class="frame-thumb-box" id="frame-t6">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-6h</div>
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f4">t-6h</span></div>
               </div>
               <span class="frame-time">t-6h</span>
             </div>
             <div class="frame-item">
               <div class="frame-thumb-box" id="frame-t3">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-3h</div>
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f5">t-3h</span></div>
               </div>
               <span class="frame-time">t-3h</span>
             </div>
             <div class="frame-item active-t">
               <div class="frame-thumb-box current-sat" id="frame-t0">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> NOW (t)</div>
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f6">NOW</span></div>
               </div>
               <span class="frame-time font-bold">NOW (t)</span>
             </div>

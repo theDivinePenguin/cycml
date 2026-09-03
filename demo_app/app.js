@@ -187,6 +187,65 @@ function renderCurrentStep() {
   catBadge.textContent = step.category;
   catBadge.className = "category-pill " + getCategoryClass(step.vmax_curr);
 
+  // 2b. Environmental Thermodynamics Telemetry
+  if (step.environmental) {
+    const sst = step.environmental.sst;
+    const ohc = step.environmental.ohc;
+    const shear = step.environmental.shear;
+    const rh = step.environmental.rh;
+    const mslp = step.environmental.mslp;
+
+    document.getElementById("env-val-sst").textContent = `${sst.toFixed(1)} °C`;
+    document.getElementById("env-val-ohc").textContent = `${ohc.toFixed(1)} kJ/cm²`;
+    document.getElementById("env-val-shear").textContent = `${shear.toFixed(1)} kt`;
+    document.getElementById("env-val-rh").textContent = `${Math.round(rh)} %`;
+    document.getElementById("env-val-mslp").textContent = `${Math.round(mslp)} hPa`;
+
+    const bSst = document.getElementById("env-badge-sst");
+    if (sst >= 28.5) {
+      bSst.textContent = "Super-Warm";
+      bSst.className = "env-pill pill-warm";
+    } else if (sst >= 26.5) {
+      bSst.textContent = "Warm Pool";
+      bSst.className = "env-pill pill-warm";
+    } else {
+      bSst.textContent = "Marginal (<26.5°C)";
+      bSst.className = "env-pill pill-cool";
+    }
+
+    const bShear = document.getElementById("env-badge-shear");
+    if (shear <= 12.0) {
+      bShear.textContent = "Low Shear (<12 kt)";
+      bShear.className = "env-pill pill-low";
+    } else if (shear <= 20.0) {
+      bShear.textContent = "Moderate (12-20 kt)";
+      bShear.className = "env-pill pill-energy";
+    } else {
+      bShear.textContent = "Hostile Shear (>20 kt)";
+      bShear.className = "env-pill pill-hostile";
+    }
+
+    const bOhc = document.getElementById("env-badge-ohc");
+    if (ohc >= 50.0) {
+      bOhc.textContent = "High Energy (>50)";
+      bOhc.className = "env-pill pill-energy";
+    } else {
+      bOhc.textContent = "Moderate Energy";
+      bOhc.className = "env-pill pill-neutral";
+    }
+  }
+
+  // 2c. Update 7-Frame Sequence Strip Labels
+  if (step.history_frames && step.history_frames.length === 7) {
+    for (let i = 0; i < 7; i++) {
+      const f = step.history_frames[i];
+      const lbl = document.getElementById(`lbl-f${i}`);
+      if (lbl) {
+        lbl.textContent = `${Math.round(f.vmax)} kt`;
+      }
+    }
+  }
+
   // 3. Quantitative Auxiliary Forecasts
   document.getElementById("pred-plus-6").textContent = `${Math.round(step.predicted_plus_6h)} kt`;
   document.getElementById("pred-plus-12").textContent = `${Math.round(step.predicted_plus_12h)} kt`;
@@ -740,6 +799,22 @@ function generateSampleTimesteps(startV, peakV, hasRI) {
       predicted_plus_24h: Math.round(v_curr + delta),
       latitude: 16.5 + i * 0.2,
       longitude: 125.0 - i * 0.3,
+      environmental: {
+        sst: 29.5 + Math.sin(progress * Math.PI) * 1.5,
+        ohc: 65.0 + Math.sin(progress * Math.PI) * 25.0,
+        shear: Math.max(6.0, 18.0 - Math.sin(progress * Math.PI) * 10.0),
+        rh: Math.min(85.0, 60.0 + Math.sin(progress * Math.PI) * 20.0),
+        mslp: Math.max(905.0, 1008.0 - v_curr * 0.7),
+      },
+      history_frames: [
+        {"offset": "-18h", "timestamp": "t-18h", "vmax": Math.max(15, v_curr - 15)},
+        {"offset": "-15h", "timestamp": "t-15h", "vmax": Math.max(15, v_curr - 12)},
+        {"offset": "-12h", "timestamp": "t-12h", "vmax": Math.max(15, v_curr - 10)},
+        {"offset": "-9h",  "timestamp": "t-9h",  "vmax": Math.max(15, v_curr - 7)},
+        {"offset": "-6h",  "timestamp": "t-6h",  "vmax": Math.max(15, v_curr - 5)},
+        {"offset": "-3h",  "timestamp": "t-3h",  "vmax": Math.max(15, v_curr - 2)},
+        {"offset": "NOW",  "timestamp": "NOW",   "vmax": Math.round(v_curr)},
+      ],
     });
   }
   return steps;

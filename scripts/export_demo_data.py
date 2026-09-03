@@ -11,7 +11,7 @@ from src.data.trend_config import IntensityTrendConfig
 
 
 def export_storm_data(
-    pred_csv_path: str = "experiments/trend_classification/checkpoints/classifier_primary_ri/test_predictions.csv",
+    pred_csv_path: str = "experiments/environmental_fusion/checkpoints/exp_e_k7_12ep_clean/test_predictions.csv",
     out_json_path: str = "demo_app/storm_data.json",
 ):
     """Compile comprehensive cyclone metadata and timestep predictions for the interactive web app."""
@@ -20,8 +20,12 @@ def export_storm_data(
 
     config = IntensityTrendConfig()
     meta_dir = Path("data/metadata")
-    test_df = pd.read_csv(meta_dir / "forecast_test_sequences_k5.csv")
-    val_df = pd.read_csv(meta_dir / "forecast_val_sequences_k5.csv")
+    test_df = pd.read_csv(meta_dir / "forecast_test_sequences_k7.csv")
+    val_df = pd.read_csv(meta_dir / "forecast_val_sequences_k7.csv")
+
+    # Load environmental caches to extract SST, OHC, Shear, RH, MSLP
+    env_test_df = pd.read_csv(meta_dir / "environmental_cache_k7_test.csv") if (meta_dir / "environmental_cache_k7_test.csv").exists() else None
+    env_val_df = pd.read_csv(meta_dir / "environmental_cache_k7_val.csv") if (meta_dir / "environmental_cache_k7_val.csv").exists() else None
 
     pred_df = pd.read_csv(pred_csv_path) if Path(pred_csv_path).exists() else None
 
@@ -201,6 +205,25 @@ def export_storm_data(
             else:
                 cat_name = "Category 5 Super Typhoon / Hurricane"
 
+            # Match environmental cache
+            env_df = env_test_df if storm_meta["split"] == "Held-Out Test Set" else env_val_df
+            env_row = None
+            if env_df is not None:
+                e_matches = env_df[(env_df["cyclone_id"] == cid) & (env_df["timestamp"] == int(ts))]
+                if len(e_matches) > 0:
+                    env_row = e_matches.iloc[0]
+
+            # Environmental conditions (SHIPS / Reanalysis)
+            sst_val = round(float(env_row["sst"]), 1) if env_row is not None and pd.notnull(env_row.get("sst")) else 28.5
+            ohc_val = round(float(env_row["cohc"]), 1) if env_row is not None and pd.notnull(env_row.get("cohc")) else 45.0
+            shear_val = round(float(env_row["shrd"]), 1) if env_row is not None and pd.notnull(env_row.get("shrd")) else 12.0
+            rh_val = round(float(env_row["rhmd"]), 1) if env_row is not None and pd.notnull(env_row.get("rhmd")) else 65.0
+            mslp_val = round(float(env_row["mslp"]), 1) if env_row is not None and pd.notnull(env_row.get("mslp")) else 990.0
+
+            # 7-Frame Historical Timestamps & Intensities
+            hist_ts = json.loads(row["history_timestamps"]) if isinstance(row["history_timestamps"], str) else row["history_timestamps"]
+            hist_v = json.loads(row["history_vmax"]) if isinstance(row["history_vmax"], str) else row["history_vmax"]
+
             timesteps.append({
                 "step_index": step_idx,
                 "timestamp": ts,
@@ -224,6 +247,22 @@ def export_storm_data(
                 "predicted_plus_24h": round(p_plus_24, 1),
                 "latitude": float(row.get("latitude", 0.0)),
                 "longitude": float(row.get("longitude", 0.0)),
+                "environmental": {
+                    "sst": sst_val,
+                    "ohc": ohc_val,
+                    "shear": shear_val,
+                    "rh": rh_val,
+                    "mslp": mslp_val,
+                },
+                "history_frames": [
+                    {"offset": "-18h", "timestamp": str(hist_ts[0]), "vmax": float(hist_v[0])},
+                    {"offset": "-15h", "timestamp": str(hist_ts[1]), "vmax": float(hist_v[1])},
+                    {"offset": "-12h", "timestamp": str(hist_ts[2]), "vmax": float(hist_v[2])},
+                    {"offset": "-9h",  "timestamp": str(hist_ts[3]), "vmax": float(hist_v[3])},
+                    {"offset": "-6h",  "timestamp": str(hist_ts[4]), "vmax": float(hist_v[4])},
+                    {"offset": "-3h",  "timestamp": str(hist_ts[5]), "vmax": float(hist_v[5])},
+                    {"offset": "NOW",  "timestamp": str(hist_ts[6]), "vmax": float(hist_v[6])},
+                ],
             })
 
         export_payload[cid] = {

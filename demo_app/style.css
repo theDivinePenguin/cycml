@@ -661,12 +661,111 @@ body {
 .alert-text-group strong { font-size: 0.85rem; color: #F87171; letter-spacing: 0.03em; }
 .alert-text-group span { font-size: 0.78rem; color: var(--text-secondary); }
 
+/* Environmental Thermodynamics Telemetry */
+.env-metrics-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 1.25rem;
+}
+
+.env-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.env-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.env-val-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.env-value {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.env-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+.pill-warm {
+  background: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.pill-cool {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.pill-energy {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.pill-low {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.pill-hostile {
+  background: rgba(239, 68, 68, 0.25);
+  color: #EF4444;
+  border: 1px solid var(--accent-red);
+}
+
+.pill-neutral {
+  background: rgba(148, 163, 184, 0.15);
+  color: #CBD5E1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.benchmark-pill {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
 /* Center Column: Satellite Strip */
 .frames-sequence-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.6rem;
   padding: 1rem 1.25rem 1.25rem;
+}
+
+.frames-sequence-grid.frames-k7 {
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.45rem;
 }
 
 .frame-item {
