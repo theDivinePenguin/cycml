@@ -1,4 +1,4 @@
-# DeepCycloNet: Start-to-Finish Project Report
+# CycML: Start-to-Finish Project Report
 ### AI/ML System for Tropical Cyclone Tracking, Intensity Forecasting & Rapid Intensification Early Warning
 **Smart India Hackathon (SIH) 2026 — Problem Statement ID 26070**  
 **Repository**: [https://github.com/theDivinePenguin/cycml](https://github.com/theDivinePenguin/cycml)  
@@ -10,7 +10,7 @@
 
 When a tropical cyclone forms over the ocean, the most dangerous threat to human life is **Rapid Intensification (RI)** — when an ordinary storm unexpectedly explodes into a catastrophic super cyclone within 24 hours just before slamming into the coast. Traditional meteorological methods frequently miss this sudden acceleration or issue warnings too late, leaving coastal disaster authorities with no time to evacuate millions of citizens.
 
-**DeepCycloNet** is a complete, operational Artificial Intelligence system that solves this deadly blindspot.
+**CycML** is a complete, operational Artificial Intelligence system that solves this deadly blindspot.
 
 ```
        SATELLITE CLOUDS                OCEAN HEAT & WINDS
@@ -65,7 +65,7 @@ Every year, tropical cyclones strike the coastal states of India (Odisha, Andhra
 
 ## Chapter 2: The Data Journey (Building the Ground Truth)
 
-To build a truly reliable AI system, we trained and validated DeepCycloNet on the largest authoritative tropical cyclone dataset ever assembled:
+To build a truly reliable AI system, we trained and validated CycML on the largest authoritative tropical cyclone dataset ever assembled:
 
 * **70,499 satellite observations**
 * **1,285 unique tropical cyclones**
@@ -100,11 +100,11 @@ In addition to satellite video, the AI ingests 5 physical environmental variable
 
 ---
 
-## Chapter 3: The DeepCycloNet Solution (How the AI Works)
+## Chapter 3: The CycML Solution (How the AI Works)
 
-Instead of a generic black-box neural network, DeepCycloNet uses a scientifically designed **Multi-Modal Spatio-Temporal Fusion Transformer**:
+Instead of a generic black-box neural network, CycML uses a scientifically designed **Multi-Modal Spatio-Temporal Fusion Transformer**:
 
-![DeepCycloNet Architecture Flowchart](../figures/slide3_technical_architecture_flowchart.png)
+![CycML Architecture Flowchart](../figures/slide3_technical_architecture_flowchart.png)
 
 ### The 3 Core AI Engines Working in Harmony:
 
@@ -126,7 +126,7 @@ Instead of a generic black-box neural network, DeepCycloNet uses a scientificall
 
 ## Chapter 4: The Three Operational Outputs
 
-Unlike simple models that output just a single number, DeepCycloNet simultaneously delivers three operational outputs for disaster response teams:
+Unlike simple models that output just a single number, CycML simultaneously delivers three operational outputs for disaster response teams:
 
 ```
                           ┌────────────────────────┐
@@ -166,7 +166,7 @@ To prove that our AI genuinely generalizes to real-world storms, we evaluated it
 2. **Hurricane Blas (East Pacific — Peak: 120 Knots / Category 4)**:
    * **`6.63 kt`** Mean Absolute Error at $+24\text{h}$
    * **`83.1%`** Macro Trend Classification Accuracy
-   * DeepCycloNet tracks the initial intensification from 65 kt tropical storm strength directly to 120 kt Category 4 peak without overshooting or lagging behind.
+   * CycML tracks the initial intensification from 65 kt tropical storm strength directly to 120 kt Category 4 peak without overshooting or lagging behind.
 
 ---
 
@@ -174,21 +174,21 @@ To prove that our AI genuinely generalizes to real-world storms, we evaluated it
 
 #### Super Cyclone Phet (Arabian Sea — Peak: 125 Knots / Category 4):
 * In May 2010, Super Cyclone Phet threatened coastal Oman and Pakistan.
-* DeepCycloNet's RI early warning engine surged past the critical hazard threshold **18 hours before Phet reached its Category 4 peak**, giving authorities nearly a full day of advance alert before peak destructive winds struck.
+* CycML's RI early warning engine surged past the critical hazard threshold **18 hours before Phet reached its Category 4 peak**, giving authorities nearly a full day of advance alert before peak destructive winds struck.
 
 #### Super Typhoon Megi (West Pacific — Peak: 160 Knots / Category 5):
 * In October 2010, Megi underwent one of the most violent explosive intensification events in modern history, skyrocketing from 65 kt to 160 kt.
-* DeepCycloNet flagged $>80\%$ RI probability **18 hours ahead of the jump**, successfully predicting extreme Category 5 status while traditional persistence models were completely left behind.
+* CycML flagged $>80\%$ RI probability **18 hours ahead of the jump**, successfully predicting extreme Category 5 status while traditional persistence models were completely left behind.
 
 ---
 
 ## Chapter 6: Head-to-Head Comparison vs Weather Agencies
 
-How does DeepCycloNet compare to traditional operational forecasts issued by major weather agencies like the India Meteorological Department (IMD) and Joint Typhoon Warning Center (JTWC)?
+How does CycML compare to traditional operational forecasts issued by major weather agencies like the India Meteorological Department (IMD) and Joint Typhoon Warning Center (JTWC)?
 
 ![Benchmark vs Weather Agencies](../figures/slide6_benchmark_comparison.png)
 
-| Lead Time Horizon | Traditional Agency Error (IMD / JTWC) | DeepCycloNet AI Error | Improvement (Error Reduction) |
+| Lead Time Horizon | Traditional Agency Error (IMD / JTWC) | CycML AI Error | Improvement (Error Reduction) |
 | :--- | :---: | :---: | :---: |
 | **+6 Hours Ahead** | $\sim 8.2\text{ kt}$ | **`4.98 kt`** | **$-39.3\%$ Error Reduction** |
 | **+12 Hours Ahead** | $\sim 12.8\text{ kt}$ | **`6.99 kt`** | **$-45.4\%$ Error Reduction** |
@@ -198,7 +198,7 @@ How does DeepCycloNet compare to traditional operational forecasts issued by maj
 
 ### Why Our AI Achieves This Decisive Advantage:
 * Traditional weather centers rely heavily on numerical weather prediction (NWP) supercomputer simulations that take 4 to 6 hours to run and suffer from spatial grid coarseness around the eyewall core.
-* DeepCycloNet runs inference in **under 150 milliseconds on a single GPU** (or under 1.2 seconds on a standard laptop CPU), providing instant, real-time guidance every time a new satellite scan arrives.
+* CycML runs inference in **under 150 milliseconds on a single GPU** (or under 1.2 seconds on a standard laptop CPU), providing instant, real-time guidance every time a new satellite scan arrives.
 
 ---
 
@@ -229,7 +229,7 @@ You can access and interact with the live workstation right now at:
 * Proved that single snapshots lack the momentum and memory needed for 24-hour forecasting.
 * Identified the severe 24-hour lag problem in continuous regression when models are trained without temporal history.
 
-### 2. What We Did (DeepCycloNet Innovation):
+### 2. What We Did (CycML Innovation):
 * Upgraded to an 18-hour historical sequence ($K=7$) using a Temporal Transformer.
 * Fused satellite visuals with ocean thermodynamics (SHIPS) using cross-attention.
 * Developed a 3-task multi-modal model with cost-sensitive loss for Rapid Intensification.
@@ -246,7 +246,7 @@ You can access and interact with the live workstation right now at:
 
 ## Conclusion & Impact on India (SIH 26070)
 
-DeepCycloNet directly answers **Smart India Hackathon Problem Statement 26070** by replacing guesswork and late persistence forecasts with a scientifically grounded, multi-modal AI early-warning system.
+CycML directly answers **Smart India Hackathon Problem Statement 26070** by replacing guesswork and late persistence forecasts with a scientifically grounded, multi-modal AI early-warning system.
 
 ```
                   THE LIFESAVING IMPACT AT A GLANCE
