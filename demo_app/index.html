@@ -3,313 +3,469 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIH 26070: Tropical Cyclone Rapid Intensification & Evolution AI</title>
-  <meta name="description" content="Operational AI system predicting 24-hour tropical cyclone intensity trend and rapid intensification risk from multi-source satellite sequences.">
+  <title>CYCLONE WORKSTATION // DEEPCYCLONET OPERATIONAL METEOROLOGY</title>
+  <meta name="description" content="Operational Meteorological Workstation for Tropical Cyclone Rapid Intensification Prediction and Multi-Spectral Analysis.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <!-- Header Bar -->
-  <header class="app-header">
-    <div class="header-left">
-      <div class="header-badge">SIH PROBLEM STATEMENT 26070</div>
-      <h1 class="header-title">Tropical Cyclone AI <span class="header-subtitle">// Rapid Intensification &amp; Evolution Predictor</span></h1>
+<body class="workstation-body">
+  <!-- TOP TELEMETRY & STATUS BAR -->
+  <header class="top-telemetry-bar">
+    <div class="telemetry-col left">
+      <span class="station-ident">TC-OPS // METEOROLOGICAL WORKSTATION</span>
+      <span class="system-tag">DEEPCYCLONET v2.4</span>
+      <span class="divider">|</span>
+      <span class="live-clock" id="live-utc-clock">2026-09-04 00:00:00 UTC</span>
     </div>
-    <div class="header-right">
-      <div class="system-status">
-        <span class="status-pulse"></span>
-        <span class="status-text">OPERATIONAL INFERENCE ACTIVE</span>
-      </div>
-      <div class="model-tag">Multi-Modal Fusion Transformer (K=7, 18h Lookback + SHIPS)</div>
-      <div class="benchmark-pill" title="Held-Out Test Set Performance (187 Unseen Cyclones)">RI PR-AUC: 0.4042 | Trend Acc: 64.71%</div>
+
+    <div class="telemetry-col center">
+      <span class="active-storm-banner" id="top-storm-banner">
+        SYSTEM: <strong id="top-storm-name">--</strong>
+        <span class="sub-ident">(<span id="top-storm-id">--</span>)</span>
+        <span class="badge-basin" id="top-storm-basin">--</span>
+        <span class="coord-label">POS: <span id="top-storm-coord">--°N, --°E</span></span>
+        <span class="obs-time-label">OBS: <span id="top-storm-obs">-- UTC</span></span>
+      </span>
+    </div>
+
+    <div class="telemetry-col right">
+      <span class="status-indicator online">
+        <span class="status-dot"></span> OPERATIONAL
+      </span>
+      <span class="divider">|</span>
+      <span class="subsystem-info">K=7 FUSION (18h LOOKBACK)</span>
+      <span class="divider">|</span>
+      <span class="benchmark-kpis" title="Held-Out Test Set: 187 Unseen Cyclones">
+        PR-AUC: <strong>0.4042</strong> &nbsp; MAE(+24h): <strong>10.75 kt</strong>
+      </span>
     </div>
   </header>
 
-  <!-- Main Grid Layout -->
-  <main class="dashboard-container">
-    <!-- Top Control Bar: Cyclone Selector & Timeline Scrubber -->
-    <section class="control-panel glass-card">
-      <div class="storm-selector-wrapper">
-        <label for="storm-select" class="control-label">SELECT UNSEEN CYCLONE LIFECYCLE:</label>
-        <div class="custom-select-container">
-          <select id="storm-select" class="styled-select" aria-label="Select Cyclone">
-            <!-- Populated dynamically via JS -->
-          </select>
-        </div>
-        <div id="storm-meta-badge" class="meta-tag">Held-Out Test Set</div>
+  <!-- MAIN THREE-COLUMN WORKSTATION LAYOUT -->
+  <main class="workstation-viewport">
+    
+    <!-- COLUMN 1: TRACKED SYSTEMS / CYCLONE DIRECTORY -->
+    <aside class="panel-column col-systems">
+      <div class="panel-header">
+        <span class="panel-title">SYSTEM DIRECTORY</span>
+        <span class="panel-badge" id="badge-storm-count">14 CASES</span>
       </div>
 
-      <div class="timeline-control-wrapper">
-        <div class="timeline-label-row">
-          <span class="control-label">OBSERVATION TIMELINE SCRUBBER (t):</span>
-          <span id="timeline-time-display" class="timeline-timestamp">0h (Initialization)</span>
+      <!-- Basin Filter Tabs -->
+      <div class="basin-filter-row">
+        <button class="filter-tab active" data-basin="ALL">ALL</button>
+        <button class="filter-tab" data-basin="IO">NIO</button>
+        <button class="filter-tab" data-basin="WPAC">WPAC</button>
+        <button class="filter-tab" data-basin="ATLN">ATLN</button>
+        <button class="filter-tab" data-basin="SH">SH</button>
+      </div>
+
+      <!-- Systems Table -->
+      <div class="systems-table-container">
+        <table class="systems-table">
+          <thead>
+            <tr>
+              <th class="th-id">ID</th>
+              <th class="th-name">SYSTEM</th>
+              <th class="th-peak">PEAK</th>
+              <th class="th-status">RI</th>
+            </tr>
+          </thead>
+          <tbody id="systems-table-body">
+            <!-- Populated dynamically via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Model Specs & Data Provenance -->
+      <div class="system-provenance-box">
+        <div class="box-title">INSTRUMENTATION SPECIFICATIONS</div>
+        <div class="spec-row">
+          <span class="spec-label">VISUAL BACKBONE</span>
+          <span class="spec-val">ResNet-18 (Empirical Norm)</span>
         </div>
-        <div class="slider-row">
-          <button id="btn-play-pause" class="btn-icon" title="Play/Pause Lifecycle Simulation">▶ Play</button>
-          <input type="range" id="timeline-slider" min="0" max="0" value="0" step="1" class="timeline-range" aria-label="Timeline Slider">
-          <span id="slider-steps-count" class="step-indicator">Step 0 / 0</span>
+        <div class="spec-row">
+          <span class="spec-label">TEMPORAL CONTEXT</span>
+          <span class="spec-val">K=7 Frames (18h Lookback @ 3h)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">THERMODYNAMICS</span>
+          <span class="spec-val">SHIPS 12-Variable Reanalysis</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">CROSS-ATTENTION</span>
+          <span class="spec-val">Multi-Modal Fusion Transformer</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">TEST VERIFICATION</span>
+          <span class="spec-val">187 Unseen Storms (0% Leakage)</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- COLUMN 2: SATELLITE OBSERVATION DECK & MULTISPECTRAL RECEPTIVE FIELD -->
+    <section class="panel-column col-satellite">
+      <div class="panel-header">
+        <div class="header-left-group">
+          <span class="panel-title">SATELLITE OBSERVATION DECK</span>
+          <span class="channel-tag" id="active-channel-tag">IR1 (10.8 µm)</span>
+        </div>
+
+        <!-- Multispectral Channel Selectors -->
+        <div class="channel-selector-group">
+          <button class="chan-btn active" id="btn-chan-ir1" data-chan="IR1" title="Infrared 10.8 µm (Cloud-Top Brightness Temperature)">IR1 (10.8 µm)</button>
+          <button class="chan-btn" id="btn-chan-wv" data-chan="WV" title="Water Vapor 6.7 µm (Mid-to-Upper Tropospheric Moisture)">WV (6.7 µm)</button>
+          <button class="chan-btn" id="btn-chan-vis" data-chan="VIS" title="Visible 0.65 µm (Daytime Convective Texture & Shadow Relief)">VIS (0.65 µm)</button>
+          <button class="chan-btn btn-attention" id="btn-chan-attn" data-chan="ATTN" title="Model Cross-Attention Saliency Map (Spatial Receptive Field)">ATTENTION MAP</button>
+        </div>
+
+        <!-- Overlay Toggles -->
+        <div class="overlay-toggle-group">
+          <label class="chk-label"><input type="checkbox" id="chk-rings" checked> Rings</label>
+          <label class="chk-label"><input type="checkbox" id="chk-reticle" checked> Crosshair</label>
+          <label class="chk-label"><input type="checkbox" id="chk-scale" checked> Calib</label>
+        </div>
+      </div>
+
+      <!-- Central Satellite Imagery Canvas Viewport -->
+      <div class="satellite-viewport-wrapper">
+        <canvas id="satellite-canvas" width="640" height="520"></canvas>
+
+        <!-- On-Screen Telemetry Overlays -->
+        <div class="sat-overlay-tl">
+          <div class="sat-meta-line"><span class="k">SENSOR:</span> <span class="v" id="sat-sensor-id">TCIR GEOSTATIONARY</span></div>
+          <div class="sat-meta-line"><span class="k">TARGET:</span> <span class="v" id="sat-storm-ident">201015W // MEGI</span></div>
+          <div class="sat-meta-line"><span class="k">RESOLUTION:</span> <span class="v">4 km / Mercator</span></div>
+        </div>
+
+        <div class="sat-overlay-tr">
+          <div class="sat-meta-line"><span class="k">BAND:</span> <span class="v" id="sat-band-display">IR1 (10.8 µm)</span></div>
+          <div class="sat-meta-line"><span class="k">TIME:</span> <span class="v" id="sat-time-display">2010-10-12 12:00 UTC</span></div>
+          <div class="sat-meta-line"><span class="k">FRAME:</span> <span class="v" id="sat-frame-offset">t (NOW)</span></div>
+        </div>
+
+        <div class="sat-overlay-bl">
+          <div class="sat-meta-line"><span class="k">EYE:</span> <span class="v" id="sat-eye-coord">12.1°N, 142.1°E</span></div>
+          <div class="sat-meta-line"><span class="k">VMAX:</span> <span class="v" id="sat-vmax-display">85 kt (Cat 2)</span></div>
+        </div>
+
+        <!-- Temperature Calibration Colorbar -->
+        <div class="calibration-scale-container" id="calib-scale-box">
+          <span class="scale-label-top" id="scale-max-lbl">190 K</span>
+          <div class="scale-gradient-bar" id="scale-color-bar"></div>
+          <span class="scale-label-bot" id="scale-min-lbl">310 K</span>
+          <span class="scale-units">BRIGHTNESS TEMP</span>
+        </div>
+      </div>
+
+      <!-- TEMPORAL 7-FRAME CADENCE STRIP (t-18h to NOW) -->
+      <div class="temporal-sequence-deck">
+        <div class="deck-header-row">
+          <span class="deck-title">SPATIO-TEMPORAL CONTEXT SEQUENCE [t-18h → NOW (t)]</span>
+          <span class="deck-subtitle">7 Consecutive 3-Hour Multispectral Observations Fed to Temporal Transformer</span>
+        </div>
+
+        <div class="temporal-frames-grid" id="temporal-frames-grid">
+          <div class="t-frame-cell" data-frame="0" id="tframe-0">
+            <div class="cell-head">t-18h</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-0" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-0">-- kt</div>
+            <div class="cell-time" id="tf-time-0">--:--</div>
+          </div>
+          <div class="t-frame-cell" data-frame="1" id="tframe-1">
+            <div class="cell-head">t-15h</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-1" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-1">-- kt</div>
+            <div class="cell-time" id="tf-time-1">--:--</div>
+          </div>
+          <div class="t-frame-cell" data-frame="2" id="tframe-2">
+            <div class="cell-head">t-12h</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-2" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-2">-- kt</div>
+            <div class="cell-time" id="tf-time-2">--:--</div>
+          </div>
+          <div class="t-frame-cell" data-frame="3" id="tframe-3">
+            <div class="cell-head">t-9h</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-3" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-3">-- kt</div>
+            <div class="cell-time" id="tf-time-3">--:--</div>
+          </div>
+          <div class="t-frame-cell" data-frame="4" id="tframe-4">
+            <div class="cell-head">t-6h</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-4" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-4">-- kt</div>
+            <div class="cell-time" id="tf-time-4">--:--</div>
+          </div>
+          <div class="t-frame-cell" data-frame="5" id="tframe-5">
+            <div class="cell-head">t-3h</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-5" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-5">-- kt</div>
+            <div class="cell-time" id="tf-time-5">--:--</div>
+          </div>
+          <div class="t-frame-cell active-now" data-frame="6" id="tframe-6">
+            <div class="cell-head">NOW (t)</div>
+            <div class="cell-thumb"><canvas class="thumb-canvas" id="thumb-6" width="80" height="60"></canvas></div>
+            <div class="cell-vmax" id="tf-vmax-6">-- kt</div>
+            <div class="cell-time" id="tf-time-6">--:--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DVR TIMELINE SCRUBBER & PLAYBACK CONTROLS -->
+      <div class="dvr-scrubber-bar">
+        <div class="dvr-controls">
+          <button class="dvr-btn" id="btn-dvr-first" title="First Observation">|◀</button>
+          <button class="dvr-btn" id="btn-dvr-prev" title="Step Back (-3h)">◀</button>
+          <button class="dvr-btn btn-play" id="btn-dvr-play" title="Play/Pause Simulation">▶ PLAY</button>
+          <button class="dvr-btn" id="btn-dvr-next" title="Step Forward (+3h)">▶</button>
+          <button class="dvr-btn" id="btn-dvr-last" title="Latest Observation">▶|</button>
+          <div class="dvr-speed-group">
+            <button class="speed-btn active" data-speed="1">1X</button>
+            <button class="speed-btn" data-speed="2">2X</button>
+            <button class="speed-btn" data-speed="4">4X</button>
+          </div>
+        </div>
+
+        <div class="scrubber-track-container">
+          <input type="range" id="dvr-timeline-slider" min="0" max="0" value="0" step="1" class="dvr-slider" aria-label="Timeline Scrubber">
+        </div>
+
+        <div class="dvr-readout">
+          <span class="dvr-step-counter" id="dvr-step-display">STEP 00 / 00</span>
+          <span class="dvr-elapsed-hours" id="dvr-elapsed-display">T +0.0h</span>
         </div>
       </div>
     </section>
 
-    <!-- Center Content: 3 Columns -->
-    <div class="main-grid">
-      <!-- Left Column: Current State & Quantitative Forecast -->
-      <div class="grid-column left-col">
-        <!-- Current Intensity Card -->
-        <section class="metric-card glass-card" id="card-current-intensity">
-          <div class="card-header">
-            <span class="card-title">CURRENT INTENSITY [t]</span>
-            <span class="card-icon">⚡</span>
-          </div>
-          <div class="intensity-display">
-            <div class="intensity-value-group">
-              <span id="val-vmax-curr" class="huge-number">--</span>
-              <span class="unit">knots</span>
-            </div>
-            <div id="val-category-badge" class="category-pill cat-default">Loading...</div>
-          </div>
-          <div class="intensity-sub-details">
-            <div class="sub-item">
-              <span class="sub-label">Coordinates:</span>
-              <span id="val-lat-lon" class="sub-value">--°N, --°E</span>
-            </div>
-            <div class="sub-item">
-              <span class="sub-label">Timestamp:</span>
-              <span id="val-timestamp" class="sub-value mono">--</span>
-            </div>
-          </div>
-        </section>
+    <!-- COLUMN 3: METEOROLOGICAL INSTRUMENTATION & FORECAST PROVING GROUND -->
+    <aside class="panel-column col-instruments">
+      
+      <!-- INSTRUMENT 1: CURRENT STATE & RAPID INTENSIFICATION HAZARD MATRIX -->
+      <section class="instrument-box box-hazard">
+        <div class="panel-header">
+          <span class="panel-title">CURRENT STATE &amp; HAZARD MATRIX</span>
+          <span class="badge-cat" id="inst-category-badge">CATEGORY --</span>
+        </div>
 
-        <!-- Environmental Thermodynamics Telemetry Card -->
-        <section class="metric-card glass-card" id="card-environmental-telemetry">
-          <div class="card-header">
-            <span class="card-title">ENVIRONMENTAL THERMODYNAMICS</span>
-            <span class="card-tag">SHIPS Reanalysis</span>
-          </div>
-          <div class="env-metrics-grid">
-            <div class="env-item">
-              <span class="env-label">Sea Surface Temp (SST)</span>
-              <div class="env-val-row">
-                <span id="env-val-sst" class="env-value">--.- °C</span>
-                <span id="env-badge-sst" class="env-pill pill-warm">Warm Pool</span>
-              </div>
+        <!-- Telemetry Numbers Grid -->
+        <div class="current-state-grid">
+          <div class="state-cell">
+            <span class="cell-label">CURRENT INTENSITY</span>
+            <div class="cell-value-row">
+              <span class="num-large" id="inst-vmax-curr">--</span>
+              <span class="num-unit">KNOTS</span>
             </div>
-            <div class="env-item">
-              <span class="env-label">Ocean Heat Content (OHC)</span>
-              <div class="env-val-row">
-                <span id="env-val-ohc" class="env-value">--.- kJ/cm²</span>
-                <span id="env-badge-ohc" class="env-pill pill-energy">High Energy</span>
-              </div>
-            </div>
-            <div class="env-item">
-              <span class="env-label">Vertical Wind Shear (200-850 hPa)</span>
-              <div class="env-val-row">
-                <span id="env-val-shear" class="env-value">--.- kt</span>
-                <span id="env-badge-shear" class="env-pill pill-low">Low Shear</span>
-              </div>
-            </div>
-            <div class="env-item">
-              <span class="env-label">Mid-Tropospheric RH (700-500 hPa)</span>
-              <div class="env-val-row">
-                <span id="env-val-rh" class="env-value">-- %</span>
-                <span id="env-badge-rh" class="env-pill pill-moist">Moist Core</span>
-              </div>
-            </div>
-            <div class="env-item">
-              <span class="env-label">Central Pressure (MSLP)</span>
-              <div class="env-val-row">
-                <span id="env-val-mslp" class="env-value">---- hPa</span>
-                <span class="env-pill pill-neutral">Barometric</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Secondary Quantitative Forecast -->
-        <section class="metric-card glass-card" id="card-quantitative-forecast">
-          <div class="card-header">
-            <span class="card-title">AUXILIARY FORECAST</span>
-            <span class="card-tag">Supporting Vmax</span>
-          </div>
-          <div class="horizon-grid">
-            <div class="horizon-box">
-              <span class="h-label">+6h Forecast</span>
-              <span id="pred-plus-6" class="h-value">-- kt</span>
-            </div>
-            <div class="horizon-box">
-              <span class="h-label">+12h Forecast</span>
-              <span id="pred-plus-12" class="h-value">-- kt</span>
-            </div>
-            <div class="horizon-box highlight">
-              <span class="h-label">+24h Forecast</span>
-              <span id="pred-plus-24" class="h-value">-- kt</span>
-            </div>
-          </div>
-          <p class="supporting-note">Multi-horizon continuous estimation outputs retained as secondary guidance.</p>
-        </section>
-      </div>
-
-      <!-- Center Column: The SIH Headline Prediction (RI & 24h Trend) -->
-      <div class="grid-column center-col">
-        <!-- 24-Hour Evolution Card (SIH Primary Task) -->
-        <section class="primary-prediction-card glass-card" id="card-evolution-prediction">
-          <div class="prediction-header">
-            <div class="glow-indicator"></div>
-            <h2 class="prediction-main-title">24-HOUR EVOLUTION PREDICTION</h2>
-            <span class="prediction-subtitle">Target Window: [t → t+24h]</span>
+            <span class="cell-sub" id="inst-vmax-kmh">-- km/h</span>
           </div>
 
-          <!-- Trend Badge Row -->
-          <div class="trend-section">
-            <span class="section-label">MACRO DYNAMICS TREND:</span>
-            <div id="trend-banner" class="trend-banner trend-intensifying">
-              <span id="trend-icon" class="trend-icon">🔴</span>
-              <span id="trend-text" class="trend-text">INTENSIFYING</span>
+          <div class="state-cell">
+            <span class="cell-label">MIN CENTRAL PRESSURE</span>
+            <div class="cell-value-row">
+              <span class="num-large" id="inst-mslp-val">--</span>
+              <span class="num-unit">hPa</span>
             </div>
-            <div class="trend-distribution-bar" title="Predicted Trend Softmax Distribution">
-              <div id="bar-weak" class="dist-bar bar-weak" style="width: 10%">W: 10%</div>
-              <div id="bar-stab" class="dist-bar bar-stab" style="width: 20%">S: 20%</div>
-              <div id="bar-inte" class="dist-bar bar-inte" style="width: 70%">I: 70%</div>
+            <span class="cell-sub">Surface Well</span>
+          </div>
+
+          <div class="state-cell span-2">
+            <span class="cell-label">24-HOUR TREND CLASSIFICATION</span>
+            <div class="trend-readout-row">
+              <span class="trend-name" id="inst-trend-name">STABLE</span>
+              <div class="trend-distribution-bar">
+                <span class="dist-seg seg-weak" id="bar-seg-weak" style="width: 20%" title="Weakening Probability">W: 20%</span>
+                <span class="dist-seg seg-stab" id="bar-seg-stab" style="width: 50%" title="Stable Probability">S: 50%</span>
+                <span class="dist-seg seg-inte" id="bar-seg-inte" style="width: 30%" title="Intensifying Probability">I: 30%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RAPID INTENSIFICATION (RI-30) OPERATIONAL WARNING INDICATOR -->
+        <div class="ri-hazard-instrument" id="ri-hazard-panel">
+          <div class="ri-hazard-header">
+            <span class="hazard-title">RAPID INTENSIFICATION RISK (RI-30)</span>
+            <span class="hazard-tag" id="inst-ri-risk-tag">LOW RISK</span>
+          </div>
+
+          <div class="ri-hazard-body">
+            <div class="ri-prob-block">
+              <span class="ri-prob-number" id="inst-ri-prob-val">0.0%</span>
+              <span class="ri-prob-caption">Probability of ≥30 kt surge in next 24 hours</span>
+            </div>
+
+            <div class="ri-meter-track">
+              <div class="ri-meter-fill" id="inst-ri-meter-fill" style="width: 0%"></div>
+              <div class="ri-threshold-marker" title="Operational Decision Threshold τ = 0.016 (1.6%)" style="left: 16%"></div>
+            </div>
+
+            <div class="ri-threshold-legend">
+              <span>0%</span>
+              <span class="thresh-label">OPERATIONAL THRESHOLD (1.6%)</span>
+              <span>100%</span>
             </div>
           </div>
 
-          <div class="divider"></div>
-
-          <!-- Headline Rapid Intensification Section -->
-          <div class="ri-headline-section">
-            <div class="ri-header-row">
-              <span class="section-label">HEADLINE RI RISK ASSESSMENT (ΔV ≥ +30 kt in 24h):</span>
-              <span id="val-ri-risk-badge" class="risk-badge risk-high">HIGH RISK</span>
-            </div>
-
-            <div class="gauge-container">
-              <div class="gauge-circle-outer">
-                <svg class="gauge-svg" viewBox="0 0 100 100">
-                  <circle class="gauge-bg" cx="50" cy="50" r="42" stroke-width="8"></circle>
-                  <circle id="gauge-progress" class="gauge-meter" cx="50" cy="50" r="42" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="60"></circle>
-                </svg>
-                <div class="gauge-content">
-                  <span id="val-ri-prob" class="ri-prob-number">78%</span>
-                  <span class="ri-prob-label">RI PROBABILITY</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Early Warning Banner -->
-            <div id="lead-time-alert" class="lead-time-alert alert-active">
-              <span class="alert-icon">⚠️</span>
-              <div class="alert-text-group">
-                <strong id="alert-title">EARLY WARNING ISSUED</strong>
-                <span id="alert-desc">Model flagged explosive intensification 18 hours before peak intensity!</span>
-              </div>
-            </div>
+          <div class="ri-advisory-text" id="inst-ri-advisory">
+            Model baseline indicates nominal structural evolution. No explosive eyewall intensification expected within +24h window.
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- 7-Frame Satellite Sequence Strip -->
-        <section class="satellite-strip-card glass-card">
-          <div class="card-header">
-            <span class="card-title">MULTI-SOURCE SPATIO-TEMPORAL SEQUENCE [t-18h → t]</span>
-            <span class="card-tag">IR1 + WV + VIS (K=7)</span>
-          </div>
-          <div class="frames-sequence-grid frames-k7">
-            <div class="frame-item">
-              <div class="frame-thumb-box" id="frame-t18">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f0">t-18h</span></div>
-              </div>
-              <span class="frame-time">t-18h</span>
-            </div>
-            <div class="frame-item">
-              <div class="frame-thumb-box" id="frame-t15">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f1">t-15h</span></div>
-              </div>
-              <span class="frame-time">t-15h</span>
-            </div>
-            <div class="frame-item">
-              <div class="frame-thumb-box" id="frame-t12">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f2">t-12h</span></div>
-              </div>
-              <span class="frame-time">t-12h</span>
-            </div>
-            <div class="frame-item">
-              <div class="frame-thumb-box" id="frame-t9">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f3">t-9h</span></div>
-              </div>
-              <span class="frame-time">t-9h</span>
-            </div>
-            <div class="frame-item">
-              <div class="frame-thumb-box" id="frame-t6">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f4">t-6h</span></div>
-              </div>
-              <span class="frame-time">t-6h</span>
-            </div>
-            <div class="frame-item">
-              <div class="frame-thumb-box" id="frame-t3">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f5">t-3h</span></div>
-              </div>
-              <span class="frame-time">t-3h</span>
-            </div>
-            <div class="frame-item active-t">
-              <div class="frame-thumb-box current-sat" id="frame-t0">
-                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> <span id="lbl-f6">NOW</span></div>
-              </div>
-              <span class="frame-time font-bold">NOW (t)</span>
-            </div>
-          </div>
-        </section>
-      </div>
+      <!-- INSTRUMENT 2: SHIPS ENVIRONMENTAL THERMODYNAMICS PANEL -->
+      <section class="instrument-box box-thermo">
+        <div class="panel-header">
+          <span class="panel-title">ENVIRONMENTAL THERMODYNAMICS</span>
+          <span class="panel-sub">SHIPS Reanalysis Sounding</span>
+        </div>
 
-      <!-- Right Column: Interactive Lifecycle & Prediction Lead-Time Plot -->
-      <div class="grid-column right-col">
-          <div class="card-header">
-            <div>
-              <span class="card-title">OPERATIONAL LIFECYCLE &amp; LEAD-TIME PROVING GROUND</span>
-              <p class="card-subtitle" id="chart-mode-subtitle">Real-time observation track with active +24h forecast window.</p>
-            </div>
-            <div class="chart-controls-group">
-              <div class="view-mode-toggle">
-                <button id="btn-mode-realtime" class="mode-btn active" title="Strict 24-Hour Real-Time Operational Window">⚡ Real-Time Forecast</button>
-                <button id="btn-mode-audit" class="mode-btn" title="Full Lifecycle Post-Event Macro Audit">📊 Full Storm Audit</button>
-              </div>
-              <div class="smoothing-toggle">
-                <button id="btn-smooth-ema" class="mode-btn active" title="Operational presentation line with Exponential Moving Average (alpha=0.35)">✨ EMA-Smoothed</button>
-                <button id="btn-smooth-raw" class="mode-btn" title="Raw, instantaneous step-by-step neural network outputs">⚡ Raw Output</button>
-              </div>
-            </div>
+        <table class="thermo-table">
+          <thead>
+            <tr>
+              <th class="th-param">PARAMETER</th>
+              <th class="th-val">VALUE</th>
+              <th class="th-thresh">THRESHOLD</th>
+              <th class="th-regime">REGIME</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-name">Sea Surface Temp (SST)</td>
+              <td class="p-val" id="thermo-sst-val">--.- °C</td>
+              <td class="p-thresh">≥ 26.5 °C</td>
+              <td class="p-regime"><span class="regime-tag" id="thermo-sst-tag">--</span></td>
+            </tr>
+            <tr>
+              <td class="p-name">Ocean Heat Content (OHC)</td>
+              <td class="p-val" id="thermo-ohc-val">--.- kJ/cm²</td>
+              <td class="p-thresh">≥ 50.0 kJ/cm²</td>
+              <td class="p-regime"><span class="regime-tag" id="thermo-ohc-tag">--</span></td>
+            </tr>
+            <tr>
+              <td class="p-name">Vertical Wind Shear (200-850)</td>
+              <td class="p-val" id="thermo-shear-val">--.- kt</td>
+              <td class="p-thresh">≤ 12.0 kt</td>
+              <td class="p-regime"><span class="regime-tag" id="thermo-shear-tag">--</span></td>
+            </tr>
+            <tr>
+              <td class="p-name">Mid-Tropospheric RH (700-500)</td>
+              <td class="p-val" id="thermo-rh-val">--.- %</td>
+              <td class="p-thresh">≥ 60.0 %</td>
+              <td class="p-regime"><span class="regime-tag" id="thermo-rh-tag">--</span></td>
+            </tr>
+            <tr>
+              <td class="p-name">Surface Central MSLP</td>
+              <td class="p-val" id="thermo-mslp-val">---- hPa</td>
+              <td class="p-thresh">Standard</td>
+              <td class="p-regime"><span class="regime-tag tag-neutral" id="thermo-mslp-tag">Barometric</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- INSTRUMENT 3: OPERATIONAL INTENSITY FORECAST PROVING GROUND -->
+      <section class="instrument-box box-forecast">
+        <div class="panel-header">
+          <div class="f-header-left">
+            <span class="panel-title">INTENSITY &amp; LEAD-TIME FORECAST</span>
+            <span class="f-sub" id="f-mode-sub">Active +24h Forecast Horizon</span>
           </div>
 
-          <!-- Canvas Chart -->
-          <div class="canvas-wrapper">
-            <canvas id="lifecycle-canvas"></canvas>
-          </div>
-
-          <!-- Chart Legend -->
-          <div class="chart-legend" id="chart-legend">
-            <div class="legend-item"><span class="legend-line line-past"></span> Observed Track (Past → NOW)</div>
-            <div class="legend-item" id="leg-ai-forecast"><span class="legend-line line-ai-pred"></span> <span id="leg-ai-text">Active Forecast (EMA-Smoothed)</span></div>
-            <div class="legend-item" id="leg-raw-forecast"><span class="legend-line line-raw-pred"></span> <span id="leg-raw-text">Raw Model Output</span></div>
-            <div class="legend-item" id="leg-pred-outline"><span class="legend-line line-pred-outline"></span> Full Predicted Outline</div>
-            <div class="legend-item"><span class="legend-line line-future"></span> Actual Outcome (Next 24h)</div>
-            <div class="legend-item"><span class="legend-dot dot-now"></span> Observation (NOW)</div>
-            <div class="legend-item"><span class="legend-line line-ri-prob"></span> Issued RI Probability</div>
-          </div>
-
-          <!-- Verification Verdict Box -->
-          <div class="verdict-box" id="verdict-container">
-            <div class="verdict-header">
-              <span class="verdict-badge">OPERATIONAL VERDICT</span>
-              <span id="verdict-match" class="verdict-status status-success">TRUE POSITIVE</span>
+          <!-- Chart Controls -->
+          <div class="chart-toggles-cluster">
+            <div class="btn-group-toggle">
+              <button class="grp-btn active" id="btn-mode-realtime">Real-Time</button>
+              <button class="grp-btn" id="btn-mode-audit">Audit</button>
             </div>
-            <p id="verdict-explanation" class="verdict-p">
-              The AI predicted <strong>INTENSIFYING</strong> with <strong>78% RI probability</strong>. The cyclone subsequently intensified by <strong>+40 kt</strong> over the next 24 hours, successfully issuing the alert well in advance.
-            </p>
+            <div class="btn-group-toggle">
+              <button class="grp-btn active" id="btn-filter-ema" title="Exponential Moving Average (alpha=0.35) operational presentation layer">EMA Display</button>
+              <button class="grp-btn" id="btn-filter-raw" title="Raw unadulterated neural network step outputs">Raw Model</button>
+            </div>
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+
+        <!-- Quantitative Horizon Forecast Pills -->
+        <div class="forecast-readout-strip">
+          <div class="f-readout-col">
+            <span class="f-lead">+6h HORIZON</span>
+            <span class="f-val" id="f-val-6">-- kt</span>
+          </div>
+          <div class="f-readout-col">
+            <span class="f-lead">+12h HORIZON</span>
+            <span class="f-val" id="f-val-12">-- kt</span>
+          </div>
+          <div class="f-readout-col highlight-lead">
+            <span class="f-lead">+24h HORIZON</span>
+            <span class="f-val" id="f-val-24">-- kt</span>
+          </div>
+          <div class="f-readout-col">
+            <span class="f-lead">24h CHANGE</span>
+            <span class="f-val" id="f-val-delta">-- kt</span>
+          </div>
+        </div>
+
+        <!-- High-Precision Meteorological Canvas Chart -->
+        <div class="chart-canvas-container">
+          <canvas id="lifecycle-canvas" width="480" height="190"></canvas>
+        </div>
+
+        <!-- Scientific Chart Legend -->
+        <div class="chart-scientific-legend">
+          <div class="leg-item"><span class="leg-swatch sw-observed"></span> Observed (Past → NOW)</div>
+          <div class="leg-item"><span class="leg-swatch sw-forecast"></span> <span id="leg-forecast-lbl">Forecast (EMA Display)</span></div>
+          <div class="leg-item" id="leg-raw-item"><span class="leg-swatch sw-raw"></span> Raw Model Vector</div>
+          <div class="leg-item"><span class="leg-swatch sw-actual"></span> Ground Truth Outcome</div>
+          <div class="leg-item"><span class="leg-swatch sw-ri-prob"></span> RI Probability</div>
+        </div>
+      </section>
+
+      <!-- INSTRUMENT 4: MODEL ATTENTION & TEMPORAL CONTRIBUTION PROFILE -->
+      <section class="instrument-box box-attention">
+        <div class="panel-header">
+          <span class="panel-title">MODEL ANALYSIS // TEMPORAL RECEPTIVE FIELD</span>
+          <span class="panel-sub">Sinusoidal Cross-Attention Allocation</span>
+        </div>
+        <div class="temporal-attention-bars" id="attn-bars-container">
+          <div class="attn-bar-row">
+            <span class="attn-lbl">t-18h</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-0" style="width: 9%"></div></div>
+            <span class="attn-pct" id="att-pct-0">9%</span>
+          </div>
+          <div class="attn-bar-row">
+            <span class="attn-lbl">t-15h</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-1" style="width: 12%"></div></div>
+            <span class="attn-pct" id="att-pct-1">12%</span>
+          </div>
+          <div class="attn-bar-row">
+            <span class="attn-lbl">t-12h</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-2" style="width: 15%"></div></div>
+            <span class="attn-pct" id="att-pct-2">15%</span>
+          </div>
+          <div class="attn-bar-row">
+            <span class="attn-lbl">t-9h</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-3" style="width: 18%"></div></div>
+            <span class="attn-pct" id="att-pct-3">18%</span>
+          </div>
+          <div class="attn-bar-row">
+            <span class="attn-lbl">t-6h</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-4" style="width: 24%"></div></div>
+            <span class="attn-pct highlight-attn" id="att-pct-4">24%</span>
+          </div>
+          <div class="attn-bar-row">
+            <span class="attn-lbl">t-3h</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-5" style="width: 14%"></div></div>
+            <span class="attn-pct" id="att-pct-5">14%</span>
+          </div>
+          <div class="attn-bar-row">
+            <span class="attn-lbl">NOW (t)</span>
+            <div class="attn-track"><div class="attn-fill" id="att-fill-6" style="width: 8%"></div></div>
+            <span class="attn-pct" id="att-pct-6">8%</span>
+          </div>
+        </div>
+      </section>
+
+    </aside>
   </main>
 
   <script src="app.js"></script>
