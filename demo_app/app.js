@@ -9,6 +9,40 @@ let currentStepIdx = 0;
 let isPlaying = false;
 let playInterval = null;
 let chartViewMode = "realtime"; // "realtime" | "audit"
+let forecastSmoothingMode = "ema"; // "ema" | "raw"
+const EMA_ALPHA = 0.35;
+
+/**
+ * Compute causal exponential moving average (alpha = 0.35)
+ */
+function getEmaSeries(storm) {
+  if (!storm || !storm.timesteps) return { ema_6: [], ema_12: [], ema_24: [] };
+  if (!storm._ema_computed) {
+    const raw6 = storm.timesteps.map((t) => t.predicted_plus_6h);
+    const raw12 = storm.timesteps.map((t) => t.predicted_plus_12h);
+    const raw24 = storm.timesteps.map((t) => t.predicted_plus_24h);
+
+    const computeEma = (arr, a = EMA_ALPHA) => {
+      const out = [];
+      let s = arr[0];
+      for (let i = 0; i < arr.length; i++) {
+        s = a * arr[i] + (1 - a) * s;
+        out.push(s);
+      }
+      return out;
+    };
+
+    storm._ema_6 = computeEma(raw6, EMA_ALPHA);
+    storm._ema_12 = computeEma(raw12, EMA_ALPHA);
+    storm._ema_24 = computeEma(raw24, EMA_ALPHA);
+    storm._ema_computed = true;
+  }
+  return {
+    ema_6: storm._ema_6,
+    ema_12: storm._ema_12,
+    ema_24: storm._ema_24,
+  };
+}
 
 // Initialize when DOM loaded
 document.addEventListener("DOMContentLoaded", async () => {
@@ -133,6 +167,32 @@ function setupEventListeners() {
     });
   }
 
+  // Smoothing Toggle (EMA vs Raw Model Output)
+  const btnSmoothEma = document.getElementById("btn-smooth-ema");
+  const btnSmoothRaw = document.getElementById("btn-smooth-raw");
+  const legRaw = document.getElementById("leg-raw-forecast");
+  const legAiText = document.getElementById("leg-ai-text");
+
+  if (btnSmoothEma && btnSmoothRaw) {
+    btnSmoothEma.addEventListener("click", () => {
+      forecastSmoothingMode = "ema";
+      btnSmoothEma.classList.add("active");
+      btnSmoothRaw.classList.remove("active");
+      if (legAiText) legAiText.textContent = "Active Forecast (EMA-Smoothed)";
+      if (legRaw) legRaw.style.display = "flex";
+      renderCurrentStep();
+    });
+
+    btnSmoothRaw.addEventListener("click", () => {
+      forecastSmoothingMode = "raw";
+      btnSmoothRaw.classList.add("active");
+      btnSmoothEma.classList.remove("active");
+      if (legAiText) legAiText.textContent = "Active Forecast (Raw Model Output)";
+      if (legRaw) legRaw.style.display = "none";
+      renderCurrentStep();
+    });
+  }
+
   // Window resize redrawing chart
   window.addEventListener("resize", () => {
     drawLifecycleChart();
@@ -246,10 +306,17 @@ function renderCurrentStep() {
     }
   }
 
-  // 3. Quantitative Auxiliary Forecasts
-  document.getElementById("pred-plus-6").textContent = `${Math.round(step.predicted_plus_6h)} kt`;
-  document.getElementById("pred-plus-12").textContent = `${Math.round(step.predicted_plus_12h)} kt`;
-  document.getElementById("pred-plus-24").textContent = `${Math.round(step.predicted_plus_24h)} kt`;
+  // 3. Quantitative Auxiliary Forecasts (Smooth EMA or Raw)
+  const isEmaMode = forecastSmoothingMode === "ema";
+  const { ema_6, ema_12, ema_24 } = getEmaSeries(storm);
+
+  const val6 = isEmaMode ? ema_6[currentStepIdx] : step.predicted_plus_6h;
+  const val12 = isEmaMode ? ema_12[currentStepIdx] : step.predicted_plus_12h;
+  const val24 = isEmaMode ? ema_24[currentStepIdx] : step.predicted_plus_24h;
+
+  document.getElementById("pred-plus-6").textContent = `${Math.round(val6)} kt`;
+  document.getElementById("pred-plus-12").textContent = `${Math.round(val12)} kt`;
+  document.getElementById("pred-plus-24").textContent = `${Math.round(val24)} kt`;
 
   // 4. Primary Headline Trend
   const trendBanner = document.getElementById("trend-banner");
@@ -332,72 +399,69 @@ function getCategoryClass(vmax) {
 }
 
 /**
- * Draw Proving Ground Lifecycle Canvas Chart
+ * Draw Interactive Lifecycle Chart
  */
 function drawLifecycleChart() {
+  const storm = stormsData[currentStormId];
+  if (!storm || !storm.timesteps) return;
+
   const canvas = document.getElementById("lifecycle-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  // Match high-DPI display
+  // Adjust canvas resolution for crisp HiDPI displays
+  const dpr = window.devicePixelRatio || 1;
   const rect = canvas.parentElement.getBoundingClientRect();
-  canvas.width = rect.width * window.devicePixelRatio;
-  canvas.height = rect.height * window.devicePixelRatio;
-  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
 
   const W = rect.width;
   const H = rect.height;
-
   ctx.clearRect(0, 0, W, H);
-
-  const storm = stormsData[currentStormId];
-  if (!storm || !storm.timesteps || storm.timesteps.length === 0) return;
 
   const timesteps = storm.timesteps;
   const N = timesteps.length;
-  const currStep = timesteps[currentStepIdx];
+  if (N === 0) return;
+
+  const isEmaMode = forecastSmoothingMode === "ema";
+  const { ema_6, ema_12, ema_24 } = getEmaSeries(storm);
 
   const padLeft = 45;
-  const padRight = 25;
-  const padTop = 32;
-  const padBottom = 40;
-
+  const padRight = 35;
+  const padTop = 25;
+  const padBottom = 35;
   const chartW = W - padLeft - padRight;
   const chartH = H - padTop - padBottom;
 
-  // Max intensity for scale
-  let maxV = 160;
-  timesteps.forEach((s) => {
-    if (s.vmax_curr > maxV) maxV = s.vmax_curr + 15;
-    if (s.vmax_plus_24h > maxV) maxV = s.vmax_plus_24h + 15;
-  });
+  // Compute intensity bounds
+  const maxActual = Math.max(...timesteps.map((t) => t.vmax_curr));
+  const maxPred = Math.max(...timesteps.map((t) => t.predicted_plus_24h));
+  const maxVal = Math.max(120, maxActual, maxPred, 140);
+  const minVal = 15;
 
-  const getX = (idx) => padLeft + (idx / (N - 1)) * chartW;
-  const getY = (vmax) => padTop + chartH - (vmax / maxV) * chartH;
+  const getX = (idx) => padLeft + (idx / Math.max(1, N - 1)) * chartW;
+  const getY = (val) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
 
-  const nowX = getX(currentStepIdx);
-  const nowY = getY(currStep.vmax_curr);
-
-  // Future 24h index (8 steps of 3 hours)
-  const future24Idx = Math.min(currentStepIdx + 8, N - 1);
-  const future24X = getX(future24Idx);
-
-  // 1. Draw Grid Lines
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
+  // 1. Draw Background Grid & Intensity Reference Bands
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
   ctx.lineWidth = 1;
 
-  for (let v = 20; v <= maxV; v += 20) {
-    const y = getY(v);
-    ctx.beginPath();
-    ctx.moveTo(padLeft, y);
-    ctx.lineTo(W - padRight, y);
-    ctx.stroke();
+  [34, 64, 96, 137].forEach((threshold) => {
+    if (threshold <= maxVal) {
+      const y = getY(threshold);
+      ctx.beginPath();
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(padLeft + chartW, y);
+      ctx.stroke();
 
-    ctx.fillStyle = "#64748B";
-    ctx.font = "10px JetBrains Mono";
-    ctx.textAlign = "right";
-    ctx.fillText(`${v} kt`, padLeft - 6, y + 3);
-  }
+      ctx.fillStyle = "rgba(148, 163, 184, 0.4)";
+      ctx.font = "9px JetBrains Mono";
+      ctx.textAlign = "right";
+      const lbl = threshold === 34 ? "TS (34kt)" : threshold === 64 ? "Cat 1 (64kt)" : threshold === 96 ? "Cat 3 (96kt)" : "Cat 5 (137kt)";
+      ctx.fillText(lbl, padLeft - 6, y + 3);
+    }
+  });
 
   // 2. Draw Time markers along X axis
   for (let i = 0; i < N; i += Math.ceil(N / 8)) {
@@ -416,54 +480,64 @@ function drawLifecycleChart() {
   // =========================================================================
   // STRICT REAL-TIME VIEW vs. FULL AUDIT VIEW
   // =========================================================================
+  const currStep = timesteps[currentStepIdx];
+  const nowX = getX(currentStepIdx);
+  const nowY = getY(currStep.vmax_curr);
+  const future24Idx = Math.min(currentStepIdx + 8, N - 1);
+  const future24X = getX(future24Idx);
+
+  const p6Idx = Math.min(currentStepIdx + 2, N - 1);
+  const p12Idx = Math.min(currentStepIdx + 4, N - 1);
+  const p24Idx = future24Idx;
+
+  const curRaw6 = currStep.predicted_plus_6h;
+  const curRaw12 = currStep.predicted_plus_12h;
+  const curRaw24 = currStep.predicted_plus_24h;
+
+  const curEma6 = ema_6[currentStepIdx];
+  const curEma12 = ema_12[currentStepIdx];
+  const curEma24 = ema_24[currentStepIdx];
+
+  const mainP6 = isEmaMode ? curEma6 : curRaw6;
+  const mainP12 = isEmaMode ? curEma12 : curRaw12;
+  const mainP24 = isEmaMode ? curEma24 : curRaw24;
+
   if (chartViewMode === "realtime") {
-    // 0. Outline of the Entire Predicted Trajectory across Full Storm (Faint Cyan Dashed)
-    // Plotted at TARGET time (t + 24h) so the active forecast vector lands exactly on it!
+    // 0. Outline of the Entire Predicted Trajectory across Full Storm (Faint Cyan)
     ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
     ctx.lineWidth = 1.8;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
 
-    // Initial 24h ramp-up from t=0 using +6h, +12h, and +24h forecasts
+    const outlineVals = isEmaMode ? ema_24 : timesteps.map((t) => t.predicted_plus_24h);
     ctx.moveTo(getX(0), getY(timesteps[0].vmax_curr));
-    ctx.lineTo(getX(Math.min(2, N - 1)), getY(timesteps[0].predicted_plus_6h));
-    ctx.lineTo(getX(Math.min(4, N - 1)), getY(timesteps[0].predicted_plus_12h));
-    ctx.lineTo(getX(Math.min(8, N - 1)), getY(timesteps[0].predicted_plus_24h));
+    ctx.lineTo(getX(Math.min(2, N - 1)), getY(isEmaMode ? ema_6[0] : timesteps[0].predicted_plus_6h));
+    ctx.lineTo(getX(Math.min(4, N - 1)), getY(isEmaMode ? ema_12[0] : timesteps[0].predicted_plus_12h));
+    ctx.lineTo(getX(Math.min(8, N - 1)), getY(outlineVals[0]));
 
-    // Continuous +24h target curve for the rest of the storm
     for (let i = 1; i < N; i++) {
       const targetIdx = i + 8;
       if (targetIdx >= N) break;
-      ctx.lineTo(getX(targetIdx), getY(timesteps[i].predicted_plus_24h));
+      ctx.lineTo(getX(targetIdx), getY(outlineVals[i]));
     }
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Optional Faint Lifecycle Reference Outline (Actual Storm Path Backdrop)
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-    ctx.lineWidth = 1.2;
-    ctx.setLineDash([2, 4]);
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const x = getX(i);
-      const y = getY(timesteps[i].vmax_curr);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    // Optional Faint Raw Outline if in EMA mode
+    if (isEmaMode) {
+      ctx.strokeStyle = "rgba(239, 68, 68, 0.22)";
+      ctx.lineWidth = 1.0;
+      ctx.setLineDash([2, 4]);
+      ctx.beginPath();
+      ctx.moveTo(getX(0), getY(timesteps[0].vmax_curr));
+      for (let i = 1; i < N; i++) {
+        const targetIdx = i + 8;
+        if (targetIdx >= N) break;
+        ctx.lineTo(getX(targetIdx), getY(timesteps[i].predicted_plus_24h));
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Faint Outline of Full Storm RI Probability Curve
-    ctx.strokeStyle = "rgba(139, 92, 246, 0.20)";
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const x = getX(i);
-      const yProb = padTop + chartH - (timesteps[i].ri_probability / 100) * (chartH * 0.45);
-      if (i === 0) ctx.moveTo(x, yProb);
-      else ctx.lineTo(x, yProb);
-    }
-    ctx.stroke();
 
     // A. Brightly Highlight Active +24h Forecast Corridor
     if (future24Idx > currentStepIdx) {
@@ -502,27 +576,50 @@ function drawLifecycleChart() {
     }
     ctx.stroke();
 
-    // C. Brightly Highlight Active AI Multi-Horizon Forecast (Glowing Cyan)
-    const p6Idx = Math.min(currentStepIdx + 2, N - 1);
-    const p12Idx = Math.min(currentStepIdx + 4, N - 1);
-    const p24Idx = future24Idx;
+    // C1. If EMA mode is active: ALSO draw the Raw Forecast Vector as a fine dashed line
+    if (isEmaMode) {
+      ctx.strokeStyle = "rgba(239, 68, 68, 0.65)";
+      ctx.lineWidth = 1.6;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(nowX, nowY);
+      ctx.lineTo(getX(p6Idx), getY(curRaw6));
+      ctx.lineTo(getX(p12Idx), getY(curRaw12));
+      ctx.lineTo(getX(p24Idx), getY(curRaw24));
+      ctx.stroke();
+      ctx.setLineDash([]);
 
+      // Small raw dot at +24h
+      const raw24X = getX(p24Idx);
+      const raw24Y = getY(curRaw24);
+      ctx.fillStyle = "#EF4444";
+      ctx.beginPath();
+      ctx.arc(raw24X, raw24Y, 3.5, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(239, 68, 68, 0.85)";
+      ctx.font = "8px JetBrains Mono";
+      ctx.textAlign = "left";
+      ctx.fillText(`Raw: ${Math.round(curRaw24)}kt`, raw24X + 5, raw24Y + 12);
+    }
+
+    // C2. Draw Primary Forecast Vector (Glowing Cyan)
     ctx.strokeStyle = "#38BDF8";
     ctx.lineWidth = 3.2;
     ctx.shadowColor = "#38BDF8";
     ctx.shadowBlur = 12;
     ctx.beginPath();
     ctx.moveTo(nowX, nowY);
-    ctx.lineTo(getX(p6Idx), getY(currStep.predicted_plus_6h));
-    ctx.lineTo(getX(p12Idx), getY(currStep.predicted_plus_12h));
-    ctx.lineTo(getX(p24Idx), getY(currStep.predicted_plus_24h));
+    ctx.lineTo(getX(p6Idx), getY(mainP6));
+    ctx.lineTo(getX(p12Idx), getY(mainP12));
+    ctx.lineTo(getX(p24Idx), getY(mainP24));
     ctx.stroke();
     ctx.shadowBlur = 0; // Reset shadow
 
     // Horizon prediction dots & callout badges
     [
-      { idx: p6Idx, val: currStep.predicted_plus_6h, lbl: "+6h" },
-      { idx: p12Idx, val: currStep.predicted_plus_12h, lbl: "+12h" },
+      { idx: p6Idx, val: mainP6, lbl: "+6h" },
+      { idx: p12Idx, val: mainP12, lbl: "+12h" },
     ].forEach((pt) => {
       const px = getX(pt.idx);
       const py = getY(pt.val);
@@ -539,7 +636,7 @@ function drawLifecycleChart() {
 
     // Highlighted +24h AI Prediction Dot & Glowing Badge
     const p24X = getX(p24Idx);
-    const p24Y = getY(currStep.predicted_plus_24h);
+    const p24Y = getY(mainP24);
     ctx.fillStyle = "#38BDF8";
     ctx.shadowColor = "#38BDF8";
     ctx.shadowBlur = 10;
@@ -549,17 +646,19 @@ function drawLifecycleChart() {
     ctx.shadowBlur = 0;
 
     // AI +24h Badge Pill
-    ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+    const badgeTxt = isEmaMode ? `AI +24h (EMA): ${Math.round(mainP24)} kt` : `AI +24h (Raw): ${Math.round(mainP24)} kt`;
+    const pillW = isEmaMode ? 120 : 110;
+    ctx.fillStyle = "rgba(15, 23, 42, 0.9)";
     ctx.strokeStyle = "#38BDF8";
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.roundRect(p24X - 52, p24Y - 26, 104, 18, 4);
+    ctx.roundRect(p24X - pillW / 2, p24Y - 26, pillW, 18, 4);
     ctx.fill();
     ctx.stroke();
     ctx.fillStyle = "#38BDF8";
     ctx.font = "bold 9px JetBrains Mono";
     ctx.textAlign = "center";
-    ctx.fillText(`AI +24h: ${Math.round(currStep.predicted_plus_24h)} kt`, p24X, p24Y - 14);
+    ctx.fillText(badgeTxt, p24X, p24Y - 14);
 
     // D. Draw Actual Outcome (Next 24h Only - High-Contrast Dashed Red)
     ctx.strokeStyle = "rgba(239, 68, 68, 0.95)";

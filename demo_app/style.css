@@ -836,13 +836,27 @@ body {
 }
 
 .legend-item { display: flex; align-items: center; gap: 0.4rem; }
-.view-mode-toggle {
+.chart-controls-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.view-mode-toggle, .smoothing-toggle {
   display: flex;
   background: rgba(15, 23, 42, 0.8);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   padding: 2px;
   gap: 2px;
+}
+
+.line-raw-pred {
+  width: 18px;
+  height: 0px;
+  border-top: 2px dashed #EF4444;
+  display: inline-block;
 }
 
 .mode-btn {

@@ -269,9 +269,15 @@
               <span class="card-title">OPERATIONAL LIFECYCLE &amp; LEAD-TIME PROVING GROUND</span>
               <p class="card-subtitle" id="chart-mode-subtitle">Real-time observation track with active +24h forecast window.</p>
             </div>
-            <div class="view-mode-toggle">
-              <button id="btn-mode-realtime" class="mode-btn active" title="Strict 24-Hour Real-Time Operational Window">⚡ Real-Time Forecast</button>
-              <button id="btn-mode-audit" class="mode-btn" title="Full Lifecycle Post-Event Macro Audit">📊 Full Storm Audit</button>
+            <div class="chart-controls-group">
+              <div class="view-mode-toggle">
+                <button id="btn-mode-realtime" class="mode-btn active" title="Strict 24-Hour Real-Time Operational Window">⚡ Real-Time Forecast</button>
+                <button id="btn-mode-audit" class="mode-btn" title="Full Lifecycle Post-Event Macro Audit">📊 Full Storm Audit</button>
+              </div>
+              <div class="smoothing-toggle">
+                <button id="btn-smooth-ema" class="mode-btn active" title="Operational presentation line with Exponential Moving Average (alpha=0.35)">✨ EMA-Smoothed</button>
+                <button id="btn-smooth-raw" class="mode-btn" title="Raw, instantaneous step-by-step neural network outputs">⚡ Raw Output</button>
+              </div>
             </div>
           </div>
 
@@ -283,7 +289,8 @@
           <!-- Chart Legend -->
           <div class="chart-legend" id="chart-legend">
             <div class="legend-item"><span class="legend-line line-past"></span> Observed Track (Past → NOW)</div>
-            <div class="legend-item" id="leg-ai-forecast"><span class="legend-line line-ai-pred"></span> Active +24h AI Forecast</div>
+            <div class="legend-item" id="leg-ai-forecast"><span class="legend-line line-ai-pred"></span> <span id="leg-ai-text">Active Forecast (EMA-Smoothed)</span></div>
+            <div class="legend-item" id="leg-raw-forecast"><span class="legend-line line-raw-pred"></span> <span id="leg-raw-text">Raw Model Output</span></div>
             <div class="legend-item" id="leg-pred-outline"><span class="legend-line line-pred-outline"></span> Full Predicted Outline</div>
             <div class="legend-item"><span class="legend-line line-future"></span> Actual Outcome (Next 24h)</div>
             <div class="legend-item"><span class="legend-dot dot-now"></span> Observation (NOW)</div>
