@@ -1,0 +1,66 @@
+{
+  "eval_loss": 3.6623,
+  "ri_roc_auc": 0.8687,
+  "ri_pr_auc": 0.369,
+  "ri_precision": 0.3038,
+  "ri_recall": 0.6372,
+  "ri_f1": 0.4114,
+  "ri_optimal_threshold": 0.3728,
+  "ri_optimal_f1": 0.4294,
+  "ri_brier": 0.0693,
+  "ri_ece": 0.055,
+  "trend_accuracy": 0.6353,
+  "trend_macro_f1": 0.6367,
+  "trend_weighted_f1": 0.6308,
+  "trend_per_class": {
+    "WEAKENING": {
+      "precision": 0.5898,
+      "recall": 0.7903,
+      "f1": 0.6755,
+      "support": 2380
+    },
+    "STABLE": {
+      "precision": 0.689,
+      "recall": 0.5122,
+      "f1": 0.5876,
+      "support": 3391
+    },
+    "INTENSIFYING": {
+      "precision": 0.6392,
+      "recall": 0.6547,
+      "f1": 0.6468,
+      "support": 2508
+    }
+  },
+  "ri_confusion_matrix": [
+    [
+      6889,
+      825
+    ],
+    [
+      205,
+      360
+    ]
+  ],
+  "trend_confusion_matrix": [
+    [
+      1881,
+      316,
+      183
+    ],
+    [
+      910,
+      1737,
+      744
+    ],
+    [
+      398,
+      468,
+      1642
+    ]
+  ],
+  "best_epoch": 1,
+  "val_opt_ri_threshold": 0.1409,
+  "pos_weight_mult": 1.0,
+  "eff_pos_weight": 13.79495145631068
+}

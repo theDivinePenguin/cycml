@@ -1,0 +1,2 @@
+epoch,train_loss,val_loss,val_ri_pr_auc,val_ri_roc_auc,val_ri_f1,val_ri_opt_f1,val_trend_acc,val_trend_macro_f1,val_composite_score
+1,1.9581,3.5699,0.3372,0.8671,0.3519,0.3896,0.5909,0.5913,0.4388

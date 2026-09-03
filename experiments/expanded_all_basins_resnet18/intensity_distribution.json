@@ -1,0 +1,77 @@
+{
+  "dataset": "TCIR-CPAC_IO_SH (Training Split)",
+  "total_train_frames": 48856,
+  "total_train_cyclones": 900,
+  "mean_wind_speed_kt": 49.01193302767316,
+  "median_wind_speed_kt": 40.0,
+  "p90_wind_speed_kt": 93.0,
+  "p95_wind_speed_kt": 110.0,
+  "p99_wind_speed_kt": 135.0,
+  "max_wind_speed_kt": 185.0,
+  "distribution": [
+    {
+      "bin": "15\u201330 kt",
+      "lower_kt": 15.0,
+      "upper_kt": 30.0,
+      "frames": 12072,
+      "percent_frames": 24.71,
+      "unique_cyclones": 820
+    },
+    {
+      "bin": "30\u201350 kt",
+      "lower_kt": 30.0,
+      "upper_kt": 50.0,
+      "frames": 18543,
+      "percent_frames": 37.95,
+      "unique_cyclones": 883
+    },
+    {
+      "bin": "50\u201370 kt",
+      "lower_kt": 50.0,
+      "upper_kt": 70.0,
+      "frames": 8220,
+      "percent_frames": 16.82,
+      "unique_cyclones": 599
+    },
+    {
+      "bin": "70\u201390 kt",
+      "lower_kt": 70.0,
+      "upper_kt": 90.0,
+      "frames": 4034,
+      "percent_frames": 8.26,
+      "unique_cyclones": 397
+    },
+    {
+      "bin": "90\u2013110 kt",
+      "lower_kt": 90.0,
+      "upper_kt": 110.0,
+      "frames": 3157,
+      "percent_frames": 6.46,
+      "unique_cyclones": 297
+    },
+    {
+      "bin": "110\u2013130 kt",
+      "lower_kt": 110.0,
+      "upper_kt": 130.0,
+      "frames": 1971,
+      "percent_frames": 4.03,
+      "unique_cyclones": 202
+    },
+    {
+      "bin": "130\u2013150 kt",
+      "lower_kt": 130.0,
+      "upper_kt": 150.0,
+      "frames": 745,
+      "percent_frames": 1.52,
+      "unique_cyclones": 90
+    },
+    {
+      "bin": "> 150 kt",
+      "lower_kt": 150.0,
+      "upper_kt": null,
+      "frames": 114,
+      "percent_frames": 0.23,
+      "unique_cyclones": 22
+    }
+  ]
+}

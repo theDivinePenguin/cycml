@@ -1,0 +1,367 @@
+{
+  "timestamp": "2026-09-01T21:30:00Z",
+  "description": "Authoritative multi-channel audit of TCIR satellite datasets for Problem Statement 26070",
+  "archives": {
+    "TCIR-CPAC_IO_SH": {
+      "archive_name": "TCIR-CPAC_IO_SH",
+      "file_path": "/home/raymondj/Projects/cycml/data/raw/TCIR-CPAC_IO_SH.h5",
+      "file_size_gb": 13.92,
+      "channels": {
+        "0": {
+          "index": 0,
+          "name": "IR1",
+          "full_name": "Infrared Window (10.7 \u00b5m)",
+          "physical_quantity": "Brightness Temperature",
+          "unit": "Kelvin (K)",
+          "theoretical_valid_range": [
+            150.0,
+            340.0
+          ],
+          "description": "Clean infrared window capturing cloud-top and sea surface brightness temperatures.",
+          "total_pixels": 933990318,
+          "nan_pixels": 2328869,
+          "nan_percentage": 0.2493,
+          "huge_fill_pixels": 0,
+          "huge_fill_percentage": 0.0,
+          "total_missing_percentage": 0.2493,
+          "missing_convention": "NaN (0.2493%)",
+          "frame_all_missing_count": 25,
+          "frame_all_missing_percentage": 0.11,
+          "frame_partial_missing_count": 1817,
+          "valid_min": 112.49,
+          "valid_max": 347.82,
+          "valid_mean": 265.5853,
+          "valid_std": 27.7288,
+          "valid_median": 274.16,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            197.32,
+            211.82,
+            245.88,
+            274.16,
+            289.58,
+            295.27,
+            298.64
+          ]
+        },
+        "1": {
+          "index": 1,
+          "name": "WV",
+          "full_name": "Water Vapor (6.7 \u00b5m)",
+          "physical_quantity": "Brightness Temperature",
+          "unit": "Kelvin (K)",
+          "theoretical_valid_range": [
+            150.0,
+            300.0
+          ],
+          "description": "Upper-to-mid tropospheric water vapor absorption channel sensitive to moisture and outflow.",
+          "total_pixels": 933990318,
+          "nan_pixels": 1359723,
+          "nan_percentage": 0.1456,
+          "huge_fill_pixels": 0,
+          "huge_fill_percentage": 0.0,
+          "total_missing_percentage": 0.1456,
+          "missing_convention": "NaN (0.1456%)",
+          "frame_all_missing_count": 25,
+          "frame_all_missing_percentage": 0.11,
+          "frame_partial_missing_count": 43,
+          "valid_min": 118.68,
+          "valid_max": 301.52,
+          "valid_mean": 235.5373,
+          "valid_std": 12.267,
+          "valid_median": 237.58,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            200.0311,
+            211.9655,
+            228.86,
+            237.58,
+            243.8,
+            252.6,
+            257.4889
+          ]
+        },
+        "2": {
+          "index": 2,
+          "name": "VIS",
+          "full_name": "Visible (0.65 \u00b5m)",
+          "physical_quantity": "Albedo / Reflectance",
+          "unit": "Dimensionless / Normalized Reflectance",
+          "theoretical_valid_range": [
+            0.0,
+            2.5
+          ],
+          "description": "Solar reflectance showing fine cloud texture, spiral banding, and eye details. Missing during local night.",
+          "total_pixels": 933990318,
+          "nan_pixels": 242458024,
+          "nan_percentage": 25.9594,
+          "huge_fill_pixels": 0,
+          "huge_fill_percentage": 0.0,
+          "total_missing_percentage": 25.9594,
+          "missing_convention": "NaN (25.9594%)",
+          "frame_all_missing_count": 3823,
+          "frame_all_missing_percentage": 16.54,
+          "frame_partial_missing_count": 5039,
+          "valid_min": 0.0,
+          "valid_max": 2.2,
+          "valid_mean": 0.5565,
+          "valid_std": 0.6613,
+          "valid_median": 0.314,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            0.0,
+            0.0,
+            0.011,
+            0.314,
+            0.874,
+            2.2,
+            2.2
+          ]
+        },
+        "3": {
+          "index": 3,
+          "name": "PMW",
+          "full_name": "Passive Microwave / Rain Rate",
+          "physical_quantity": "Surface Rain Rate / 85-91 GHz Proxy",
+          "unit": "mm/hr or Proxy Value",
+          "theoretical_valid_range": [
+            0.0,
+            150.0
+          ],
+          "description": "Low-Earth orbit passive microwave sensor measurement or rain rate estimate. Subject to swath gaps.",
+          "total_pixels": 933990318,
+          "nan_pixels": 941780,
+          "nan_percentage": 0.1008,
+          "huge_fill_pixels": 134670,
+          "huge_fill_percentage": 0.0144,
+          "total_missing_percentage": 0.1153,
+          "missing_convention": "NaN (0.1008%) + NetCDF/HDF NC_FILL_FLOAT ~9.96921e+36 (0.0144%)",
+          "frame_all_missing_count": 23,
+          "frame_all_missing_percentage": 0.1,
+          "frame_partial_missing_count": 719,
+          "valid_min": -0.0,
+          "valid_max": 49.1584,
+          "valid_mean": 0.5211,
+          "valid_std": 1.5042,
+          "valid_median": 0.0,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.2204,
+            3.1597,
+            7.5276
+          ]
+        }
+      },
+      "total_metadata_records": 23118,
+      "unique_cyclones": 424,
+      "wind_speed_range_kt": [
+        15.0,
+        155.0
+      ],
+      "wind_speed_mean_kt": 46.92,
+      "matrix_shape": [
+        23118,
+        201,
+        201,
+        4
+      ],
+      "matrix_dtype": "float32",
+      "spatial_dimensions": [
+        201,
+        201
+      ],
+      "num_channels": 4
+    },
+    "TCIR-ATLN_EPAC_WPAC": {
+      "archive_name": "TCIR-ATLN_EPAC_WPAC",
+      "file_path": "/home/raymondj/Projects/cycml/data/raw/TCIR-ATLN_EPAC_WPAC.h5",
+      "file_size_gb": 28.53,
+      "channels": {
+        "0": {
+          "index": 0,
+          "name": "IR1",
+          "full_name": "Infrared Window (10.7 \u00b5m)",
+          "physical_quantity": "Brightness Temperature",
+          "unit": "Kelvin (K)",
+          "theoretical_valid_range": [
+            150.0,
+            340.0
+          ],
+          "description": "Clean infrared window capturing cloud-top and sea surface brightness temperatures.",
+          "total_pixels": 1914239781,
+          "nan_pixels": 20543900,
+          "nan_percentage": 1.0732,
+          "huge_fill_pixels": 0,
+          "huge_fill_percentage": 0.0,
+          "total_missing_percentage": 1.0732,
+          "missing_convention": "NaN (1.0732%)",
+          "frame_all_missing_count": 413,
+          "frame_all_missing_percentage": 0.87,
+          "frame_partial_missing_count": 5680,
+          "valid_min": 76.13,
+          "valid_max": 345.83,
+          "valid_mean": 269.0155,
+          "valid_std": 26.7347,
+          "valid_median": 279.84,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            200.0,
+            214.72,
+            251.51,
+            279.84,
+            290.91,
+            295.41,
+            297.21
+          ]
+        },
+        "1": {
+          "index": 1,
+          "name": "WV",
+          "full_name": "Water Vapor (6.7 \u00b5m)",
+          "physical_quantity": "Brightness Temperature",
+          "unit": "Kelvin (K)",
+          "theoretical_valid_range": [
+            150.0,
+            300.0
+          ],
+          "description": "Upper-to-mid tropospheric water vapor absorption channel sensitive to moisture and outflow.",
+          "total_pixels": 1914239781,
+          "nan_pixels": 17856453,
+          "nan_percentage": 0.9328,
+          "huge_fill_pixels": 0,
+          "huge_fill_percentage": 0.0,
+          "total_missing_percentage": 0.9328,
+          "missing_convention": "NaN (0.9328%)",
+          "frame_all_missing_count": 414,
+          "frame_all_missing_percentage": 0.87,
+          "frame_partial_missing_count": 558,
+          "valid_min": 127.43,
+          "valid_max": 301.62,
+          "valid_mean": 236.3333,
+          "valid_std": 11.9101,
+          "valid_median": 238.76,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            200.0723,
+            212.6,
+            230.45,
+            238.76,
+            244.37,
+            251.63,
+            255.89
+          ]
+        },
+        "2": {
+          "index": 2,
+          "name": "VIS",
+          "full_name": "Visible (0.65 \u00b5m)",
+          "physical_quantity": "Albedo / Reflectance",
+          "unit": "Dimensionless / Normalized Reflectance",
+          "theoretical_valid_range": [
+            0.0,
+            2.5
+          ],
+          "description": "Solar reflectance showing fine cloud texture, spiral banding, and eye details. Missing during local night.",
+          "total_pixels": 1914239781,
+          "nan_pixels": 874129375,
+          "nan_percentage": 45.6646,
+          "huge_fill_pixels": 0,
+          "huge_fill_percentage": 0.0,
+          "total_missing_percentage": 45.6646,
+          "missing_convention": "NaN (45.6646%)",
+          "frame_all_missing_count": 16528,
+          "frame_all_missing_percentage": 34.88,
+          "frame_partial_missing_count": 11617,
+          "valid_min": 0.0,
+          "valid_max": 2.2,
+          "valid_mean": 0.441,
+          "valid_std": 0.7367,
+          "valid_median": 0.069,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            0.0,
+            0.0,
+            0.001,
+            0.069,
+            0.433,
+            2.2,
+            2.2
+          ]
+        },
+        "3": {
+          "index": 3,
+          "name": "PMW",
+          "full_name": "Passive Microwave / Rain Rate",
+          "physical_quantity": "Surface Rain Rate / 85-91 GHz Proxy",
+          "unit": "mm/hr or Proxy Value",
+          "theoretical_valid_range": [
+            0.0,
+            150.0
+          ],
+          "description": "Low-Earth orbit passive microwave sensor measurement or rain rate estimate. Subject to swath gaps.",
+          "total_pixels": 1914239781,
+          "nan_pixels": 16066057,
+          "nan_percentage": 0.8393,
+          "huge_fill_pixels": 5025,
+          "huge_fill_percentage": 0.0003,
+          "total_missing_percentage": 0.8396,
+          "missing_convention": "NaN (0.8393%) + NetCDF/HDF NC_FILL_FLOAT ~9.96921e+36 (0.0003%)",
+          "frame_all_missing_count": 385,
+          "frame_all_missing_percentage": 0.81,
+          "frame_partial_missing_count": 167,
+          "valid_min": -0.0,
+          "valid_max": 47.392,
+          "valid_mean": 0.4627,
+          "valid_std": 1.4268,
+          "valid_median": 0.0,
+          "percentiles_p1_p5_p25_p50_p75_p95_p99": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.1353,
+            2.8649,
+            7.2123
+          ]
+        }
+      },
+      "total_metadata_records": 47381,
+      "unique_cyclones": 861,
+      "wind_speed_range_kt": [
+        10.0,
+        185.0
+      ],
+      "wind_speed_mean_kt": 50.16,
+      "matrix_shape": [
+        47381,
+        201,
+        201,
+        4
+      ],
+      "matrix_dtype": "float32",
+      "spatial_dimensions": [
+        201,
+        201
+      ],
+      "num_channels": 4
+    }
+  },
+  "summary": {
+    "total_frames": 70499,
+    "total_cyclones": 1285,
+    "spatial_shape": [
+      201,
+      201
+    ],
+    "channel_count": 4,
+    "channel_names": [
+      "IR1",
+      "WV",
+      "VIS",
+      "PMW"
+    ],
+    "channel_order": [
+      "0: IR1 (Infrared 10.7 \u00b5m brightness temperature in Kelvin)",
+      "1: WV (Water Vapor 6.7 \u00b5m brightness temperature in Kelvin)",
+      "2: VIS (Visible 0.65 \u00b5m normalized reflectance / albedo)",
+      "3: PMW (Passive Microwave rain rate / 85-91 GHz proxy with NC_FILL_FLOAT missing markers)"
+    ]
+  }
+}

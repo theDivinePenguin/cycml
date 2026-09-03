@@ -1,0 +1,59 @@
+dataset:
+  name: TCIR_ALL_BASINS
+  regions:
+  - CPAC
+  - IO
+  - SH
+  - ATLN
+  - EPAC
+  - WPAC
+  raw_dir: data/raw
+  processed_dir: data/processed
+  metadata_dir: data/metadata
+  metadata_file: data/metadata/metadata_all_basins.csv
+  splits_file: data/metadata/splits_all_basins.json
+  normalization_file: data/metadata/normalization_stats_multichannel.json
+  h5_files:
+  - data/raw/TCIR-CPAC_IO_SH.h5
+  - data/raw/TCIR-ATLN_EPAC_WPAC.h5
+  channels:
+  - 0
+  - 1
+  input_size:
+  - 224
+  - 224
+  split_ratio:
+  - 0.7
+  - 0.15
+  - 0.15
+  split_seed: 42
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+augmentation:
+  enabled: true
+  horizontal_flip: true
+  rotation_degrees: 15
+  random_crop_scale:
+  - 0.88
+  - 1.0
+  intensity_jitter: 0.05
+model:
+  architecture: resnet18
+  in_channels: 2
+  pretrained: true
+  dropout: 0.2
+training:
+  epochs: 30
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine
+  min_lr: 1.0e-06
+  loss: mse
+  use_amp: true
+  early_stopping_patience: 8
+  seed: 42
+  save_dir: experiments/modality_ablation/ir1_wv
+logging:
+  log_interval: 50

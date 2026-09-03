@@ -1,0 +1,58 @@
+[
+  {
+    "cyclone_id": "201015W",
+    "name": "Super Typhoon Megi",
+    "basin": "West Pacific (WPAC)",
+    "peak": "160 kt (Category 5)",
+    "sequences": 89,
+    "mae_6h_tf": 15.52,
+    "mae_6h_pers": 6.69,
+    "mae_12h_tf": 17.12,
+    "mae_12h_pers": 13.13,
+    "mae_24h_tf": 18.55,
+    "mae_24h_pers": 24.74,
+    "gain_24h": 6.19
+  },
+  {
+    "cyclone_id": "201614L",
+    "name": "Hurricane Matthew",
+    "basin": "North Atlantic (ATLN)",
+    "peak": "145 kt (Category 5)",
+    "sequences": 81,
+    "mae_6h_tf": 12.63,
+    "mae_6h_pers": 5.33,
+    "mae_12h_tf": 14.83,
+    "mae_12h_pers": 10.15,
+    "mae_24h_tf": 22.04,
+    "mae_24h_pers": 17.21,
+    "gain_24h": -4.83
+  },
+  {
+    "cyclone_id": "200413E",
+    "name": "Hurricane Javier",
+    "basin": "East Pacific (EPAC)",
+    "peak": "130 kt (Category 4)",
+    "sequences": 63,
+    "mae_6h_tf": 12.73,
+    "mae_6h_pers": 6.24,
+    "mae_12h_tf": 14.27,
+    "mae_12h_pers": 12.17,
+    "mae_24h_tf": 19.64,
+    "mae_24h_pers": 23.9,
+    "gain_24h": 4.27
+  },
+  {
+    "cyclone_id": "200519S",
+    "name": "Cyclone Percy",
+    "basin": "South Pacific (SH)",
+    "peak": "145 kt (Category 5)",
+    "sequences": 45,
+    "mae_6h_tf": 8.49,
+    "mae_6h_pers": 8.22,
+    "mae_12h_tf": 8.4,
+    "mae_12h_pers": 15.58,
+    "mae_24h_tf": 10.88,
+    "mae_24h_pers": 28.24,
+    "gain_24h": 17.37
+  }
+]

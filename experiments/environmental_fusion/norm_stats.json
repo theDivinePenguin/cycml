@@ -1,0 +1,50 @@
+{
+  "vmax": {
+    "mean": 53.890306323332545,
+    "std": 29.55864735941265,
+    "min": 10.0,
+    "max": 185.0,
+    "train_missing_count": 0,
+    "train_missing_pct": 0.0
+  },
+  "mslp": {
+    "mean": 985.6097855474185,
+    "std": 23.36256866113707,
+    "min": 872.0,
+    "max": 1023.0,
+    "train_missing_count": 0,
+    "train_missing_pct": 0.0
+  },
+  "sst": {
+    "mean": 28.31443992104614,
+    "std": 1.5377616296507317,
+    "min": 12.6,
+    "max": 32.2,
+    "train_missing_count": 5673,
+    "train_missing_pct": 14.890936294196393
+  },
+  "cohc": {
+    "mean": 45.30099756014701,
+    "std": 33.663269549706094,
+    "min": 0.0,
+    "max": 180.0,
+    "train_missing_count": 5718,
+    "train_missing_pct": 15.009055831167808
+  },
+  "shrd": {
+    "mean": 15.92353186172428,
+    "std": 9.702161077485954,
+    "min": 0.1,
+    "max": 79.0,
+    "train_missing_count": 6884,
+    "train_missing_pct": 18.06966427802714
+  },
+  "rhmd": {
+    "mean": 61.903661935731904,
+    "std": 12.393053081785958,
+    "min": 12.0,
+    "max": 92.0,
+    "train_missing_count": 6884,
+    "train_missing_pct": 18.06966427802714
+  }
+}

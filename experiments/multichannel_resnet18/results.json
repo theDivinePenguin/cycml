@@ -1,0 +1,268 @@
+{
+  "timestamp": "2026-09-01T21:40:00Z",
+  "description": "Scientific Evaluation and Comparison of TCIR Multi-Channel Satellite Experiment (Problem Statement 26070)",
+  "models": {
+    "control_ir_only": {
+      "n_samples": 10581,
+      "mae": 8.635,
+      "rmse": 11.955,
+      "r2": 0.8343,
+      "median_ae": 6.33,
+      "mean_bias": -1.441,
+      "regression_slope": 0.8389,
+      "max_predicted_vmax": 158.8,
+      "mae_gte_110": 13.61,
+      "bias_gte_110": -10.72,
+      "mae_gte_130": 13.49,
+      "bias_gte_130": -11.98,
+      "binned_metrics": [
+        {
+          "bin_name": "< 34 kt (TD)",
+          "count": 3868,
+          "pct": 36.56,
+          "mae": 5.76,
+          "rmse": 7.92,
+          "bias": 3.44,
+          "slope": 0.536
+        },
+        {
+          "bin_name": "34-47 kt (TS)",
+          "count": 2228,
+          "pct": 21.06,
+          "mae": 7.32,
+          "rmse": 9.24,
+          "bias": -0.35,
+          "slope": 0.748
+        },
+        {
+          "bin_name": "48-63 kt (STS)",
+          "count": 1637,
+          "pct": 15.47,
+          "mae": 9.68,
+          "rmse": 11.99,
+          "bias": -3.21,
+          "slope": 0.886
+        },
+        {
+          "bin_name": "64-82 kt (Cat 1)",
+          "count": 1155,
+          "pct": 10.92,
+          "mae": 11.37,
+          "rmse": 14.24,
+          "bias": -5.21,
+          "slope": 1.147
+        },
+        {
+          "bin_name": "83-95 kt (Cat 2)",
+          "count": 562,
+          "pct": 5.31,
+          "mae": 13.69,
+          "rmse": 17.29,
+          "bias": -7.55,
+          "slope": 0.572
+        },
+        {
+          "bin_name": "96-112 kt (Cat 3)",
+          "count": 507,
+          "pct": 4.79,
+          "mae": 15.28,
+          "rmse": 20.27,
+          "bias": -10.89,
+          "slope": 0.996
+        },
+        {
+          "bin_name": "113-136 kt (Cat 4)",
+          "count": 521,
+          "pct": 4.92,
+          "mae": 13.65,
+          "rmse": 19.98,
+          "bias": -10.92,
+          "slope": 0.6
+        },
+        {
+          "bin_name": "\u2265 137 kt (Cat 5)",
+          "count": 103,
+          "pct": 0.97,
+          "mae": 11.75,
+          "rmse": 15.67,
+          "bias": -10.04,
+          "slope": 0.724
+        }
+      ]
+    },
+    "experiment_all_channels": {
+      "n_samples": 10581,
+      "mae": 8.584,
+      "rmse": 12.037,
+      "r2": 0.8321,
+      "median_ae": 6.2,
+      "mean_bias": -1.262,
+      "regression_slope": 0.8299,
+      "max_predicted_vmax": 161.9,
+      "mae_gte_110": 13.86,
+      "bias_gte_110": -11.79,
+      "mae_gte_130": 14.28,
+      "bias_gte_130": -13.04,
+      "binned_metrics": [
+        {
+          "bin_name": "< 34 kt (TD)",
+          "count": 3868,
+          "pct": 36.56,
+          "mae": 5.81,
+          "rmse": 7.86,
+          "bias": 3.81,
+          "slope": 0.576
+        },
+        {
+          "bin_name": "34-47 kt (TS)",
+          "count": 2228,
+          "pct": 21.06,
+          "mae": 6.59,
+          "rmse": 8.42,
+          "bias": -0.32,
+          "slope": 0.725
+        },
+        {
+          "bin_name": "48-63 kt (STS)",
+          "count": 1637,
+          "pct": 15.47,
+          "mae": 9.63,
+          "rmse": 12.17,
+          "bias": -2.84,
+          "slope": 0.992
+        },
+        {
+          "bin_name": "64-82 kt (Cat 1)",
+          "count": 1155,
+          "pct": 10.92,
+          "mae": 11.91,
+          "rmse": 14.87,
+          "bias": -4.5,
+          "slope": 1.173
+        },
+        {
+          "bin_name": "83-95 kt (Cat 2)",
+          "count": 562,
+          "pct": 5.31,
+          "mae": 13.92,
+          "rmse": 17.8,
+          "bias": -7.31,
+          "slope": 0.41
+        },
+        {
+          "bin_name": "96-112 kt (Cat 3)",
+          "count": 507,
+          "pct": 4.79,
+          "mae": 14.84,
+          "rmse": 20.51,
+          "bias": -11.28,
+          "slope": 1.3
+        },
+        {
+          "bin_name": "113-136 kt (Cat 4)",
+          "count": 521,
+          "pct": 4.92,
+          "mae": 14.64,
+          "rmse": 20.81,
+          "bias": -12.69,
+          "slope": 0.632
+        },
+        {
+          "bin_name": "\u2265 137 kt (Cat 5)",
+          "count": 103,
+          "pct": 0.97,
+          "mae": 11.54,
+          "rmse": 14.37,
+          "bias": -10.43,
+          "slope": 1.089
+        }
+      ]
+    }
+  },
+  "historical_baselines": {
+    "Baseline (CPAC/IO/SH)": {
+      "mae": 8.95496654510498,
+      "rmse": 12.00126069122369,
+      "r2": 0.8054264783859253,
+      "median_ae": 6.578125,
+      "mean_bias": 0.41001713275909424,
+      "max_ae": 63.65625,
+      "n_samples": 3173
+    },
+    "All-Basin IR1 (Expanded)": {
+      "mae": 8.624993324279785,
+      "rmse": 11.898417622480114,
+      "r2": 0.8359012603759766,
+      "median_ae": 6.3125,
+      "mean_bias": -0.618646502494812,
+      "max_ae": 82.0,
+      "n_samples": 10581
+    },
+    "IO Natural (Baseline)": {
+      "mae": 11.342901229858398,
+      "rmse": 14.970271851460835,
+      "r2": 0.31716853380203247,
+      "median_ae": 8.9296875,
+      "mean_bias": -9.502693176269531,
+      "max_ae": 58.96875,
+      "n_samples": 322
+    },
+    "IO Balanced (Study)": {
+      "mae": 19.870681762695312,
+      "rmse": 22.855075851711803,
+      "r2": -0.5915470123291016,
+      "median_ae": 17.1640625,
+      "mean_bias": -19.81400489807129,
+      "max_ae": 70.375,
+      "n_samples": 322
+    }
+  },
+  "bootstrap_significance": {
+    "n_bootstraps": 1000,
+    "n_test_cyclones": 193,
+    "delta_mae_mean": -0.051,
+    "delta_mae_95_ci": [
+      -0.233,
+      0.135
+    ],
+    "p_value_mae_improvement": 0.606,
+    "delta_rmse_mean": 0.076,
+    "delta_rmse_95_ci": [
+      -0.281,
+      0.397
+    ],
+    "delta_r2_mean": -0.0022,
+    "delta_r2_95_ci": [
+      -0.011,
+      0.008
+    ],
+    "delta_mae_gte_110_mean": 0.258,
+    "delta_mae_gte_110_95_ci": [
+      -0.64,
+      1.199
+    ],
+    "delta_slope_mean": -0.0089,
+    "delta_slope_95_ci": [
+      -0.02,
+      0.002
+    ]
+  },
+  "indian_ocean_generalization": {
+    "cyclone_giri_201004I": {
+      "n_fixes": 35,
+      "peak_actual_kt": 135.0,
+      "ir_mae_kt": 8.3,
+      "ir_peak_kt": 113.33,
+      "multi_mae_kt": 9.75,
+      "multi_peak_kt": 115.23
+    },
+    "cyclone_madi_201306I": {
+      "n_fixes": 61,
+      "peak_actual_kt": 85.0,
+      "ir_mae_kt": 6.56,
+      "ir_peak_kt": 100.22,
+      "multi_mae_kt": 7.87,
+      "multi_peak_kt": 94.6
+    }
+  }
+}

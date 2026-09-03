@@ -1,0 +1,176 @@
+{
+  "internal_overall_mae": 8.95,
+  "external_overall_mae": 34.04,
+  "internal_samples": 3173,
+  "external_samples": 11,
+  "regime_breakdown": [
+    {
+      "regime": "<60 kt",
+      "lower_kt": 0.0,
+      "upper_kt": 60.0,
+      "internal_samples": 2383,
+      "internal_mae": 7.88,
+      "internal_rmse": 10.61,
+      "internal_bias": 2.2,
+      "external_samples": 1,
+      "external_mae": 12.5,
+      "external_rmse": 12.5,
+      "external_bias": 12.5,
+      "mae_difference": 4.62
+    },
+    {
+      "regime": "60\u2013100 kt",
+      "lower_kt": 60.0,
+      "upper_kt": 100.0,
+      "internal_samples": 530,
+      "internal_mae": 11.73,
+      "internal_rmse": 14.37,
+      "internal_bias": -2.92,
+      "external_samples": 1,
+      "external_mae": 1.76,
+      "external_rmse": 1.76,
+      "external_bias": -1.76,
+      "mae_difference": -9.97
+    },
+    {
+      "regime": "100\u2013130 kt",
+      "lower_kt": 100.0,
+      "upper_kt": 130.0,
+      "internal_samples": 215,
+      "internal_mae": 13.03,
+      "internal_rmse": 17.23,
+      "internal_bias": -8.56,
+      "external_samples": 3,
+      "external_mae": 16.51,
+      "external_rmse": 16.74,
+      "external_bias": -16.51,
+      "mae_difference": 3.49
+    },
+    {
+      "regime": "> 130 kt",
+      "lower_kt": 130.0,
+      "upper_kt": null,
+      "internal_samples": 45,
+      "internal_mae": 13.96,
+      "internal_rmse": 18.71,
+      "internal_bias": -12.44,
+      "external_samples": 6,
+      "external_mae": 51.77,
+      "external_rmse": 52.62,
+      "external_bias": -51.77,
+      "mae_difference": 37.81
+    }
+  ],
+  "external_cyclones_evaluated": [
+    {
+      "name": "Hurricane Katrina (Stage 1 - Tropical Storm)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 50.0,
+      "predicted": 62.49613952636719,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": 12.496139526367188,
+      "abs_error": 12.496139526367188,
+      "regime": "<60 kt"
+    },
+    {
+      "name": "Hurricane Katrina (Stage 2 - Category 1)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 70.0,
+      "predicted": 68.23863983154297,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -1.7613601684570312,
+      "abs_error": 1.7613601684570312,
+      "regime": "60\u2013100 kt"
+    },
+    {
+      "name": "Hurricane Katrina (Stage 3 - Category 3)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 100.0,
+      "predicted": 87.28326416015625,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -12.71673583984375,
+      "abs_error": 12.71673583984375,
+      "regime": "100\u2013130 kt"
+    },
+    {
+      "name": "Hurricane Katrina (Stage 4 - Category 5 Peak)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 145.0,
+      "predicted": 97.27623748779295,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -47.723762512207045,
+      "abs_error": 47.723762512207045,
+      "regime": "> 130 kt"
+    },
+    {
+      "name": "Hurricane Katrina (Stage 5 - Landfall)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 110.0,
+      "predicted": 92.20223236083984,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -17.797767639160156,
+      "abs_error": 17.797767639160156,
+      "regime": "100\u2013130 kt"
+    },
+    {
+      "name": "Hurricane Maria (Peak Cat 5)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 150.0,
+      "predicted": 99.2437973022461,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -50.756202697753906,
+      "abs_error": 50.756202697753906,
+      "regime": "> 130 kt"
+    },
+    {
+      "name": "Hurricane Dorian (Peak Cat 5)",
+      "basin": "Atlantic (ATLN)",
+      "actual": 160.0,
+      "predicted": 101.23657989501952,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -58.76342010498048,
+      "abs_error": 58.76342010498048,
+      "regime": "> 130 kt"
+    },
+    {
+      "name": "Super Typhoon Haiyan (Historic Peak)",
+      "basin": "West Pacific (WPAC)",
+      "actual": 170.0,
+      "predicted": 101.23174285888672,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -68.76825714111328,
+      "abs_error": 68.76825714111328,
+      "regime": "> 130 kt"
+    },
+    {
+      "name": "Super Typhoon Hagibis (Pinhole Eye)",
+      "basin": "West Pacific (WPAC)",
+      "actual": 140.0,
+      "predicted": 97.17652893066406,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -42.82347106933594,
+      "abs_error": 42.82347106933594,
+      "regime": "> 130 kt"
+    },
+    {
+      "name": "Super Cyclone Amphan (Peak Super Cyclone)",
+      "basin": "North Indian Ocean (IO)",
+      "actual": 140.0,
+      "predicted": 98.22663879394533,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -41.77336120605467,
+      "abs_error": 41.77336120605467,
+      "regime": "> 130 kt"
+    },
+    {
+      "name": "Intense Cyclone Idai (Peak Mozambique Channel)",
+      "basin": "South Indian Ocean (SH)",
+      "actual": 105.0,
+      "predicted": 85.97158813476562,
+      "dataset_type": "External Cross-Basin Benchmark",
+      "error": -19.028411865234375,
+      "abs_error": 19.028411865234375,
+      "regime": "100\u2013130 kt"
+    }
+  ]
+}

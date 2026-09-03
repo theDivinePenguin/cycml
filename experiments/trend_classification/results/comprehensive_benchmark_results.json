@@ -1,0 +1,688 @@
+{
+  "dataset_summary": {
+    "n_test_sequences": 8279,
+    "n_unseen_cyclones": 191,
+    "ri_prevalence": 0.0682,
+    "class_distribution": {
+      "WEAKENING": 2380,
+      "STABLE": 3391,
+      "INTENSIFYING": 2508,
+      "RI_EVENTS": 565
+    }
+  },
+  "models": {
+    "Baseline A (Persistence)": {
+      "trend_metrics": {
+        "accuracy": 0.4096,
+        "macro_f1": 0.1937,
+        "weighted_f1": 0.238,
+        "per_class": {
+          "WEAKENING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 2380
+          },
+          "STABLE": {
+            "precision": 0.4096,
+            "recall": 1.0,
+            "f1": 0.5811,
+            "support": 3391
+          },
+          "INTENSIFYING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 2508
+          }
+        },
+        "confusion_matrix": [
+          [
+            0,
+            2380,
+            0
+          ],
+          [
+            0,
+            3391,
+            0
+          ],
+          [
+            0,
+            2508,
+            0
+          ]
+        ],
+        "confusion_matrix_normalized": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ]
+      },
+      "ri_metrics": {
+        "prevalence": 0.0682,
+        "n_ri_events": 565,
+        "n_total": 8279,
+        "roc_auc": 0.5,
+        "pr_auc": 0.0682,
+        "brier_score": 0.0682,
+        "ece": 0.0682,
+        "precision_at_0.50": 0.0,
+        "recall_at_0.50": 0.0,
+        "f1_at_0.50": 0.0,
+        "optimal_threshold": 0.0,
+        "optimal_f1": 0.1278,
+        "optimal_precision": 0.0682,
+        "optimal_recall": 1.0,
+        "confusion_matrix": [
+          [
+            7714,
+            0
+          ],
+          [
+            565,
+            0
+          ]
+        ],
+        "calibration_bins": {
+          "accuracies": [
+            0.06824495712042518,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "confidences": [
+            0.0,
+            0.15000000000000002,
+            0.25,
+            0.35000000000000003,
+            0.45,
+            0.55,
+            0.6500000000000001,
+            0.75,
+            0.8500000000000001,
+            0.95
+          ],
+          "counts": [
+            8279,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "bootstrap_ci": {
+        "trend_accuracy": {
+          "mean": 0.4108,
+          "ci95_low": 0.3678,
+          "ci95_high": 0.4553
+        },
+        "trend_macro_f1": {
+          "mean": 0.194,
+          "ci95_low": 0.1793,
+          "ci95_high": 0.2086
+        },
+        "ri_pr_auc": {
+          "mean": 0.0682,
+          "ci95_low": 0.0544,
+          "ci95_high": 0.0828
+        },
+        "ri_roc_auc": {
+          "mean": 0.5,
+          "ci95_low": 0.5,
+          "ci95_high": 0.5
+        },
+        "ri_f1": {
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0
+        }
+      }
+    },
+    "Baseline B (Recent 6h Trend)": {
+      "trend_metrics": {
+        "accuracy": 0.5749,
+        "macro_f1": 0.575,
+        "weighted_f1": 0.5744,
+        "per_class": {
+          "WEAKENING": {
+            "precision": 0.6438,
+            "recall": 0.5013,
+            "f1": 0.5637,
+            "support": 2380
+          },
+          "STABLE": {
+            "precision": 0.5463,
+            "recall": 0.5916,
+            "f1": 0.568,
+            "support": 3391
+          },
+          "INTENSIFYING": {
+            "precision": 0.5668,
+            "recall": 0.6224,
+            "f1": 0.5933,
+            "support": 2508
+          }
+        },
+        "confusion_matrix": [
+          [
+            1193,
+            792,
+            395
+          ],
+          [
+            587,
+            2006,
+            798
+          ],
+          [
+            73,
+            874,
+            1561
+          ]
+        ],
+        "confusion_matrix_normalized": [
+          [
+            0.5013,
+            0.3328,
+            0.166
+          ],
+          [
+            0.1731,
+            0.5916,
+            0.2353
+          ],
+          [
+            0.0291,
+            0.3485,
+            0.6224
+          ]
+        ]
+      },
+      "ri_metrics": {
+        "prevalence": 0.0682,
+        "n_ri_events": 565,
+        "n_total": 8279,
+        "roc_auc": 0.8146,
+        "pr_auc": 0.2033,
+        "brier_score": 0.0865,
+        "ece": 0.088,
+        "precision_at_0.50": 0.27,
+        "recall_at_0.50": 0.3522,
+        "f1_at_0.50": 0.3057,
+        "optimal_threshold": 0.4502,
+        "optimal_f1": 0.3324,
+        "optimal_precision": 0.2745,
+        "optimal_recall": 0.4212,
+        "confusion_matrix": [
+          [
+            7176,
+            538
+          ],
+          [
+            366,
+            199
+          ]
+        ],
+        "calibration_bins": {
+          "accuracies": [
+            0.019004524886877826,
+            0.06192660550458716,
+            0.135343618513324,
+            0.08,
+            0.3,
+            0.20430107526881722,
+            0.0,
+            0.2830687830687831,
+            0.3888888888888889,
+            0.2661290322580645
+          ],
+          "confidences": [
+            0.03575186087879328,
+            0.14583023105362738,
+            0.26894142136999516,
+            0.35434369377420455,
+            0.4501660026875221,
+            0.5498339973124777,
+            0.6500000000000001,
+            0.731058578630005,
+            0.8581489350995123,
+            0.9622773873319492
+          ],
+          "counts": [
+            5525,
+            436,
+            1426,
+            25,
+            130,
+            93,
+            0,
+            378,
+            18,
+            248
+          ]
+        }
+      },
+      "bootstrap_ci": {
+        "trend_accuracy": {
+          "mean": 0.5756,
+          "ci95_low": 0.5574,
+          "ci95_high": 0.5955
+        },
+        "trend_macro_f1": {
+          "mean": 0.5749,
+          "ci95_low": 0.5577,
+          "ci95_high": 0.5931
+        },
+        "ri_pr_auc": {
+          "mean": 0.2035,
+          "ci95_low": 0.1676,
+          "ci95_high": 0.2391
+        },
+        "ri_roc_auc": {
+          "mean": 0.8141,
+          "ci95_low": 0.7888,
+          "ci95_high": 0.8391
+        },
+        "ri_f1": {
+          "mean": 0.3044,
+          "ci95_low": 0.2555,
+          "ci95_high": 0.3514
+        }
+      }
+    },
+    "Baseline C (Thresholded Continuous Forecaster)": {
+      "trend_metrics": {
+        "accuracy": 0.6097,
+        "macro_f1": 0.6117,
+        "weighted_f1": 0.6096,
+        "per_class": {
+          "WEAKENING": {
+            "precision": 0.685,
+            "recall": 0.6433,
+            "f1": 0.6635,
+            "support": 2380
+          },
+          "STABLE": {
+            "precision": 0.5548,
+            "recall": 0.6511,
+            "f1": 0.5991,
+            "support": 3391
+          },
+          "INTENSIFYING": {
+            "precision": 0.6342,
+            "recall": 0.5219,
+            "f1": 0.5726,
+            "support": 2508
+          }
+        },
+        "confusion_matrix": [
+          [
+            1531,
+            750,
+            99
+          ],
+          [
+            527,
+            2208,
+            656
+          ],
+          [
+            177,
+            1022,
+            1309
+          ]
+        ],
+        "confusion_matrix_normalized": [
+          [
+            0.6433,
+            0.3151,
+            0.0416
+          ],
+          [
+            0.1554,
+            0.6511,
+            0.1935
+          ],
+          [
+            0.0706,
+            0.4075,
+            0.5219
+          ]
+        ]
+      },
+      "ri_metrics": {
+        "prevalence": 0.0682,
+        "n_ri_events": 565,
+        "n_total": 8279,
+        "roc_auc": 0.7899,
+        "pr_auc": 0.3086,
+        "brier_score": 0.0574,
+        "ece": 0.0243,
+        "precision_at_0.50": 0.4324,
+        "recall_at_0.50": 0.1982,
+        "f1_at_0.50": 0.2718,
+        "optimal_threshold": 0.2613,
+        "optimal_f1": 0.3897,
+        "optimal_precision": 0.3666,
+        "optimal_recall": 0.4159,
+        "confusion_matrix": [
+          [
+            7567,
+            147
+          ],
+          [
+            453,
+            112
+          ]
+        ],
+        "calibration_bins": {
+          "accuracies": [
+            0.03344937187831088,
+            0.09553349875930521,
+            0.18484848484848485,
+            0.30994152046783624,
+            0.3867924528301887,
+            0.32954545454545453,
+            0.3793103448275862,
+            0.45454545454545453,
+            0.5111111111111111,
+            0.75
+          ],
+          "confidences": [
+            0.023362803073382687,
+            0.13934363354085216,
+            0.243322068831936,
+            0.3471497538540057,
+            0.4448468200802006,
+            0.5508048818430124,
+            0.6440601571306183,
+            0.7557194507599436,
+            0.8388810212163929,
+            0.9389251274897156
+          ],
+          "counts": [
+            6607,
+            806,
+            330,
+            171,
+            106,
+            88,
+            58,
+            44,
+            45,
+            24
+          ]
+        }
+      },
+      "bootstrap_ci": {
+        "trend_accuracy": {
+          "mean": 0.6105,
+          "ci95_low": 0.5869,
+          "ci95_high": 0.6346
+        },
+        "trend_macro_f1": {
+          "mean": 0.6118,
+          "ci95_low": 0.587,
+          "ci95_high": 0.6355
+        },
+        "ri_pr_auc": {
+          "mean": 0.3084,
+          "ci95_low": 0.2241,
+          "ci95_high": 0.4018
+        },
+        "ri_roc_auc": {
+          "mean": 0.7898,
+          "ci95_low": 0.7426,
+          "ci95_high": 0.8312
+        },
+        "ri_f1": {
+          "mean": 0.269,
+          "ci95_low": 0.1867,
+          "ci95_high": 0.356
+        }
+      }
+    },
+    "TemporalClassifier (Multi-Task)": {
+      "optimal_threshold": 0.1409,
+      "trend_metrics": {
+        "accuracy": 0.6353,
+        "macro_f1": 0.6367,
+        "weighted_f1": 0.6308,
+        "per_class": {
+          "WEAKENING": {
+            "precision": 0.5898,
+            "recall": 0.7903,
+            "f1": 0.6755,
+            "support": 2380
+          },
+          "STABLE": {
+            "precision": 0.689,
+            "recall": 0.5122,
+            "f1": 0.5876,
+            "support": 3391
+          },
+          "INTENSIFYING": {
+            "precision": 0.6392,
+            "recall": 0.6547,
+            "f1": 0.6468,
+            "support": 2508
+          }
+        },
+        "confusion_matrix": [
+          [
+            1881,
+            316,
+            183
+          ],
+          [
+            910,
+            1737,
+            744
+          ],
+          [
+            398,
+            468,
+            1642
+          ]
+        ],
+        "confusion_matrix_normalized": [
+          [
+            0.7903,
+            0.1328,
+            0.0769
+          ],
+          [
+            0.2684,
+            0.5122,
+            0.2194
+          ],
+          [
+            0.1587,
+            0.1866,
+            0.6547
+          ]
+        ]
+      },
+      "ri_metrics": {
+        "prevalence": 0.0682,
+        "n_ri_events": 565,
+        "n_total": 8279,
+        "roc_auc": 0.8687,
+        "pr_auc": 0.369,
+        "brier_score": 0.0693,
+        "ece": 0.055,
+        "precision_at_0.14": 0.3038,
+        "recall_at_0.14": 0.6372,
+        "f1_at_0.14": 0.4114,
+        "optimal_threshold": 0.3728,
+        "optimal_f1": 0.4294,
+        "optimal_precision": 0.37,
+        "optimal_recall": 0.5115,
+        "confusion_matrix": [
+          [
+            6889,
+            825
+          ],
+          [
+            205,
+            360
+          ]
+        ],
+        "calibration_bins": {
+          "accuracies": [
+            0.026887131560028758,
+            0.136986301369863,
+            0.2147239263803681,
+            0.18181818181818182,
+            0.32954545454545453,
+            0.22784810126582278,
+            0.2876712328767123,
+            0.3333333333333333,
+            0.38571428571428573,
+            0.4532871972318339
+          ],
+          "confidences": [
+            0.010046475136035514,
+            0.1447904404520548,
+            0.24643225116564416,
+            0.3451282845454545,
+            0.44748757193181815,
+            0.5476908635443036,
+            0.6463037791780822,
+            0.7544216592222222,
+            0.8542689710714285,
+            0.9638587398961938
+          ],
+          "counts": [
+            6955,
+            292,
+            163,
+            110,
+            88,
+            79,
+            73,
+            90,
+            140,
+            289
+          ]
+        }
+      },
+      "stratified": {
+        "weakening_events": {
+          "n_samples": 2380,
+          "trend_accuracy": 0.7903,
+          "mean_ri_prob": 0.0241
+        },
+        "stable_events": {
+          "n_samples": 3391,
+          "trend_accuracy": 0.5122,
+          "mean_ri_prob": 0.0407
+        },
+        "intensifying_events": {
+          "n_samples": 2508,
+          "trend_accuracy": 0.6547,
+          "mean_ri_prob": 0.2356
+        },
+        "ri_events": {
+          "n_samples": 565,
+          "trend_accuracy": 0.7805,
+          "mean_ri_prob": 0.4589,
+          "ri_detection_rate": 0.6372
+        },
+        "non_ri_events": {
+          "n_samples": 7714,
+          "trend_accuracy": 0.6247,
+          "mean_ri_prob": 0.0683,
+          "ri_detection_rate": 0.1069
+        },
+        "intensity_regimes": {
+          "Tropical Depression / Storm (< 64 kt)": {
+            "n_samples": 5532,
+            "trend_accuracy": 0.6282,
+            "trend_macro_f1": 0.6102,
+            "ri_prevalence": 0.0544,
+            "ri_pr_auc": 0.2942,
+            "ri_roc_auc": 0.8495,
+            "ri_f1": 0.3568,
+            "ri_recall": 0.5648,
+            "ri_precision": 0.2607
+          },
+          "Category 1-2 Hurricane/Typhoon (64-95 kt)": {
+            "n_samples": 1622,
+            "trend_accuracy": 0.6615,
+            "trend_macro_f1": 0.5244,
+            "ri_prevalence": 0.143,
+            "ri_pr_auc": 0.5163,
+            "ri_roc_auc": 0.8788,
+            "ri_f1": 0.5391,
+            "ri_recall": 0.7586,
+            "ri_precision": 0.4181
+          },
+          "Category 3+ Major Hurricane/Typhoon (>= 96 kt)": {
+            "n_samples": 1125,
+            "trend_accuracy": 0.6329,
+            "trend_macro_f1": 0.3974,
+            "ri_prevalence": 0.0284,
+            "ri_pr_auc": 0.137,
+            "ri_roc_auc": 0.824,
+            "ri_f1": 0.1944,
+            "ri_recall": 0.4375,
+            "ri_precision": 0.125
+          }
+        }
+      },
+      "bootstrap_ci": {
+        "trend_accuracy": {
+          "mean": 0.6358,
+          "ci95_low": 0.6137,
+          "ci95_high": 0.6591
+        },
+        "trend_macro_f1": {
+          "mean": 0.6364,
+          "ci95_low": 0.6142,
+          "ci95_high": 0.6603
+        },
+        "ri_pr_auc": {
+          "mean": 0.3727,
+          "ci95_low": 0.2885,
+          "ci95_high": 0.4501
+        },
+        "ri_roc_auc": {
+          "mean": 0.8688,
+          "ci95_low": 0.8414,
+          "ci95_high": 0.894
+        },
+        "ri_f1": {
+          "mean": 0.4105,
+          "ci95_low": 0.3492,
+          "ci95_high": 0.4668
+        }
+      }
+    }
+  }
+}

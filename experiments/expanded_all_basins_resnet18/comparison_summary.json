@@ -1,0 +1,98 @@
+{
+  "summary": {
+    "baseline_mae": 8.95,
+    "expanded_mae": 8.63,
+    "delta_mae": -0.33,
+    "baseline_rmse": 12.0,
+    "expanded_rmse": 11.9,
+    "baseline_slope": 0.846,
+    "expanded_slope": 0.866,
+    "delta_slope": 0.02,
+    "baseline_bias_high_ge_110kt": -10.83,
+    "expanded_bias_high_ge_110kt": -9.46,
+    "baseline_max_predicted": 145.9,
+    "expanded_max_predicted": 162.1
+  },
+  "bins": [
+    {
+      "bin": "15\u201330 kt",
+      "baseline_samples": 744,
+      "baseline_mae": 6.81,
+      "baseline_bias": 6.11,
+      "expanded_samples": 2343,
+      "expanded_mae": 5.85,
+      "expanded_bias": 4.3,
+      "delta_mae": -0.97
+    },
+    {
+      "bin": "30\u201350 kt",
+      "baseline_samples": 1328,
+      "baseline_mae": 7.64,
+      "baseline_bias": 1.08,
+      "expanded_samples": 3894,
+      "expanded_mae": 6.96,
+      "expanded_bias": 0.74,
+      "delta_mae": -0.69
+    },
+    {
+      "bin": "50\u201370 kt",
+      "baseline_samples": 501,
+      "baseline_mae": 11.34,
+      "baseline_bias": -2.34,
+      "expanded_samples": 1925,
+      "expanded_mae": 10.61,
+      "expanded_bias": -2.46,
+      "delta_mae": -0.73
+    },
+    {
+      "bin": "70\u201390 kt",
+      "baseline_samples": 241,
+      "baseline_mae": 11.91,
+      "baseline_bias": -3.49,
+      "expanded_samples": 943,
+      "expanded_mae": 12.19,
+      "expanded_bias": -2.45,
+      "delta_mae": 0.28
+    },
+    {
+      "bin": "90\u2013110 kt",
+      "baseline_samples": 213,
+      "baseline_mae": 12.68,
+      "baseline_bias": -5.11,
+      "expanded_samples": 751,
+      "expanded_mae": 12.83,
+      "expanded_bias": -7.44,
+      "delta_mae": 0.16
+    },
+    {
+      "bin": "110\u2013130 kt",
+      "baseline_samples": 101,
+      "baseline_mae": 12.99,
+      "baseline_bias": -10.12,
+      "expanded_samples": 530,
+      "expanded_mae": 12.05,
+      "expanded_bias": -9.01,
+      "delta_mae": -0.94
+    },
+    {
+      "bin": "130\u2013150 kt",
+      "baseline_samples": 45,
+      "baseline_mae": 13.96,
+      "baseline_bias": -12.44,
+      "expanded_samples": 169,
+      "expanded_mae": 13.12,
+      "expanded_bias": -10.9,
+      "delta_mae": -0.84
+    },
+    {
+      "bin": "> 150 kt",
+      "baseline_samples": 0,
+      "baseline_mae": 0.0,
+      "baseline_bias": 0.0,
+      "expanded_samples": 26,
+      "expanded_mae": 11.7,
+      "expanded_bias": -9.3,
+      "delta_mae": 0.0
+    }
+  ]
+}

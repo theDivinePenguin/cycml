@@ -1,0 +1,250 @@
+{
+  "held_out_test_set": {
+    "samples": 322,
+    "cyclones": 10
+  },
+  "models_summary": {
+    "IO Natural (A)": {
+      "n_samples": 322,
+      "n_cyclones": 10,
+      "mae": 11.34,
+      "rmse": 14.97,
+      "r2": 0.317,
+      "bias": -9.51,
+      "median_ae": 8.98,
+      "slope": 0.628,
+      "intercept": 4.89,
+      "max_predicted": 86.52,
+      "max_actual": 135.0,
+      "mean_cyclone_mae": 11.08,
+      "median_cyclone_mae": 8.31,
+      "high_cyclone_mae": 23.92,
+      "best_cyclone": [
+        "201104I",
+        5.510016225999402
+      ],
+      "worst_cyclone": [
+        "201004I",
+        23.91941637311663
+      ],
+      "mae_ge_110kt": 51.31,
+      "bias_ge_110kt": -51.31,
+      "mae_ge_130kt": 49.37,
+      "bias_ge_130kt": -49.37,
+      "n_ge_110kt": 3,
+      "n_ge_130kt": 2
+    },
+    "IO Balanced (B)": {
+      "n_samples": 322,
+      "n_cyclones": 10,
+      "mae": 19.87,
+      "rmse": 22.86,
+      "r2": -0.5916,
+      "bias": -19.82,
+      "median_ae": 17.17,
+      "slope": 0.588,
+      "intercept": -3.88,
+      "max_predicted": 72.26,
+      "max_actual": 135.0,
+      "mean_cyclone_mae": 19.34,
+      "median_cyclone_mae": 17.33,
+      "high_cyclone_mae": 32.77,
+      "best_cyclone": [
+        "201104I",
+        12.670015396610383
+      ],
+      "worst_cyclone": [
+        "201004I",
+        32.77317594800677
+      ],
+      "mae_ge_110kt": 64.67,
+      "bias_ge_110kt": -64.67,
+      "mae_ge_130kt": 64.1,
+      "bias_ge_130kt": -64.1,
+      "n_ge_110kt": 3,
+      "n_ge_130kt": 2
+    },
+    "Original Baseline": {
+      "n_samples": 322,
+      "n_cyclones": 10,
+      "mae": 7.79,
+      "rmse": 10.07,
+      "r2": 0.6908,
+      "bias": 1.23,
+      "median_ae": 6.33,
+      "slope": 0.776,
+      "intercept": 9.9,
+      "max_predicted": 118.32,
+      "max_actual": 135.0,
+      "mean_cyclone_mae": 7.73,
+      "median_cyclone_mae": 6.76,
+      "high_cyclone_mae": 9.74,
+      "best_cyclone": [
+        "200904I",
+        5.338878295000861
+      ],
+      "worst_cyclone": [
+        "200603I",
+        11.297365097772508
+      ],
+      "mae_ge_110kt": 14.11,
+      "bias_ge_110kt": -14.11,
+      "mae_ge_130kt": 17.82,
+      "bias_ge_130kt": -17.82,
+      "n_ge_110kt": 3,
+      "n_ge_130kt": 2
+    },
+    "All-Basin Model": {
+      "n_samples": 322,
+      "n_cyclones": 10,
+      "mae": 6.39,
+      "rmse": 8.42,
+      "r2": 0.784,
+      "bias": 1.76,
+      "median_ae": 4.93,
+      "slope": 0.874,
+      "intercept": 6.62,
+      "max_predicted": 111.91,
+      "max_actual": 135.0,
+      "mean_cyclone_mae": 6.54,
+      "median_cyclone_mae": 6.88,
+      "high_cyclone_mae": 7.09,
+      "best_cyclone": [
+        "201401I",
+        2.7855782402886287
+      ],
+      "worst_cyclone": [
+        "200603I",
+        9.67166246686663
+      ],
+      "mae_ge_110kt": 20.61,
+      "bias_ge_110kt": -20.61,
+      "mae_ge_130kt": 22.18,
+      "bias_ge_130kt": -22.18,
+      "n_ge_110kt": 3,
+      "n_ge_130kt": 2
+    }
+  },
+  "bootstrap": {
+    "n_bootstrap": 1000,
+    "n_cyclones": 10,
+    "delta_mae_overall": {
+      "mean": 8.49,
+      "ci_lower": 7.53,
+      "ci_upper": 9.32,
+      "p_improvement": 0.0
+    },
+    "delta_rmse_overall": {
+      "mean": 7.92,
+      "ci_lower": 7.18,
+      "ci_upper": 8.55,
+      "p_improvement": 0.0
+    },
+    "delta_slope": {
+      "mean": -0.05,
+      "ci_lower": -0.13,
+      "ci_upper": -0.01,
+      "p_improvement": 0.997
+    },
+    "delta_mae_ge_110kt": {
+      "mean": 13.36,
+      "ci_lower": 13.36,
+      "ci_upper": 13.36,
+      "p_improvement": 0.0
+    },
+    "delta_bias_ge_110kt": {
+      "mean": -13.36,
+      "ci_lower": -13.36,
+      "ci_upper": -13.36,
+      "p_improvement": 1.0
+    },
+    "delta_mae_ge_130kt": {
+      "mean": 14.73,
+      "ci_lower": 14.73,
+      "ci_upper": 14.73,
+      "p_improvement": 0.0
+    }
+  },
+  "bin_comparison": [
+    {
+      "bin": "15\u201330 kt",
+      "samples": 105,
+      "nat_mae": 5.96,
+      "nat_bias": -4.03,
+      "bal_mae": 13.1,
+      "bal_bias": -13.1,
+      "delta_mae": 7.13,
+      "tag": "ROBUST"
+    },
+    {
+      "bin": "30\u201350 kt",
+      "samples": 145,
+      "nat_mae": 11.44,
+      "nat_bias": -9.5,
+      "bal_mae": 20.65,
+      "bal_bias": -20.52,
+      "delta_mae": 9.21,
+      "tag": "ROBUST"
+    },
+    {
+      "bin": "50\u201370 kt",
+      "samples": 57,
+      "nat_mae": 14.86,
+      "nat_bias": -13.0,
+      "bal_mae": 23.19,
+      "bal_bias": -23.19,
+      "delta_mae": 8.33,
+      "tag": "ROBUST"
+    },
+    {
+      "bin": "70\u201390 kt",
+      "samples": 9,
+      "nat_mae": 27.05,
+      "nat_bias": -27.05,
+      "bal_mae": 38.07,
+      "bal_bias": -38.07,
+      "delta_mae": 11.02,
+      "tag": "LOW-CONFIDENCE (EXPLORATORY)"
+    },
+    {
+      "bin": "90\u2013110 kt",
+      "samples": 3,
+      "nat_mae": 41.26,
+      "nat_bias": -41.26,
+      "bal_mae": 57.12,
+      "bal_bias": -57.12,
+      "delta_mae": 15.86,
+      "tag": "LOW-CONFIDENCE (EXPLORATORY)"
+    },
+    {
+      "bin": "110\u2013130 kt",
+      "samples": 1,
+      "nat_mae": 55.2,
+      "nat_bias": -55.2,
+      "bal_mae": 65.82,
+      "bal_bias": -65.82,
+      "delta_mae": 10.61,
+      "tag": "LOW-CONFIDENCE (EXPLORATORY)"
+    },
+    {
+      "bin": "130\u2013150 kt",
+      "samples": 2,
+      "nat_mae": 49.37,
+      "nat_bias": -49.37,
+      "bal_mae": 64.1,
+      "bal_bias": -64.1,
+      "delta_mae": 14.74,
+      "tag": "LOW-CONFIDENCE (EXPLORATORY)"
+    },
+    {
+      "bin": "> 150 kt",
+      "samples": 0,
+      "nat_mae": 0.0,
+      "nat_bias": 0.0,
+      "bal_mae": 0.0,
+      "bal_bias": 0.0,
+      "delta_mae": 0.0,
+      "tag": "NO SAMPLES"
+    }
+  ]
+}

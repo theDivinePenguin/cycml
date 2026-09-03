@@ -1,0 +1,28 @@
+{
+  "trend_accuracy": 0.6393,
+  "trend_macro_f1": 0.6445,
+  "ri_roc_auc": 0.8527,
+  "ri_pr_auc": 0.375,
+  "ri_f1_at_tau": 0.4068,
+  "ri_recall_at_tau": 0.6124,
+  "ri_precision_at_tau": 0.3046,
+  "ri_optimal_f1": 0.4292,
+  "ri_optimal_recall": 0.4584,
+  "ri_optimal_precision": 0.4034,
+  "ri_optimal_threshold": 0.1807,
+  "ri_threshold": 0.0228,
+  "confusion_matrix": [
+    [
+      6924,
+      790
+    ],
+    [
+      219,
+      346
+    ]
+  ],
+  "reg_mae_6h": 4.2372212409973145,
+  "reg_mae_12h": 6.289027690887451,
+  "reg_mae_24h": 10.423494338989258,
+  "reg_mae_mean": 6.983247756958008
+}

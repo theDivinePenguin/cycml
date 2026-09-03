@@ -1,0 +1,886 @@
+{
+  "multi_horizon_metrics": {
+    "Oracle Persistence": {
+      "+6h": {
+        "mae": 3.962,
+        "rmse": 6.086,
+        "r2": 0.9593,
+        "pearson_r": 0.9799,
+        "median_ae": 3.0,
+        "mean_bias": -0.499,
+        "n_samples": 8279,
+        "ci95": [
+          3.607,
+          4.299
+        ]
+      },
+      "+12h": {
+        "mae": 7.701,
+        "rmse": 11.109,
+        "r2": 0.8641,
+        "pearson_r": 0.9328,
+        "median_ae": 5.0,
+        "mean_bias": -0.708,
+        "n_samples": 8279,
+        "ci95": [
+          6.995,
+          8.319
+        ]
+      },
+      "+24h": {
+        "mae": 14.298,
+        "rmse": 19.699,
+        "r2": 0.5825,
+        "pearson_r": 0.7901,
+        "median_ae": 10.0,
+        "mean_bias": -0.268,
+        "n_samples": 8279,
+        "ci95": [
+          13.018,
+          15.654
+        ]
+      }
+    },
+    "Current-CNN Hold-Forward": {
+      "+6h": {
+        "mae": 12.47,
+        "rmse": 17.908,
+        "r2": 0.6476,
+        "pearson_r": 0.8561,
+        "median_ae": 8.537,
+        "mean_bias": -8.66,
+        "n_samples": 8279,
+        "ci95": [
+          11.265,
+          13.728
+        ]
+      },
+      "+12h": {
+        "mae": 13.566,
+        "rmse": 19.51,
+        "r2": 0.5809,
+        "pearson_r": 0.8171,
+        "median_ae": 9.175,
+        "mean_bias": -8.869,
+        "n_samples": 8279,
+        "ci95": [
+          12.375,
+          14.934
+        ]
+      },
+      "+24h": {
+        "mae": 16.864,
+        "rmse": 23.865,
+        "r2": 0.3872,
+        "pearson_r": 0.689,
+        "median_ae": 11.333,
+        "mean_bias": -8.429,
+        "n_samples": 8279,
+        "ci95": [
+          15.346,
+          18.484
+        ]
+      }
+    },
+    "CNN + GRU (K=5)": {
+      "+6h": {
+        "mae": 7.97,
+        "rmse": 10.856,
+        "r2": 0.8705,
+        "pearson_r": 0.9353,
+        "median_ae": 5.938,
+        "mean_bias": -1.804,
+        "n_samples": 8279,
+        "ci95": [
+          7.398,
+          8.529
+        ]
+      },
+      "+12h": {
+        "mae": 8.999,
+        "rmse": 12.45,
+        "r2": 0.8293,
+        "pearson_r": 0.9134,
+        "median_ae": 6.531,
+        "mean_bias": -2.016,
+        "n_samples": 8279,
+        "ci95": [
+          8.358,
+          9.727
+        ]
+      },
+      "+24h": {
+        "mae": 12.114,
+        "rmse": 16.861,
+        "r2": 0.6941,
+        "pearson_r": 0.8393,
+        "median_ae": 8.531,
+        "mean_bias": -3.08,
+        "n_samples": 8279,
+        "ci95": [
+          11.179,
+          13.011
+        ]
+      }
+    },
+    "CNN + Transformer (K=5)": {
+      "+6h": {
+        "mae": 7.738,
+        "rmse": 10.496,
+        "r2": 0.8789,
+        "pearson_r": 0.9386,
+        "median_ae": 5.875,
+        "mean_bias": -1.364,
+        "n_samples": 8279,
+        "ci95": [
+          7.255,
+          8.241
+        ]
+      },
+      "+12h": {
+        "mae": 8.71,
+        "rmse": 11.972,
+        "r2": 0.8422,
+        "pearson_r": 0.9191,
+        "median_ae": 6.438,
+        "mean_bias": -1.531,
+        "n_samples": 8279,
+        "ci95": [
+          8.137,
+          9.323
+        ]
+      },
+      "+24h": {
+        "mae": 11.563,
+        "rmse": 16.007,
+        "r2": 0.7243,
+        "pearson_r": 0.8533,
+        "median_ae": 8.312,
+        "mean_bias": -1.861,
+        "n_samples": 8279,
+        "ci95": [
+          10.783,
+          12.393
+        ]
+      }
+    },
+    "CNN + Transformer (K=1)": {
+      "+6h": {
+        "mae": 8.889,
+        "rmse": 11.909,
+        "r2": 0.8442,
+        "pearson_r": 0.9193,
+        "median_ae": 6.734,
+        "mean_bias": 0.817,
+        "n_samples": 8279,
+        "ci95": [
+          8.451,
+          9.356
+        ]
+      },
+      "+12h": {
+        "mae": 9.443,
+        "rmse": 12.677,
+        "r2": 0.823,
+        "pearson_r": 0.9073,
+        "median_ae": 7.109,
+        "mean_bias": 0.07,
+        "n_samples": 8279,
+        "ci95": [
+          8.928,
+          10.011
+        ]
+      },
+      "+24h": {
+        "mae": 12.006,
+        "rmse": 16.383,
+        "r2": 0.7112,
+        "pearson_r": 0.8469,
+        "median_ae": 8.75,
+        "mean_bias": -2.344,
+        "n_samples": 8279,
+        "ci95": [
+          11.214,
+          12.839
+        ]
+      }
+    }
+  },
+  "intensification_classification": {
+    "Oracle Persistence": {
+      "+6h": {
+        "accuracy": 0.8657,
+        "precision": 0.2886,
+        "recall": 0.3333,
+        "macro_f1": 0.3093,
+        "confusion_matrix": [
+          [
+            0,
+            486,
+            0
+          ],
+          [
+            0,
+            7167,
+            0
+          ],
+          [
+            0,
+            626,
+            0
+          ]
+        ],
+        "n_weakening": 486,
+        "n_stable": 7167,
+        "n_intensifying": 626
+      },
+      "+12h": {
+        "accuracy": 0.6379,
+        "precision": 0.2126,
+        "recall": 0.3333,
+        "macro_f1": 0.2596,
+        "confusion_matrix": [
+          [
+            0,
+            1329,
+            0
+          ],
+          [
+            0,
+            5281,
+            0
+          ],
+          [
+            0,
+            1669,
+            0
+          ]
+        ],
+        "n_weakening": 1329,
+        "n_stable": 5281,
+        "n_intensifying": 1669
+      },
+      "+24h": {
+        "accuracy": 0.4096,
+        "precision": 0.1365,
+        "recall": 0.3333,
+        "macro_f1": 0.1937,
+        "confusion_matrix": [
+          [
+            0,
+            2380,
+            0
+          ],
+          [
+            0,
+            3391,
+            0
+          ],
+          [
+            0,
+            2508,
+            0
+          ]
+        ],
+        "n_weakening": 2380,
+        "n_stable": 3391,
+        "n_intensifying": 2508
+      }
+    },
+    "Current-CNN Hold-Forward": {
+      "+6h": {
+        "accuracy": 0.5739,
+        "precision": 0.3698,
+        "recall": 0.4752,
+        "macro_f1": 0.3342,
+        "confusion_matrix": [
+          [
+            371,
+            110,
+            5
+          ],
+          [
+            2345,
+            4345,
+            477
+          ],
+          [
+            320,
+            271,
+            35
+          ]
+        ],
+        "n_weakening": 486,
+        "n_stable": 7167,
+        "n_intensifying": 626
+      },
+      "+12h": {
+        "accuracy": 0.5382,
+        "precision": 0.4127,
+        "recall": 0.462,
+        "macro_f1": 0.3993,
+        "confusion_matrix": [
+          [
+            882,
+            421,
+            26
+          ],
+          [
+            1438,
+            3463,
+            380
+          ],
+          [
+            716,
+            842,
+            111
+          ]
+        ],
+        "n_weakening": 1329,
+        "n_stable": 5281,
+        "n_intensifying": 1669
+      },
+      "+24h": {
+        "accuracy": 0.4752,
+        "precision": 0.441,
+        "recall": 0.4506,
+        "macro_f1": 0.4057,
+        "confusion_matrix": [
+          [
+            1371,
+            927,
+            82
+          ],
+          [
+            775,
+            2372,
+            244
+          ],
+          [
+            890,
+            1427,
+            191
+          ]
+        ],
+        "n_weakening": 2380,
+        "n_stable": 3391,
+        "n_intensifying": 2508
+      }
+    },
+    "CNN + GRU (K=5)": {
+      "+6h": {
+        "accuracy": 0.6788,
+        "precision": 0.4127,
+        "recall": 0.5113,
+        "macro_f1": 0.4236,
+        "confusion_matrix": [
+          [
+            267,
+            201,
+            18
+          ],
+          [
+            1107,
+            5190,
+            870
+          ],
+          [
+            94,
+            369,
+            163
+          ]
+        ],
+        "n_weakening": 486,
+        "n_stable": 7167,
+        "n_intensifying": 626
+      },
+      "+12h": {
+        "accuracy": 0.6126,
+        "precision": 0.5267,
+        "recall": 0.5437,
+        "macro_f1": 0.5312,
+        "confusion_matrix": [
+          [
+            775,
+            501,
+            53
+          ],
+          [
+            784,
+            3725,
+            772
+          ],
+          [
+            174,
+            923,
+            572
+          ]
+        ],
+        "n_weakening": 1329,
+        "n_stable": 5281,
+        "n_intensifying": 1669
+      },
+      "+24h": {
+        "accuracy": 0.6002,
+        "precision": 0.6073,
+        "recall": 0.5995,
+        "macro_f1": 0.6004,
+        "confusion_matrix": [
+          [
+            1648,
+            627,
+            105
+          ],
+          [
+            610,
+            2102,
+            679
+          ],
+          [
+            264,
+            1025,
+            1219
+          ]
+        ],
+        "n_weakening": 2380,
+        "n_stable": 3391,
+        "n_intensifying": 2508
+      }
+    },
+    "CNN + Transformer (K=5)": {
+      "+6h": {
+        "accuracy": 0.6968,
+        "precision": 0.4151,
+        "recall": 0.4989,
+        "macro_f1": 0.428,
+        "confusion_matrix": [
+          [
+            233,
+            238,
+            15
+          ],
+          [
+            989,
+            5368,
+            810
+          ],
+          [
+            86,
+            372,
+            168
+          ]
+        ],
+        "n_weakening": 486,
+        "n_stable": 7167,
+        "n_intensifying": 626
+      },
+      "+12h": {
+        "accuracy": 0.6227,
+        "precision": 0.5353,
+        "recall": 0.5361,
+        "macro_f1": 0.5319,
+        "confusion_matrix": [
+          [
+            720,
+            561,
+            48
+          ],
+          [
+            733,
+            3882,
+            666
+          ],
+          [
+            133,
+            983,
+            553
+          ]
+        ],
+        "n_weakening": 1329,
+        "n_stable": 5281,
+        "n_intensifying": 1669
+      },
+      "+24h": {
+        "accuracy": 0.6097,
+        "precision": 0.6247,
+        "recall": 0.6054,
+        "macro_f1": 0.6117,
+        "confusion_matrix": [
+          [
+            1531,
+            750,
+            99
+          ],
+          [
+            527,
+            2208,
+            656
+          ],
+          [
+            177,
+            1022,
+            1309
+          ]
+        ],
+        "n_weakening": 2380,
+        "n_stable": 3391,
+        "n_intensifying": 2508
+      }
+    },
+    "CNN + Transformer (K=1)": {
+      "+6h": {
+        "accuracy": 0.6361,
+        "precision": 0.4414,
+        "recall": 0.6085,
+        "macro_f1": 0.4541,
+        "confusion_matrix": [
+          [
+            327,
+            146,
+            13
+          ],
+          [
+            1029,
+            4621,
+            1517
+          ],
+          [
+            38,
+            270,
+            318
+          ]
+        ],
+        "n_weakening": 486,
+        "n_stable": 7167,
+        "n_intensifying": 626
+      },
+      "+12h": {
+        "accuracy": 0.6271,
+        "precision": 0.5635,
+        "recall": 0.6018,
+        "macro_f1": 0.5783,
+        "confusion_matrix": [
+          [
+            859,
+            421,
+            49
+          ],
+          [
+            731,
+            3507,
+            1043
+          ],
+          [
+            95,
+            748,
+            826
+          ]
+        ],
+        "n_weakening": 1329,
+        "n_stable": 5281,
+        "n_intensifying": 1669
+      },
+      "+24h": {
+        "accuracy": 0.6064,
+        "precision": 0.6155,
+        "recall": 0.6048,
+        "macro_f1": 0.6067,
+        "confusion_matrix": [
+          [
+            1650,
+            615,
+            115
+          ],
+          [
+            617,
+            2144,
+            630
+          ],
+          [
+            221,
+            1061,
+            1226
+          ]
+        ],
+        "n_weakening": 2380,
+        "n_stable": 3391,
+        "n_intensifying": 2508
+      }
+    }
+  },
+  "rapid_intensification": {
+    "Oracle Persistence": {
+      "accuracy": 0.9318,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "confusion_matrix": [
+        [
+          7714,
+          0
+        ],
+        [
+          565,
+          0
+        ]
+      ],
+      "n_ri_events": 565,
+      "n_non_ri": 7714
+    },
+    "Current-CNN Hold-Forward": {
+      "accuracy": 0.9322,
+      "precision": 0.8333,
+      "recall": 0.0088,
+      "f1": 0.0175,
+      "confusion_matrix": [
+        [
+          7713,
+          1
+        ],
+        [
+          560,
+          5
+        ]
+      ],
+      "n_ri_events": 565,
+      "n_non_ri": 7714
+    },
+    "CNN + GRU (K=5)": {
+      "accuracy": 0.9299,
+      "precision": 0.4586,
+      "recall": 0.1469,
+      "f1": 0.2225,
+      "confusion_matrix": [
+        [
+          7616,
+          98
+        ],
+        [
+          482,
+          83
+        ]
+      ],
+      "n_ri_events": 565,
+      "n_non_ri": 7714
+    },
+    "CNN + Transformer (K=5)": {
+      "accuracy": 0.9275,
+      "precision": 0.4324,
+      "recall": 0.1982,
+      "f1": 0.2718,
+      "confusion_matrix": [
+        [
+          7567,
+          147
+        ],
+        [
+          453,
+          112
+        ]
+      ],
+      "n_ri_events": 565,
+      "n_non_ri": 7714
+    },
+    "CNN + Transformer (K=1)": {
+      "accuracy": 0.9209,
+      "precision": 0.3764,
+      "recall": 0.2425,
+      "f1": 0.2949,
+      "confusion_matrix": [
+        [
+          7487,
+          227
+        ],
+        [
+          428,
+          137
+        ]
+      ],
+      "n_ri_events": 565,
+      "n_non_ri": 7714
+    }
+  },
+  "intensity_regimes": {
+    "<34 kt": {
+      "n_samples": 2292,
+      "mae_by_model": {
+        "Oracle Persistence": {
+          "+6h": 1.71,
+          "+12h": 3.51,
+          "+24h": 7.11
+        },
+        "Current-CNN Hold-Forward": {
+          "+6h": 4.97,
+          "+12h": 5.52,
+          "+24h": 7.84
+        },
+        "CNN + GRU (K=5)": {
+          "+6h": 5.52,
+          "+12h": 5.83,
+          "+24h": 7.03
+        },
+        "CNN + Transformer (K=5)": {
+          "+6h": 5.1,
+          "+12h": 5.43,
+          "+24h": 6.81
+        },
+        "CNN + Transformer (K=1)": {
+          "+6h": 6.87,
+          "+12h": 6.57,
+          "+24h": 6.94
+        }
+      }
+    },
+    "34-63 kt (TS)": {
+      "n_samples": 3240,
+      "mae_by_model": {
+        "Oracle Persistence": {
+          "+6h": 3.63,
+          "+12h": 7.11,
+          "+24h": 13.63
+        },
+        "Current-CNN Hold-Forward": {
+          "+6h": 10.02,
+          "+12h": 11.89,
+          "+24h": 16.61
+        },
+        "CNN + GRU (K=5)": {
+          "+6h": 6.98,
+          "+12h": 7.79,
+          "+24h": 11.27
+        },
+        "CNN + Transformer (K=5)": {
+          "+6h": 7.24,
+          "+12h": 8.02,
+          "+24h": 11.32
+        },
+        "CNN + Transformer (K=1)": {
+          "+6h": 8.34,
+          "+12h": 8.96,
+          "+24h": 11.95
+        }
+      }
+    },
+    "64-82 kt (Cat 1)": {
+      "n_samples": 1073,
+      "mae_by_model": {
+        "Oracle Persistence": {
+          "+6h": 5.87,
+          "+12h": 11.5,
+          "+24h": 20.12
+        },
+        "Current-CNN Hold-Forward": {
+          "+6h": 18.64,
+          "+12h": 20.67,
+          "+24h": 24.6
+        },
+        "CNN + GRU (K=5)": {
+          "+6h": 9.6,
+          "+12h": 11.74,
+          "+24h": 17.13
+        },
+        "CNN + Transformer (K=5)": {
+          "+6h": 9.83,
+          "+12h": 11.45,
+          "+24h": 15.3
+        },
+        "CNN + Transformer (K=1)": {
+          "+6h": 11.2,
+          "+12h": 11.95,
+          "+24h": 16.07
+        }
+      }
+    },
+    "83-95 kt (Cat 2)": {
+      "n_samples": 549,
+      "mae_by_model": {
+        "Oracle Persistence": {
+          "+6h": 7.15,
+          "+12h": 13.32,
+          "+24h": 22.17
+        },
+        "Current-CNN Hold-Forward": {
+          "+6h": 23.72,
+          "+12h": 24.65,
+          "+24h": 27.36
+        },
+        "CNN + GRU (K=5)": {
+          "+6h": 12.28,
+          "+12h": 13.88,
+          "+24h": 17.42
+        },
+        "CNN + Transformer (K=5)": {
+          "+6h": 11.89,
+          "+12h": 13.11,
+          "+24h": 15.67
+        },
+        "CNN + Transformer (K=1)": {
+          "+6h": 11.42,
+          "+12h": 12.63,
+          "+24h": 15.52
+        }
+      }
+    },
+    "96-112 kt (Cat 3)": {
+      "n_samples": 504,
+      "mae_by_model": {
+        "Oracle Persistence": {
+          "+6h": 6.67,
+          "+12h": 12.34,
+          "+24h": 21.29
+        },
+        "Current-CNN Hold-Forward": {
+          "+6h": 24.61,
+          "+12h": 24.88,
+          "+24h": 25.94
+        },
+        "CNN + GRU (K=5)": {
+          "+6h": 12.78,
+          "+12h": 15.42,
+          "+24h": 19.28
+        },
+        "CNN + Transformer (K=5)": {
+          "+6h": 11.64,
+          "+12h": 14.16,
+          "+24h": 17.44
+        },
+        "CNN + Transformer (K=1)": {
+          "+6h": 11.5,
+          "+12h": 13.41,
+          "+24h": 17.54
+        }
+      }
+    },
+    "113+ kt (Cat 4/5)": {
+      "n_samples": 621,
+      "mae_by_model": {
+        "Oracle Persistence": {
+          "+6h": 5.71,
+          "+12h": 10.98,
+          "+24h": 21.6
+        },
+        "Current-CNN Hold-Forward": {
+          "+6h": 22.46,
+          "+12h": 20.8,
+          "+24h": 21.48
+        },
+        "CNN + GRU (K=5)": {
+          "+6h": 11.65,
+          "+12h": 12.7,
+          "+24h": 16.11
+        },
+        "CNN + Transformer (K=5)": {
+          "+6h": 9.59,
+          "+12h": 11.34,
+          "+24h": 15.53
+        },
+        "CNN + Transformer (K=1)": {
+          "+6h": 10.86,
+          "+12h": 12.2,
+          "+24h": 16.38
+        }
+      }
+    }
+  },
+  "indian_ocean_storms": {}
+}

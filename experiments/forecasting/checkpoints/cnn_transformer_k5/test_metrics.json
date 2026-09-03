@@ -1,0 +1,21 @@
+{
+  "mae_+6h": 7.738,
+  "rmse_+6h": 10.496,
+  "r2_+6h": 0.8789,
+  "bias_+6h": -1.364,
+  "mae_+12h": 8.71,
+  "rmse_+12h": 11.972,
+  "r2_+12h": 0.8422,
+  "bias_+12h": -1.531,
+  "mae_+24h": 11.563,
+  "rmse_+24h": 16.007,
+  "r2_+24h": 0.7243,
+  "bias_+24h": -1.861,
+  "mean_mae": 9.337,
+  "mean_rmse": 12.825,
+  "mean_r2": 0.8151,
+  "best_epoch": 18,
+  "best_val_mae": 9.138,
+  "model_type": "transformer",
+  "k_frames": 5
+}

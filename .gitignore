@@ -1,0 +1,48 @@
+# ==============================================================================
+# Git Ignore Configuration for CycML / DeepCycloNet (SIH PS 26070)
+# Prevents accidental commits of multi-gigabyte datasets and checkpoints.
+# ==============================================================================
+
+# 1. Raw & Processed Datasets (56+ GB)
+data/raw/
+data/processed/
+data/ships/*.txt
+data/metadata/*.pt
+data/metadata/*.csv
+!data/metadata/normalization_stats_multichannel.json
+!data/metadata/norm_stats.json
+!data/metadata/norm_stats_k7.json
+
+# 2. PyTorch Model Checkpoints & Weights (5.5+ GB)
+experiments/**/*.pt
+experiments/**/*.pth
+*.pt
+*.pth
+*.ckpt
+
+# 3. Virtual Environment & Python Artifacts
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# 4. Scratch & Temporary Files
+scratch/
+tmp/
+*.tmp
+*.part
+*.bak
+*.backup
+*.backup.pptx
+
+# 5. IDE & System Files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo

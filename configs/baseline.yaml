@@ -1,0 +1,47 @@
+# Baseline Configuration for TCIR Cyclone Intensity Estimation
+dataset:
+  name: "TCIR"
+  regions:
+    - "CPAC"
+    - "IO"
+    - "SH"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  metadata_dir: "data/metadata"
+  channels:
+    - "IR1" # Single-channel Infrared window brightness temperature
+  input_size: [224, 224]
+  split_ratio: [0.70, 0.15, 0.15] # Train, Val, Test by cyclone ID
+  split_seed: 42
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+
+augmentation:
+  enabled: true
+  horizontal_flip: true
+  rotation_degrees: 15
+  random_crop_scale: [0.88, 1.0]
+  intensity_jitter: 0.05
+
+model:
+  architecture: "resnet18"
+  in_channels: 1
+  pretrained: true
+  dropout: 0.2
+
+training:
+  epochs: 30
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  optimizer: "adamw"
+  scheduler: "cosine"
+  min_lr: 1.0e-6
+  loss: "mse" # mse | huber | l1
+  use_amp: true
+  early_stopping_patience: 8
+  seed: 42
+  save_dir: "experiments/baseline_resnet18_cpac_io_sh"
+
+logging:
+  log_interval: 20

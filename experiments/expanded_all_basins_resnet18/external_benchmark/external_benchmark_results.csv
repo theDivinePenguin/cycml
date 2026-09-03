@@ -1,0 +1,12 @@
+name,basin,datetime,agency,ground_truth_kt,predicted_kt,error_kt,abs_error_kt,category
+Hurricane Katrina (Stage 1 - Tropical Storm),Atlantic (ATLN),2005-08-25 00:00 UTC,NHC HURDAT2,50.0,82.4262924194336,32.426292419433594,32.426292419433594,Category 1 Hurricane / Cyclone (64-82 kt)
+Hurricane Katrina (Stage 2 - Category 1),Atlantic (ATLN),2005-08-26 06:00 UTC,NHC HURDAT2,70.0,81.91146087646484,11.911460876464844,11.911460876464844,Category 1 Hurricane / Cyclone (64-82 kt)
+Hurricane Katrina (Stage 3 - Category 3),Atlantic (ATLN),2005-08-27 12:00 UTC,NHC HURDAT2,100.0,87.70848083496094,-12.291519165039062,12.291519165039062,Category 2 Hurricane / Cyclone (83-95 kt)
+Hurricane Katrina (Stage 4 - Category 5 Peak),Atlantic (ATLN),2005-08-28 18:00 UTC,NHC HURDAT2,145.0,96.70319366455078,-48.29680633544922,48.29680633544922,Category 3 Major Hurricane (96-112 kt)
+Hurricane Katrina (Stage 5 - Landfall),Atlantic (ATLN),2005-08-29 12:00 UTC,NHC HURDAT2,110.0,91.88765716552734,-18.112342834472656,18.112342834472656,Category 2 Hurricane / Cyclone (83-95 kt)
+Hurricane Maria (Peak Cat 5),Atlantic (ATLN),2017-09-19 03:00 UTC,NHC HURDAT2,150.0,98.55918884277344,-51.44081115722656,51.44081115722656,Category 3 Major Hurricane (96-112 kt)
+Hurricane Dorian (Peak Cat 5),Atlantic (ATLN),2019-09-01 18:00 UTC,NHC HURDAT2,160.0,98.71727752685547,-61.28272247314453,61.28272247314453,Category 3 Major Hurricane (96-112 kt)
+Super Typhoon Haiyan (Historic Peak),West Pacific (WPAC),2013-11-07 18:00 UTC,JTWC / JMA,170.0,97.68672943115234,-72.31327056884766,72.31327056884766,Category 3 Major Hurricane (96-112 kt)
+Super Typhoon Hagibis (Pinhole Eye),West Pacific (WPAC),2019-10-07 18:00 UTC,JTWC / JMA,140.0,96.00724029541016,-43.992759704589844,43.992759704589844,Category 3 Major Hurricane (96-112 kt)
+Super Cyclone Amphan (Peak Super Cyclone),North Indian Ocean (IO),2020-05-18 18:00 UTC,IMD / JTWC,140.0,95.41948699951172,-44.58051300048828,44.58051300048828,Category 2 Hurricane / Cyclone (83-95 kt)
+Intense Cyclone Idai (Peak Mozambique Channel),South Indian Ocean (SH),2019-03-14 00:00 UTC,MFR / JTWC,105.0,88.11994171142578,-16.88005828857422,16.88005828857422,Category 2 Hurricane / Cyclone (83-95 kt)

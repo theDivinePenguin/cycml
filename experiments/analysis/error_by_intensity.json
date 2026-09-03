@@ -1,0 +1,110 @@
+{
+  "dataset": "TCIR-CPAC_IO_SH Held-Out Test Set",
+  "total_test_samples": 3173,
+  "overall_test_mae": 8.95,
+  "overall_test_rmse": 12.0,
+  "intensity_bins": [
+    {
+      "bin": "15\u201330 kt",
+      "lower_kt": 15.0,
+      "upper_kt": 30.0,
+      "samples": 744,
+      "percent_samples": 23.45,
+      "mae": 6.81,
+      "rmse": 9.42,
+      "bias": 6.11,
+      "median_ae": 4.67
+    },
+    {
+      "bin": "30\u201350 kt",
+      "lower_kt": 30.0,
+      "upper_kt": 50.0,
+      "samples": 1328,
+      "percent_samples": 41.85,
+      "mae": 7.64,
+      "rmse": 10.38,
+      "bias": 1.08,
+      "median_ae": 5.71
+    },
+    {
+      "bin": "50\u201370 kt",
+      "lower_kt": 50.0,
+      "upper_kt": 70.0,
+      "samples": 501,
+      "percent_samples": 15.79,
+      "mae": 11.34,
+      "rmse": 13.73,
+      "bias": -2.34,
+      "median_ae": 10.38
+    },
+    {
+      "bin": "70\u201390 kt",
+      "lower_kt": 70.0,
+      "upper_kt": 90.0,
+      "samples": 241,
+      "percent_samples": 7.6,
+      "mae": 11.91,
+      "rmse": 14.5,
+      "bias": -3.49,
+      "median_ae": 10.6
+    },
+    {
+      "bin": "90\u2013110 kt",
+      "lower_kt": 90.0,
+      "upper_kt": 110.0,
+      "samples": 213,
+      "percent_samples": 6.71,
+      "mae": 12.68,
+      "rmse": 16.25,
+      "bias": -5.11,
+      "median_ae": 10.06
+    },
+    {
+      "bin": "110\u2013130 kt",
+      "lower_kt": 110.0,
+      "upper_kt": 130.0,
+      "samples": 101,
+      "percent_samples": 3.18,
+      "mae": 12.99,
+      "rmse": 17.46,
+      "bias": -10.12,
+      "median_ae": 10.4
+    },
+    {
+      "bin": "130\u2013150 kt",
+      "lower_kt": 130.0,
+      "upper_kt": 150.0,
+      "samples": 45,
+      "percent_samples": 1.42,
+      "mae": 13.96,
+      "rmse": 18.71,
+      "bias": -12.44,
+      "median_ae": 11.1
+    },
+    {
+      "bin": "> 150 kt",
+      "lower_kt": 150.0,
+      "upper_kt": null,
+      "samples": 0,
+      "percent_samples": 0.0,
+      "mae": 0.0,
+      "rmse": 0.0,
+      "bias": 0.0,
+      "median_ae": 0.0
+    }
+  ],
+  "saturation_analysis": {
+    "samples_gt_100kt": 260,
+    "mean_actual_gt_100kt": 114.35,
+    "mean_pred_gt_100kt": 105.13,
+    "underestimation_bias_gt_100kt": -9.23,
+    "samples_gt_120kt": 79,
+    "mean_actual_gt_120kt": 130.58,
+    "mean_pred_gt_120kt": 120.32,
+    "underestimation_bias_gt_120kt": -10.26,
+    "max_predicted_vmax_kt": 145.9,
+    "max_actual_vmax_kt": 145.0,
+    "min_predicted_vmax_kt": 18.28,
+    "min_actual_vmax_kt": 15.0
+  }
+}

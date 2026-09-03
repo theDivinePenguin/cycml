@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIH 26070: Tropical Cyclone Rapid Intensification & Evolution AI</title>
+  <meta name="description" content="Operational AI system predicting 24-hour tropical cyclone intensity trend and rapid intensification risk from multi-source satellite sequences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="header-badge">SIH PROBLEM STATEMENT 26070</div>
+      <h1 class="header-title">Tropical Cyclone AI <span class="header-subtitle">// Rapid Intensification &amp; Evolution Predictor</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="system-status">
+        <span class="status-pulse"></span>
+        <span class="status-text">OPERATIONAL INFERENCE ACTIVE</span>
+      </div>
+      <div class="model-tag">CNN + Temporal Transformer (K=5)</div>
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <main class="dashboard-container">
+    <!-- Top Control Bar: Cyclone Selector & Timeline Scrubber -->
+    <section class="control-panel glass-card">
+      <div class="storm-selector-wrapper">
+        <label for="storm-select" class="control-label">SELECT UNSEEN CYCLONE LIFECYCLE:</label>
+        <div class="custom-select-container">
+          <select id="storm-select" class="styled-select" aria-label="Select Cyclone">
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+        <div id="storm-meta-badge" class="meta-tag">Held-Out Test Set</div>
+      </div>
+
+      <div class="timeline-control-wrapper">
+        <div class="timeline-label-row">
+          <span class="control-label">OBSERVATION TIMELINE SCRUBBER (t):</span>
+          <span id="timeline-time-display" class="timeline-timestamp">0h (Initialization)</span>
+        </div>
+        <div class="slider-row">
+          <button id="btn-play-pause" class="btn-icon" title="Play/Pause Lifecycle Simulation">▶ Play</button>
+          <input type="range" id="timeline-slider" min="0" max="0" value="0" step="1" class="timeline-range" aria-label="Timeline Slider">
+          <span id="slider-steps-count" class="step-indicator">Step 0 / 0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Center Content: 3 Columns -->
+    <div class="main-grid">
+      <!-- Left Column: Current State & Quantitative Forecast -->
+      <div class="grid-column left-col">
+        <!-- Current Intensity Card -->
+        <section class="metric-card glass-card" id="card-current-intensity">
+          <div class="card-header">
+            <span class="card-title">CURRENT INTENSITY [t]</span>
+            <span class="card-icon">⚡</span>
+          </div>
+          <div class="intensity-display">
+            <div class="intensity-value-group">
+              <span id="val-vmax-curr" class="huge-number">--</span>
+              <span class="unit">knots</span>
+            </div>
+            <div id="val-category-badge" class="category-pill cat-default">Loading...</div>
+          </div>
+          <div class="intensity-sub-details">
+            <div class="sub-item">
+              <span class="sub-label">Coordinates:</span>
+              <span id="val-lat-lon" class="sub-value">--°N, --°E</span>
+            </div>
+            <div class="sub-item">
+              <span class="sub-label">Timestamp:</span>
+              <span id="val-timestamp" class="sub-value mono">--</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Secondary Quantitative Forecast -->
+        <section class="metric-card glass-card" id="card-quantitative-forecast">
+          <div class="card-header">
+            <span class="card-title">AUXILIARY FORECAST</span>
+            <span class="card-tag">Supporting Vmax</span>
+          </div>
+          <div class="horizon-grid">
+            <div class="horizon-box">
+              <span class="h-label">+6h Forecast</span>
+              <span id="pred-plus-6" class="h-value">-- kt</span>
+            </div>
+            <div class="horizon-box">
+              <span class="h-label">+12h Forecast</span>
+              <span id="pred-plus-12" class="h-value">-- kt</span>
+            </div>
+            <div class="horizon-box highlight">
+              <span class="h-label">+24h Forecast</span>
+              <span id="pred-plus-24" class="h-value">-- kt</span>
+            </div>
+          </div>
+          <p class="supporting-note">Multi-horizon continuous estimation outputs retained as secondary guidance.</p>
+        </section>
+      </div>
+
+      <!-- Center Column: The SIH Headline Prediction (RI & 24h Trend) -->
+      <div class="grid-column center-col">
+        <!-- 24-Hour Evolution Card (SIH Primary Task) -->
+        <section class="primary-prediction-card glass-card" id="card-evolution-prediction">
+          <div class="prediction-header">
+            <div class="glow-indicator"></div>
+            <h2 class="prediction-main-title">24-HOUR EVOLUTION PREDICTION</h2>
+            <span class="prediction-subtitle">Target Window: [t → t+24h]</span>
+          </div>
+
+          <!-- Trend Badge Row -->
+          <div class="trend-section">
+            <span class="section-label">MACRO DYNAMICS TREND:</span>
+            <div id="trend-banner" class="trend-banner trend-intensifying">
+              <span id="trend-icon" class="trend-icon">🔴</span>
+              <span id="trend-text" class="trend-text">INTENSIFYING</span>
+            </div>
+            <div class="trend-distribution-bar" title="Predicted Trend Softmax Distribution">
+              <div id="bar-weak" class="dist-bar bar-weak" style="width: 10%">W: 10%</div>
+              <div id="bar-stab" class="dist-bar bar-stab" style="width: 20%">S: 20%</div>
+              <div id="bar-inte" class="dist-bar bar-inte" style="width: 70%">I: 70%</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Headline Rapid Intensification Section -->
+          <div class="ri-headline-section">
+            <div class="ri-header-row">
+              <span class="section-label">HEADLINE RI RISK ASSESSMENT (ΔV ≥ +30 kt in 24h):</span>
+              <span id="val-ri-risk-badge" class="risk-badge risk-high">HIGH RISK</span>
+            </div>
+
+            <div class="gauge-container">
+              <div class="gauge-circle-outer">
+                <svg class="gauge-svg" viewBox="0 0 100 100">
+                  <circle class="gauge-bg" cx="50" cy="50" r="42" stroke-width="8"></circle>
+                  <circle id="gauge-progress" class="gauge-meter" cx="50" cy="50" r="42" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="60"></circle>
+                </svg>
+                <div class="gauge-content">
+                  <span id="val-ri-prob" class="ri-prob-number">78%</span>
+                  <span class="ri-prob-label">RI PROBABILITY</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Early Warning Banner -->
+            <div id="lead-time-alert" class="lead-time-alert alert-active">
+              <span class="alert-icon">⚠️</span>
+              <div class="alert-text-group">
+                <strong id="alert-title">EARLY WARNING ISSUED</strong>
+                <span id="alert-desc">Model flagged explosive intensification 18 hours before peak intensity!</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5-Frame Satellite Sequence Strip -->
+        <section class="satellite-strip-card glass-card">
+          <div class="card-header">
+            <span class="card-title">MULTI-SOURCE SATELLITE SEQUENCE [t-12h → t]</span>
+            <span class="card-tag">IR1 + WV + VIS</span>
+          </div>
+          <div class="frames-sequence-grid">
+            <div class="frame-item">
+              <div class="frame-thumb-box" id="frame-t12">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-12h</div>
+              </div>
+              <span class="frame-time">t-12h</span>
+            </div>
+            <div class="frame-item">
+              <div class="frame-thumb-box" id="frame-t9">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-9h</div>
+              </div>
+              <span class="frame-time">t-9h</span>
+            </div>
+            <div class="frame-item">
+              <div class="frame-thumb-box" id="frame-t6">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-6h</div>
+              </div>
+              <span class="frame-time">t-6h</span>
+            </div>
+            <div class="frame-item">
+              <div class="frame-thumb-box" id="frame-t3">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> t-3h</div>
+              </div>
+              <span class="frame-time">t-3h</span>
+            </div>
+            <div class="frame-item active-t">
+              <div class="frame-thumb-box current-sat" id="frame-t0">
+                <div class="satellite-placeholder"><span class="sat-orbit">🛰️</span> NOW (t)</div>
+              </div>
+              <span class="frame-time font-bold">NOW (t)</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Interactive Lifecycle & Prediction Lead-Time Plot -->
+      <div class="grid-column right-col">
+          <div class="card-header">
+            <div>
+              <span class="card-title">OPERATIONAL LIFECYCLE &amp; LEAD-TIME PROVING GROUND</span>
+              <p class="card-subtitle" id="chart-mode-subtitle">Real-time observation track with active +24h forecast window.</p>
+            </div>
+            <div class="view-mode-toggle">
+              <button id="btn-mode-realtime" class="mode-btn active" title="Strict 24-Hour Real-Time Operational Window">⚡ Real-Time Forecast</button>
+              <button id="btn-mode-audit" class="mode-btn" title="Full Lifecycle Post-Event Macro Audit">📊 Full Storm Audit</button>
+            </div>
+          </div>
+
+          <!-- Canvas Chart -->
+          <div class="canvas-wrapper">
+            <canvas id="lifecycle-canvas"></canvas>
+          </div>
+
+          <!-- Chart Legend -->
+          <div class="chart-legend" id="chart-legend">
+            <div class="legend-item"><span class="legend-line line-past"></span> Observed Track (Past → NOW)</div>
+            <div class="legend-item" id="leg-ai-forecast"><span class="legend-line line-ai-pred"></span> Active +24h AI Forecast</div>
+            <div class="legend-item" id="leg-pred-outline"><span class="legend-line line-pred-outline"></span> Full Predicted Outline</div>
+            <div class="legend-item"><span class="legend-line line-future"></span> Actual Outcome (Next 24h)</div>
+            <div class="legend-item"><span class="legend-dot dot-now"></span> Observation (NOW)</div>
+            <div class="legend-item"><span class="legend-line line-ri-prob"></span> Issued RI Probability</div>
+          </div>
+
+          <!-- Verification Verdict Box -->
+          <div class="verdict-box" id="verdict-container">
+            <div class="verdict-header">
+              <span class="verdict-badge">OPERATIONAL VERDICT</span>
+              <span id="verdict-match" class="verdict-status status-success">TRUE POSITIVE</span>
+            </div>
+            <p id="verdict-explanation" class="verdict-p">
+              The AI predicted <strong>INTENSIFYING</strong> with <strong>78% RI probability</strong>. The cyclone subsequently intensified by <strong>+40 kt</strong> over the next 24 hours, successfully issuing the alert well in advance.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
