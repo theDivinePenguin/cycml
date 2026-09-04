@@ -206,6 +206,35 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         ctx.fillText("+24h WINDOW", (nowX + future24X) / 2, padTop + 12);
       }
 
+      // 0a. Full Lifecycle Ground-Truth Envelope (Faint Dashed White)
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.20)";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath();
+      for (let i = 0; i < N; i++) {
+        const x = getX(i);
+        const y = getY(lifecycle[i]!.observed_kt);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 0b. Full Lifecycle Predicted Trajectory Envelope (Faint Dashed Cyan)
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.28)";
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      for (let i = 0; i < N; i++) {
+        const val = isEma ? lifecycle[i]!.ema_24h : lifecycle[i]!.pred_24h;
+        const x = getX(i);
+        const y = getY(val);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
       // B. Observed Past Intensity Path (Solid Crisp White)
       ctx.strokeStyle = "#FFFFFF";
       ctx.lineWidth = 2.4;
@@ -520,9 +549,15 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       {/* Legend Banner */}
       <div className="flex flex-wrap items-center justify-between border-b border-hairline/60 bg-panel-raised/40 px-4 py-1.5 text-[11px]">
         <div className="flex flex-wrap items-center gap-4">
-          <LegendSwatch color="#FFFFFF" label="Observed Best-Track" solid />
+          <LegendSwatch color="#FFFFFF" label="Observed Past" solid />
           <LegendSwatch color="#38BDF8" label="Model Forecast (+24h)" solid />
           <LegendSwatch color="#EF4444" label="Ground-Truth Verification (+24h)" dashed />
+          {viewMode === "realtime" && (
+            <>
+              <LegendSwatch color="rgba(255, 255, 255, 0.4)" label="Truth Envelope" dashed />
+              <LegendSwatch color="rgba(56, 189, 248, 0.5)" label="Predicted Envelope" dashed />
+            </>
+          )}
           {viewMode === "realtime" && (
             <span className="flex items-center gap-1.5 text-muted-foreground font-mono text-[10px]">
               <span className="inline-block h-2 w-3 rounded-xs bg-cyan-400/20 border border-cyan-400/40" />
