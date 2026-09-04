@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { HeaderBar } from "@/components/tc/HeaderBar";
 import { StormSelector } from "@/components/tc/StormSelector";
 import { StormStatePanel } from "@/components/tc/StormStatePanel";
+import { DecisionSummary } from "@/components/tc/DecisionSummary";
 import { RiskHeadline } from "@/components/tc/RiskHeadline";
 import { IntensityChart } from "@/components/tc/IntensityChart";
 import { AuxForecast } from "@/components/tc/AuxForecast";
@@ -82,6 +83,7 @@ function Console() {
           <div className="grid gap-5 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
             <div className="flex flex-col gap-5">
               <StormStatePanel data={data} />
+              <DecisionSummary data={data} />
               <AuxForecast data={data} />
             </div>
             <div className="flex flex-col gap-5">
