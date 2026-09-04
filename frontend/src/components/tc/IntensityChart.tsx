@@ -144,6 +144,7 @@ export function IntensityChart({ data, nowHour }: Props) {
               strokeDasharray="3 3"
               dot={false}
               connectNulls
+              isAnimationActive={false}
               name="Verifying analysis"
             />
             <Line
@@ -152,6 +153,7 @@ export function IntensityChart({ data, nowHour }: Props) {
               stroke="var(--saffir-td)"
               strokeWidth={2.5}
               dot={false}
+              isAnimationActive={false}
               name="Observed"
             />
             <Line
@@ -162,6 +164,7 @@ export function IntensityChart({ data, nowHour }: Props) {
               strokeDasharray="5 3"
               dot={{ r: 2.5, fill: "var(--signal)", strokeWidth: 0 }}
               connectNulls
+              isAnimationActive={false}
               name="Forecast"
             />
             <ReferenceDot
