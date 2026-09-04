@@ -17,9 +17,9 @@ export function HeaderBar({ status }: HeaderBarProps) {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="font-sans text-2xl font-semibold tracking-tight text-foreground flex items-center gap-2">
-              DeepCycloNet <span className="text-primary font-mono text-xs tracking-wider border border-primary/30 px-1.5 py-0.5 rounded-xs bg-primary/10">OPERATIONAL CONSOLE</span>
+              DeepCycloNet <span className="text-[#355872] bg-[#9CD5FF]/40 border border-[#7AAACE]/60 font-mono text-xs tracking-wider px-2 py-0.5 rounded-xs font-semibold">OPERATIONAL CONSOLE</span>
             </h1>
-            <span className="readout rounded-xs border border-hairline px-1.5 py-0.5 text-[11px] text-muted-foreground font-mono">
+            <span className="readout rounded-xs border border-hairline bg-[#F7F8F0] px-1.5 py-0.5 text-[11px] text-muted-foreground font-mono">
               SIH 26070
             </span>
           </div>
@@ -35,21 +35,21 @@ export function HeaderBar({ status }: HeaderBarProps) {
                 <dt className="text-[11px] font-medium tracking-wide text-muted-foreground">
                   {m.k}
                 </dt>
-                <dd className="readout text-xs text-foreground font-medium">{m.v}</dd>
+                <dd className="readout text-xs text-foreground font-semibold">{m.v}</dd>
               </div>
             ))}
           </dl>
           <div className="flex items-center gap-2 border-l border-hairline pl-6">
             <span
               className="relative flex h-2 w-2"
-              style={{ color: live ? "var(--risk-low)" : "var(--destructive)" }}
+              style={{ color: live ? "#355872" : "var(--destructive)" }}
             >
               {live && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#9CD5FF] opacity-75" />
               )}
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-current" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#355872]" />
             </span>
-            <span className="readout text-xs">Model {status.toLowerCase()}</span>
+            <span className="readout text-xs font-medium text-foreground">Model {status.toLowerCase()}</span>
           </div>
         </div>
       </div>
