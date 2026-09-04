@@ -1,5 +1,5 @@
 import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
-import { riskTier, type ForecastResponse } from "@/lib/forecast-types";
+import { RI_BASE_RATE, riskTier, type ForecastResponse } from "@/lib/forecast-types";
 import { riskColor } from "./scale";
 
 interface Props {
@@ -17,6 +17,7 @@ export function RiskHeadline({ data }: Props) {
   const tier = riskTier(prob);
   const color = riskColor(tier);
   const TrendIcon = TREND_ICON[data.trend];
+  const climatologyMultiplier = (prob / RI_BASE_RATE).toFixed(1);
 
   return (
     <section
@@ -52,22 +53,25 @@ export function RiskHeadline({ data }: Props) {
             </div>
           </div>
 
-          <div className="hidden sm:block h-10 w-px bg-hairline" />
+          <div className="hidden sm:block h-14 w-px bg-hairline" />
 
           <div>
             <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-wider">
               Predicted RI Probability (≥30 kt / 24h)
             </p>
-            <div className="mt-1 flex items-baseline gap-2">
+            <div className="mt-1 flex items-baseline gap-3">
               <span
-                className="readout text-3xl leading-none font-semibold font-mono"
+                className="readout text-6xl sm:text-7xl leading-none font-bold font-mono tracking-tight"
                 style={{ color }}
               >
                 {(prob * 100).toFixed(1)}%
               </span>
-              <span className="text-xs text-muted-foreground font-mono">
-                (p = {prob.toFixed(3)})
-              </span>
+              <div className="flex flex-col text-xs text-muted-foreground font-mono leading-tight">
+                <span>(p = {prob.toFixed(3)})</span>
+                <span className="font-semibold text-foreground/80 mt-0.5">
+                  {climatologyMultiplier}× climatology
+                </span>
+              </div>
             </div>
           </div>
         </div>
