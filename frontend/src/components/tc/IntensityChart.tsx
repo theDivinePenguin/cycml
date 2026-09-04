@@ -192,16 +192,28 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.setLineDash([]);
 
       // 0b. Full Lifecycle Predicted Trajectory Envelope (Faint Dashed Cyan)
-      ctx.strokeStyle = "rgba(56, 189, 248, 0.28)";
-      ctx.lineWidth = 1.3;
+      // Note: pred_24h is the intensity +24h into the future (8 steps ahead).
+      // Aligning to target valid time (i + 8) ensures the +24h forecast point
+      // lands directly on this trajectory envelope!
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
+      ctx.lineWidth = 1.4;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
-      for (let i = 0; i < N; i++) {
+
+      const startP6 = isEma ? lifecycle[0]!.ema_6h : lifecycle[0]!.pred_6h;
+      const startP12 = isEma ? lifecycle[0]!.ema_12h : lifecycle[0]!.pred_12h;
+      const startP24 = isEma ? lifecycle[0]!.ema_24h : lifecycle[0]!.pred_24h;
+
+      ctx.moveTo(getX(0), getY(lifecycle[0]!.observed_kt));
+      if (N > 2) ctx.lineTo(getX(Math.min(2, N - 1)), getY(startP6));
+      if (N > 4) ctx.lineTo(getX(Math.min(4, N - 1)), getY(startP12));
+      if (N > 8) ctx.lineTo(getX(Math.min(8, N - 1)), getY(startP24));
+
+      for (let i = 1; i < N; i++) {
+        const targetIdx = i + 8;
+        if (targetIdx >= N) break;
         const val = isEma ? lifecycle[i]!.ema_24h : lifecycle[i]!.pred_24h;
-        const x = getX(i);
-        const y = getY(val);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        ctx.lineTo(getX(targetIdx), getY(val));
       }
       ctx.stroke();
       ctx.setLineDash([]);
