@@ -30,41 +30,41 @@ export function VerdictPanel({ data }: Props) {
       )}%, consistent with a non-RI period.`;
 
   return (
-    <section className="border border-[#1C4D8D] bg-panel shadow-md" style={{ borderLeft: `3px solid ${color}` }}>
-      <div className="flex items-baseline justify-between border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-5 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-[#BDE8F5]">
+    <section className="border border-hairline bg-panel shadow-xs" style={{ borderLeft: `3px solid ${color}` }}>
+      <div className="flex items-baseline justify-between border-b border-hairline bg-panel-raised px-5 py-2.5">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           RETROSPECTIVE VERIFICATION
         </h2>
-        <span className="readout text-[11px] font-mono font-medium text-[#BDE8F5]/80 border border-[#1C4D8D] px-2 py-0.5 rounded-xs bg-[#0A1C3C]">
+        <span className="readout text-[11px] font-mono font-semibold text-muted-foreground border border-hairline px-2 py-0.5 rounded-xs bg-panel">
           CASE VERIFICATION AVAILABLE · HELD-OUT
         </span>
       </div>
 
       {/* Explicit +24h Verification Breakdown */}
-      <div className="border-b border-[#1C4D8D] bg-[#0A1C3C]/80 px-5 py-3 grid grid-cols-3 gap-4 font-mono text-xs">
+      <div className="border-b border-hairline bg-panel-raised/60 px-5 py-3 grid grid-cols-3 gap-4 font-mono text-xs">
         <div>
-          <span className="text-[10px] text-[#8CB8E8] uppercase tracking-wider block font-semibold">
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider block font-semibold">
             +24h Forecast
           </span>
-          <span className="text-lg font-bold text-[#BDE8F5]">
+          <span className="text-lg font-bold text-primary">
             {forecast24} kt
           </span>
         </div>
         <div>
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider block font-semibold">
             +24h Observed
           </span>
-          <span className="text-lg font-semibold text-white">
+          <span className="text-lg font-bold text-foreground">
             {observed24} kt
           </span>
         </div>
         <div>
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider block font-semibold">
             Forecast Error
           </span>
           <span
-            className={`text-lg font-semibold ${
-              Math.abs(error24) <= 10 ? "text-emerald-400" : "text-amber-400"
+            className={`text-lg font-bold ${
+              Math.abs(error24) <= 10 ? "text-emerald-700" : "text-amber-700"
             }`}
           >
             {error24 > 0 ? `+${error24}` : error24} kt
@@ -72,10 +72,10 @@ export function VerdictPanel({ data }: Props) {
         </div>
       </div>
 
-      <div className="space-y-2 px-5 py-4 text-[13px] leading-relaxed text-foreground/80">
-        <p>{model}</p>
-        <p>{verdict}</p>
-        <p className="text-muted-foreground text-[11px]">
+      <div className="space-y-2 px-5 py-4 text-[13px] leading-relaxed text-foreground/85">
+        <p className="font-medium">{model}</p>
+        <p className="font-medium">{verdict}</p>
+        <p className="text-muted-foreground text-[11px] font-mono">
           Verification is retrospective against HURDAT2/JTWC best track for this held-out case;
           the operational threshold used here for a positive RI call is p ≥ 0.35.
         </p>

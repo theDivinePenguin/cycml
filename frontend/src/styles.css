@@ -72,56 +72,55 @@
 :root {
   --radius: 3px;
 
-  /* 
-   * The 4-Color High-Contrast System:
-   * 1. Outer Deep Abyss: #060D1A (oklch 0.12 0.04 260) - Contrast backdrop
-   * 2. Panel & Cards:    #0F2854 (oklch 0.285 0.086 260.8) - Deep Navy Instrument
-   * 3. Headers & Frame:  #1C4D8D (oklch 0.423 0.118 256.6) - Marine Blue Header/Borders
-   * 4. Controls & Curves:#4988C4 (oklch 0.611 0.112 249.1) - Sea Blue Action
-   * 5. Readouts & Values:#BDE8F5 (oklch 0.905 0.048 218.1) - Cold Ice Cyan Data
-   */
-  --background: #060D1A;
-  --foreground: #EEF8FC;
-  --panel: #0F2854;
-  --panel-raised: #1C4D8D;
-  --hairline: #1C4D8D;
+  /* Structural Surfaces & Boundaries */
+  --background: #EAF3FB;
+  --foreground: #355872;
 
-  --card: #0F2854;
-  --card-foreground: #EEF8FC;
-  --popover: #0F2854;
-  --popover-foreground: #EEF8FC;
+  --panel: #FFFFFF;
+  --panel-raised: rgba(122, 170, 206, 0.12);
+  --hairline: rgba(122, 170, 206, 0.30);
+  --border: rgba(122, 170, 206, 0.40);
+  --input: rgba(122, 170, 206, 0.35);
+  --ring: #7AAACE;
 
-  --primary: #4988C4;
-  --primary-foreground: #060D1A;
-  --secondary: #1C4D8D;
-  --secondary-foreground: #BDE8F5;
-  --muted: #0A1C3C;
-  --muted-foreground: #8CB8E8;
-  --accent: #1C4D8D;
-  --accent-foreground: #FFFFFF;
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 240);
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: var(--panel);
+  --popover-foreground: var(--foreground);
 
-  --border: #1C4D8D;
-  --input: #0A1D3B;
-  --ring: #4988C4;
+  /* Primary Chrome Accent: Solid Dark Blue #355872 */
+  --primary: #355872;
+  --primary-foreground: #F7F8F0;
+  
+  --secondary: rgba(122, 170, 206, 0.18);
+  --secondary-foreground: var(--foreground);
+  
+  --muted: rgba(122, 170, 206, 0.15);
+  --muted-foreground: #4B6E8A;
 
-  --signal: oklch(0.83 0.16 92);
-  --ocean: #BDE8F5;
+  --accent: #9CD5FF;
+  --accent-foreground: #355872;
 
-  /* Saffir–Simpson scale — meteorological convention */
-  --saffir-td: oklch(0.72 0.09 232);
-  --saffir-ts: oklch(0.79 0.14 172);
-  --saffir-cat1: oklch(0.9 0.16 100);
-  --saffir-cat2: oklch(0.83 0.17 75);
-  --saffir-cat3: oklch(0.7 0.2 40);
-  --saffir-cat4: oklch(0.6 0.23 18);
-  --saffir-cat5: oklch(0.62 0.26 350);
+  --destructive: oklch(0.52 0.22 25);
+  --destructive-foreground: #F7F8F0;
 
-  --risk-low: oklch(0.79 0.14 172);
-  --risk-elevated: oklch(0.86 0.16 88);
-  --risk-high: oklch(0.72 0.19 48);
-  --risk-critical: oklch(0.62 0.24 20);
+  --signal: #355872;
+  --ocean: #7AAACE;
+
+  /* Original Saffir–Simpson Scale (Untouched) */
+  --saffir-td: oklch(0.48 0.12 230);
+  --saffir-ts: oklch(0.48 0.14 185);
+  --saffir-cat1: oklch(0.48 0.15 130);
+  --saffir-cat2: oklch(0.54 0.16 75);
+  --saffir-cat3: oklch(0.52 0.19 45);
+  --saffir-cat4: oklch(0.48 0.22 25);
+  --saffir-cat5: oklch(0.44 0.22 350);
+
+  /* Original Operational RI Risk Tiers & Warnings (Untouched) */
+  --risk-low: oklch(0.46 0.14 165);
+  --risk-elevated: oklch(0.54 0.16 75);
+  --risk-high: oklch(0.52 0.19 45);
+  --risk-critical: oklch(0.48 0.22 25);
 }
 
 @layer base {
@@ -135,8 +134,8 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv05";
     background-image:
-      linear-gradient(oklch(1 0 0 / 2.5%) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 2.5%) 1px, transparent 1px);
+      linear-gradient(rgba(122, 170, 206, 0.22) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122, 170, 206, 0.22) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 }

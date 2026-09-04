@@ -35,23 +35,23 @@ export function DecisionSummary({ data }: Props) {
 
   return (
     <section
-      className="relative overflow-hidden border border-[#1C4D8D] bg-panel shadow-md"
+      className="relative overflow-hidden border border-hairline bg-panel shadow-xs"
       style={{
         borderLeft: `3px solid ${badgeColor}`,
-        background: `linear-gradient(135deg, color-mix(in oklab, ${badgeColor} 8%, var(--panel)) 0%, var(--panel) 100%)`,
+        background: `linear-gradient(135deg, color-mix(in oklab, ${badgeColor} 6%, var(--panel)) 0%, var(--panel) 100%)`,
       }}
     >
-      <div className="flex items-center justify-between border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-4 py-2">
-        <h2 className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-[#BDE8F5] uppercase">
+      <div className="flex items-center justify-between border-b border-hairline bg-panel-raised px-4 py-2">
+        <h2 className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-foreground uppercase">
           <TrendIcon className="h-3.5 w-3.5" style={{ color: badgeColor }} />
           24-HOUR OUTLOOK
         </h2>
         <span
           className="rounded-xs px-2 py-0.5 font-mono text-[10px] font-semibold"
           style={{
-            background: `color-mix(in oklab, ${badgeColor} 18%, transparent)`,
+            background: `color-mix(in oklab, ${badgeColor} 12%, transparent)`,
             color: badgeColor,
-            border: `1px solid color-mix(in oklab, ${badgeColor} 40%, transparent)`,
+            border: `1px solid color-mix(in oklab, ${badgeColor} 30%, transparent)`,
           }}
         >
           {data.trend.toUpperCase()}
@@ -60,24 +60,24 @@ export function DecisionSummary({ data }: Props) {
 
       <div className="space-y-3.5 p-4 font-mono">
         <div>
-          <p className="text-base font-semibold tracking-tight" style={{ color: badgeColor }}>
+          <p className="text-base font-bold tracking-tight" style={{ color: badgeColor }}>
             {headline}
           </p>
           <div className="mt-1.5 flex flex-wrap items-baseline gap-2">
-            <span className="text-2xl font-semibold" style={{ color: saffirColor(currentKt) }}>
+            <span className="text-2xl font-bold" style={{ color: saffirColor(currentKt) }}>
               {currentKt}
             </span>
-            <span className="text-sm text-muted-foreground">→</span>
-            <span className="text-2xl font-semibold" style={{ color: saffirColor(forecast24Kt) }}>
+            <span className="text-sm text-muted-foreground font-bold">→</span>
+            <span className="text-2xl font-bold" style={{ color: saffirColor(forecast24Kt) }}>
               {forecast24Kt} kt
             </span>
             <span
-              className={`ml-1 rounded-xs px-1.5 py-0.5 text-xs font-semibold ${
+              className={`ml-1 rounded-xs px-1.5 py-0.5 text-xs font-semibold font-mono ${
                 delta24 > 0
-                  ? "border border-emerald-500/30 bg-emerald-500/15 text-emerald-400"
+                  ? "border border-emerald-600/30 bg-emerald-50 text-emerald-800"
                   : delta24 < 0
-                    ? "border border-blue-500/30 bg-blue-500/15 text-blue-400"
-                    : "bg-muted text-muted-foreground"
+                    ? "border border-blue-600/30 bg-blue-50 text-blue-800"
+                    : "border border-hairline bg-muted text-muted-foreground"
               }`}
             >
               {delta24 > 0 ? `+${delta24}` : delta24} kt / 24h
@@ -88,19 +88,19 @@ export function DecisionSummary({ data }: Props) {
         {/* 3 Model Outputs At A Glance */}
         <div className="grid grid-cols-3 gap-2 border-t border-hairline/60 pt-3 text-[11px]">
           <div>
-            <span className="block text-[10px] text-muted-foreground">TREND</span>
-            <span className="font-semibold text-foreground">{data.trend}</span>
+            <span className="block text-[10px] text-muted-foreground font-semibold">TREND</span>
+            <span className="font-bold text-foreground">{data.trend}</span>
           </div>
           <div>
-            <span className="block text-[10px] text-muted-foreground">Δ24h FORECAST</span>
-            <span className="font-semibold text-cyan-400">
+            <span className="block text-[10px] text-muted-foreground font-semibold">Δ24h FORECAST</span>
+            <span className="font-bold text-primary">
               {delta24 > 0 ? `+${delta24}` : delta24} kt
             </span>
           </div>
           <div>
-            <span className="block text-[10px] text-muted-foreground">RI PROBABILITY</span>
+            <span className="block text-[10px] text-muted-foreground font-semibold">RI PROBABILITY</span>
             <span
-              className="font-semibold"
+              className="font-bold"
               style={{ color: isRI ? "var(--risk-critical)" : "var(--risk-low)" }}
             >
               {probPercent}%
