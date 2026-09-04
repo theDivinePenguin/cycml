@@ -191,33 +191,6 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // 0b. Full Lifecycle Predicted Trajectory Envelope (Faint Dashed Cyan)
-      // Note: pred_24h is the intensity +24h into the future (8 steps ahead).
-      // Aligning to target valid time (i + 8) ensures the +24h forecast point
-      // lands directly on this trajectory envelope!
-      ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
-      ctx.lineWidth = 1.4;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-
-      const startP6 = isEma ? lifecycle[0]!.ema_6h : lifecycle[0]!.pred_6h;
-      const startP12 = isEma ? lifecycle[0]!.ema_12h : lifecycle[0]!.pred_12h;
-      const startP24 = isEma ? lifecycle[0]!.ema_24h : lifecycle[0]!.pred_24h;
-
-      ctx.moveTo(getX(0), getY(lifecycle[0]!.observed_kt));
-      if (N > 2) ctx.lineTo(getX(Math.min(2, N - 1)), getY(startP6));
-      if (N > 4) ctx.lineTo(getX(Math.min(4, N - 1)), getY(startP12));
-      if (N > 8) ctx.lineTo(getX(Math.min(8, N - 1)), getY(startP24));
-
-      for (let i = 1; i < N; i++) {
-        const targetIdx = i + 8;
-        if (targetIdx >= N) break;
-        const val = isEma ? lifecycle[i]!.ema_24h : lifecycle[i]!.pred_24h;
-        ctx.lineTo(getX(targetIdx), getY(val));
-      }
-      ctx.stroke();
-      ctx.setLineDash([]);
-
       // B. Observed Past Intensity Path (Solid Crisp White)
       ctx.strokeStyle = "#FFFFFF";
       ctx.lineWidth = 2.4;
@@ -536,10 +509,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
           <LegendSwatch color="#38BDF8" label="Model Forecast (+24h)" solid />
           <LegendSwatch color="#EF4444" label="Ground-Truth Verification (+24h)" dashed />
           {viewMode === "realtime" && (
-            <>
-              <LegendSwatch color="rgba(255, 255, 255, 0.4)" label="Truth Envelope" dashed />
-              <LegendSwatch color="rgba(56, 189, 248, 0.5)" label="Predicted Envelope" dashed />
-            </>
+            <LegendSwatch color="rgba(255, 255, 255, 0.4)" label="Truth Envelope" dashed />
           )}
           {viewMode === "realtime" && (
             <span className="flex items-center gap-1.5 text-muted-foreground font-mono text-[10px]">
