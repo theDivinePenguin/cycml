@@ -85,49 +85,20 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     const getX = (idx: number) => padLeft + (idx / Math.max(1, N - 1)) * chartW;
     const getY = (val: number) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
 
-    // 1. Saffir-Simpson & intensity gridlines
-    const thresholds = [
-      { val: 34, label: "TS (34 kt)", color: "rgba(148, 163, 184, 0.35)" },
-      { val: 64, label: "Cat 1 (64 kt)", color: "rgba(251, 191, 36, 0.4)" },
-      { val: 96, label: "Cat 3 (96 kt)", color: "rgba(249, 115, 22, 0.45)" },
-      { val: 137, label: "Cat 5 (137 kt)", color: "rgba(239, 68, 68, 0.5)" },
-    ];
-
-    thresholds.forEach((th) => {
-      if (th.val <= maxVal) {
-        const y = getY(th.val);
-        ctx.strokeStyle = th.color;
-        ctx.lineWidth = 1;
-        ctx.setLineDash([3, 4]);
-        ctx.beginPath();
-        ctx.moveTo(padLeft, y);
-        ctx.lineTo(padLeft + chartW, y);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.fillStyle = th.color;
-        ctx.font = "9px 'IBM Plex Mono', monospace";
-        ctx.textAlign = "right";
-        ctx.fillText(th.label, padLeft - 6, y + 3);
-      }
-    });
-
-    // Subtle 20-kt interval gridlines
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
+    // 1. Clean, neutral horizontal gridlines (every 20 kt)
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
     ctx.lineWidth = 1;
-    for (let v = 20; v < maxVal; v += 20) {
-      if (!thresholds.some((t) => Math.abs(t.val - v) < 8)) {
-        const y = getY(v);
-        ctx.beginPath();
-        ctx.moveTo(padLeft, y);
-        ctx.lineTo(padLeft + chartW, y);
-        ctx.stroke();
+    for (let v = 20; v <= maxVal; v += 20) {
+      const y = getY(v);
+      ctx.beginPath();
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(padLeft + chartW, y);
+      ctx.stroke();
 
-        ctx.fillStyle = "rgba(148, 163, 184, 0.25)";
-        ctx.font = "8.5px 'IBM Plex Mono', monospace";
-        ctx.textAlign = "right";
-        ctx.fillText(`${v}`, padLeft - 6, y + 3);
-      }
+      ctx.fillStyle = "rgba(148, 163, 184, 0.45)";
+      ctx.font = "9px 'IBM Plex Mono', monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(`${v}`, padLeft - 6, y + 3);
     }
 
     // X-Axis Baseline
