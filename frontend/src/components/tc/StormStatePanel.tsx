@@ -47,8 +47,10 @@ export function StormStatePanel({ data }: Props) {
   return (
     <section className="flex h-full flex-col border border-hairline bg-panel">
       <div className="flex items-baseline justify-between border-b border-hairline px-5 py-2.5">
-        <h2 className="text-sm font-semibold tracking-tight">Current storm state</h2>
-        <span className="readout text-[11px] text-muted-foreground">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+          CURRENT OBSERVATION
+        </h2>
+        <span className="readout text-[11px] text-muted-foreground font-mono">
           {formatUTC(data.timestamp)}
         </span>
       </div>

@@ -227,28 +227,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // E1. If in EMA mode: Draw Raw Model Forecast Vector as fine dashed red line
-      if (isEma) {
-        ctx.strokeStyle = "rgba(239, 68, 68, 0.65)";
-        ctx.lineWidth = 1.4;
-        ctx.setLineDash([3, 3]);
-        ctx.beginPath();
-        ctx.moveTo(nowX, nowY);
-        ctx.lineTo(getX(p6Idx), getY(raw6));
-        ctx.lineTo(getX(p12Idx), getY(raw12));
-        ctx.lineTo(getX(p24Idx), getY(raw24));
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const rx = getX(p24Idx);
-        const ry = getY(raw24);
-        ctx.fillStyle = "#EF4444";
-        ctx.beginPath();
-        ctx.arc(rx, ry, 2.5, 0, 2 * Math.PI);
-        ctx.fill();
-      }
-
-      // E2. Primary Forecast Vector (Solid High-Contrast Cyan)
+      // Primary Forecast Vector (Solid High-Contrast Cyan)
       ctx.strokeStyle = "#38BDF8";
       ctx.lineWidth = 2.6;
       ctx.beginPath();
@@ -517,41 +496,30 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               +24h Active Corridor
             </span>
           )}
-          {smoothingMode === "ema" && viewMode === "realtime" && (
-            <LegendSwatch color="#EF4444" label="Raw Unsmoothed Jitter" dashed />
-          )}
         </div>
 
         {/* Live Scrub/Hover Telemetry HUD */}
-        {activeHoverItem && (
-          <div className="flex items-center gap-3 font-mono text-[11px]">
-            <span className="text-muted-foreground">
-              T+{activeHoverItem.elapsed_hours}h:
-            </span>
-            <span className="text-white font-semibold">
-              Obs: {activeHoverItem.observed_kt} kt
-            </span>
-            <span className="text-cyan-400 font-semibold">
-              Pred:{" "}
-              {smoothingMode === "ema"
-                ? activeHoverItem.ema_24h
-                : activeHoverItem.pred_24h}{" "}
-              kt
-            </span>
-            <span className="text-red-400">
-              Actual: {activeHoverItem.actual_plus_24h} kt
-            </span>
-            <span className="text-muted-foreground text-[10px]">
-              (Δ{" "}
-              {Math.abs(
-                (smoothingMode === "ema"
-                  ? activeHoverItem.ema_24h
-                  : activeHoverItem.pred_24h) - activeHoverItem.actual_plus_24h
-              )}{" "}
-              kt)
-            </span>
-          </div>
-        )}
+        {activeHoverItem && (() => {
+          const forecast24 = smoothingMode === "ema" ? activeHoverItem.ema_24h : activeHoverItem.pred_24h;
+          const observed24 = activeHoverItem.actual_plus_24h;
+          const err = forecast24 - observed24;
+          return (
+            <div className="flex flex-wrap items-center gap-2.5 font-mono text-[11px]">
+              <span className="rounded-xs bg-white/10 px-1.5 py-0.5 text-white font-semibold">
+                CURRENT OBS (T+{activeHoverItem.elapsed_hours}h): {activeHoverItem.observed_kt} kt
+              </span>
+              <span className="rounded-xs bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.5 text-cyan-300 font-semibold">
+                +24h FORECAST: {forecast24} kt
+              </span>
+              <span className="rounded-xs bg-red-500/15 border border-red-500/30 px-1.5 py-0.5 text-red-300 font-semibold">
+                +24h OBSERVED: {observed24} kt
+              </span>
+              <span className="text-muted-foreground text-[10px]">
+                ERROR: {err > 0 ? `+${err}` : err} kt
+              </span>
+            </div>
+          );
+        })()}
       </div>
 
       {/* Canvas Area with high-DPI scaling */}
