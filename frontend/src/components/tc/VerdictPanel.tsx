@@ -33,10 +33,10 @@ export function VerdictPanel({ data }: Props) {
     <section className="border border-hairline bg-panel" style={{ borderLeft: `3px solid ${color}` }}>
       <div className="flex items-baseline justify-between border-b border-hairline px-5 py-2.5">
         <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
-          VERIFICATION (+24h OUTCOME)
+          RETROSPECTIVE VERIFICATION
         </h2>
-        <span className="readout text-[11px] font-mono font-semibold" style={{ color }}>
-          {hit ? "Forecast verified" : "Forecast missed"}
+        <span className="readout text-[11px] font-mono font-medium text-muted-foreground border border-hairline px-2 py-0.5 rounded-xs bg-panel-raised">
+          CASE VERIFICATION AVAILABLE · HELD-OUT
         </span>
       </div>
 

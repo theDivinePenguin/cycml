@@ -76,21 +76,30 @@ export function RiskHeadline({ data }: Props) {
         </div>
 
         <div className="flex flex-col justify-center gap-4 border-hairline lg:border-l lg:pl-6">
-          <div>
-            <p className="text-xs text-muted-foreground">Relative to climatology</p>
-            <div className="mt-1 flex items-baseline gap-3">
-              <span className="readout text-4xl leading-none font-semibold" style={{ color }}>
-                {multiplier.toFixed(1)}×
-              </span>
-              <span className="text-sm text-foreground/75">baseline risk</span>
+          <div className="grid grid-cols-2 gap-3 font-mono">
+            <div className="rounded border border-hairline bg-panel-raised/50 p-3">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                CLIMATOLOGICAL BASE RATE
+              </p>
+              <p className="mt-1 text-2xl font-semibold text-foreground/90 font-mono">
+                {(RI_BASE_RATE * 100).toFixed(1)}%
+              </p>
+              <p className="mt-0.5 text-[10px] text-muted-foreground">SHIPS/HURDAT2</p>
             </div>
-            <p className="readout mt-2 text-[11px] text-muted-foreground">
-              {prob.toFixed(3)} ÷ {RI_BASE_RATE} (dataset RI base rate)
-            </p>
+
+            <div className="rounded border border-hairline bg-panel-raised/50 p-3">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                RELATIVE TO BASE RATE
+              </p>
+              <p className="mt-1 text-2xl font-semibold font-mono" style={{ color }}>
+                {multiplier.toFixed(2)}×
+              </p>
+              <p className="mt-0.5 text-[10px] text-muted-foreground">Ratio p / base</p>
+            </div>
           </div>
 
           <div
-            className="inline-flex w-fit items-center gap-2 rounded-xs px-3 py-1.5 text-sm font-semibold"
+            className="inline-flex w-fit items-center gap-2 rounded-xs px-3 py-1 text-xs font-semibold font-mono"
             style={{
               background: `color-mix(in oklab, ${color} 18%, transparent)`,
               color,
@@ -100,10 +109,8 @@ export function RiskHeadline({ data }: Props) {
             {tier}
           </div>
 
-          <p className="max-w-sm text-[13px] leading-relaxed text-muted-foreground">
-            Probability and multiplier are reported together: the multiplier expresses how
-            far this case departs from the {(RI_BASE_RATE * 100).toFixed(1)}% climatological
-            RI rate, it does not replace the raw probability.
+          <p className="max-w-sm text-[12px] leading-relaxed text-muted-foreground">
+            Probability and multiplier are reported together: the relative departure compares the model's 24-hour RI probability against the {(RI_BASE_RATE * 100).toFixed(1)}% historical climatological base rate.
           </p>
         </div>
       </div>
