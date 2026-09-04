@@ -47,3 +47,11 @@ tmp/
 *.swp
 *.swo
 .~lock.*
+
+# 6. Frontend Build & Node Modules
+frontend/node_modules/
+frontend/dist/
+frontend/.output/
+frontend/.nitro/
+frontend/.wrangler/
+
