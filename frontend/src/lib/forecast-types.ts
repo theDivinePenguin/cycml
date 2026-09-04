@@ -44,10 +44,10 @@ export const RI_BASE_RATE = 0.068;
 
 export type RiskTier = "Low Risk" | "Elevated Risk" | "High Risk" | "Critical Risk";
 
-export function riskTier(multiplier: number): RiskTier {
-  if (multiplier < 1.5) return "Low Risk";
-  if (multiplier < 3) return "Elevated Risk";
-  if (multiplier < 6) return "High Risk";
+export function riskTier(prob: number): RiskTier {
+  if (prob < 0.10) return "Low Risk";
+  if (prob < 0.25) return "Elevated Risk";
+  if (prob < 0.40) return "High Risk";
   return "Critical Risk";
 }
 

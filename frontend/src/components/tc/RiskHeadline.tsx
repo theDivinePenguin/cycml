@@ -14,8 +14,7 @@ const TREND_ICON = {
 
 export function RiskHeadline({ data }: Props) {
   const prob = data.ri_probability;
-  const multiplier = prob / RI_BASE_RATE;
-  const tier = riskTier(multiplier);
+  const tier = riskTier(prob);
   const color = riskColor(tier);
   const TrendIcon = TREND_ICON[data.trend];
 
@@ -28,21 +27,23 @@ export function RiskHeadline({ data }: Props) {
       }}
     >
       <div className="flex items-baseline justify-between border-b border-hairline px-6 py-2.5">
-        <h2 className="text-sm font-semibold tracking-tight">
-          24-hour rapid intensification guidance
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+          24-Hour Rapid Intensification Guidance
         </h2>
-        <span className="readout text-[11px] text-muted-foreground">
-          ≥30 kt / 24 h · valid from analysis time
+        <span className="readout text-[11px] text-muted-foreground font-mono">
+          Threshold: ≥ 30 kt / 24 h
         </span>
       </div>
 
       <div className="grid gap-6 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div>
-          <p className="text-xs text-muted-foreground">Macro intensity trend</p>
+          <p className="text-xs text-muted-foreground font-mono uppercase tracking-wider">
+            Macro Intensity Trend
+          </p>
           <div className="mt-1 flex items-center gap-2">
             <TrendIcon className="h-7 w-7" style={{ color }} />
             <span
-              className="text-4xl leading-none font-semibold tracking-tight"
+              className="text-3xl leading-none font-semibold tracking-tight font-mono"
               style={{ color }}
             >
               {data.trend}
@@ -51,10 +52,12 @@ export function RiskHeadline({ data }: Props) {
 
           <div className="mt-6 flex items-end gap-4">
             <div>
-              <p className="text-xs text-muted-foreground">RI probability</p>
+              <p className="text-xs text-muted-foreground font-mono uppercase tracking-wider">
+                Predicted RI Probability
+              </p>
               <div className="flex items-end gap-1">
                 <span
-                  className="readout text-[5.5rem] leading-[0.85] font-semibold"
+                  className="readout text-[5rem] leading-[0.85] font-semibold"
                   style={{ color }}
                 >
                   {(prob * 100).toFixed(1)}
@@ -64,14 +67,14 @@ export function RiskHeadline({ data }: Props) {
             </div>
           </div>
 
-          <div className="mt-4 h-2 w-full max-w-md bg-panel-raised">
+          <div className="mt-4 h-2 w-full max-w-md bg-panel-raised rounded-full overflow-hidden">
             <div
-              className="h-full transition-[width] duration-500"
+              className="h-full transition-[width] duration-500 rounded-full"
               style={{ width: `${Math.min(100, prob * 100)}%`, background: color }}
             />
           </div>
-          <p className="readout mt-2 text-[11px] text-muted-foreground">
-            raw model output · not calibrated away · p = {prob.toFixed(3)}
+          <p className="readout mt-2 text-[11px] text-muted-foreground font-mono">
+            Direct model confidence · p(RI) = {prob.toFixed(3)}
           </p>
         </div>
 
@@ -79,7 +82,7 @@ export function RiskHeadline({ data }: Props) {
           <div className="grid grid-cols-2 gap-3 font-mono">
             <div className="rounded border border-hairline bg-panel-raised/50 p-3">
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                CLIMATOLOGICAL BASE RATE
+                CLIMATOLOGICAL BASE
               </p>
               <p className="mt-1 text-2xl font-semibold text-foreground/90 font-mono">
                 {(RI_BASE_RATE * 100).toFixed(1)}%
@@ -89,12 +92,12 @@ export function RiskHeadline({ data }: Props) {
 
             <div className="rounded border border-hairline bg-panel-raised/50 p-3">
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                RELATIVE TO BASE RATE
+                ALERT THRESHOLD
               </p>
-              <p className="mt-1 text-2xl font-semibold font-mono" style={{ color }}>
-                {multiplier.toFixed(2)}×
+              <p className="mt-1 text-2xl font-semibold text-cyan-400 font-mono">
+                ≥ 35.0%
               </p>
-              <p className="mt-0.5 text-[10px] text-muted-foreground">Ratio p / base</p>
+              <p className="mt-0.5 text-[10px] text-muted-foreground">Optimal F1 cutoff</p>
             </div>
           </div>
 
@@ -106,11 +109,11 @@ export function RiskHeadline({ data }: Props) {
               border: `1px solid color-mix(in oklab, ${color} 55%, transparent)`,
             }}
           >
-            {tier}
+            {tier.toUpperCase()} — {prob >= 0.35 ? "ALERT CRITERIA MET" : "BELOW ALERT THRESHOLD"}
           </div>
 
           <p className="max-w-sm text-[12px] leading-relaxed text-muted-foreground">
-            Probability and multiplier are reported together: the relative departure compares the model's 24-hour RI probability against the {(RI_BASE_RATE * 100).toFixed(1)}% historical climatological base rate.
+            Rapid Intensification (RI) is defined as a ≥30 kt increase in maximum sustained winds within 24 hours. The operational warning triggers when model probability meets or exceeds 35.0%.
           </p>
         </div>
       </div>

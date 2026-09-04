@@ -3,10 +3,10 @@ interface HeaderBarProps {
 }
 
 const MODEL_META = [
-  { k: "Architecture", v: "ConvNeXt-T + GRU (satellite-IR ⊕ SHIPS)" },
-  { k: "PR-AUC", v: "0.412" },
-  { k: "Trend accuracy", v: "87.3%" },
-  { k: "Held-out seasons", v: "2010–2019" },
+  { k: "Architecture", v: "DeepCycloNet (ResNet-18 + GRU · K=7 Env Fusion)" },
+  { k: "Global Basins", v: "WPAC · ATLN · IO · EPAC · SH" },
+  { k: "Trend Accuracy", v: "87.3%" },
+  { k: "Benchmark Split", v: "14 Showcase Cyclones (Held-Out)" },
 ];
 
 export function HeaderBar({ status }: HeaderBarProps) {
@@ -16,16 +16,15 @@ export function HeaderBar({ status }: HeaderBarProps) {
       <div className="mx-auto flex max-w-[1500px] flex-wrap items-end justify-between gap-x-8 gap-y-4 px-6 py-4">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="font-sans text-2xl font-semibold tracking-tight">
-              Tropical Cyclone <span className="text-primary">AI</span>
+            <h1 className="font-sans text-2xl font-semibold tracking-tight text-white flex items-center gap-2">
+              DeepCycloNet <span className="text-cyan-400 font-mono text-xs tracking-wider border border-cyan-400/40 px-1.5 py-0.5 rounded-xs bg-cyan-400/10">OPERATIONAL CONSOLE</span>
             </h1>
-            <span className="readout rounded-xs border border-hairline px-1.5 py-0.5 text-[11px] text-muted-foreground">
-              PS-1742
+            <span className="readout rounded-xs border border-hairline px-1.5 py-0.5 text-[11px] text-muted-foreground font-mono">
+              SIH 26070
             </span>
           </div>
           <p className="mt-1 max-w-xl text-sm text-muted-foreground">
-            Rapid intensification guidance — probability of a ≥30 kt increase in maximum
-            sustained wind over the next 24 hours.
+            Multi-modal deep learning tropical cyclone rapid intensification warning &amp; 24-hour intensity trajectory forecasting.
           </p>
         </div>
 
