@@ -213,8 +213,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         ctx.fill();
       }
 
-      // D. Ground-Truth Actual Outcome Corridor (Next 24h - Steel Blue / Accent)
-      ctx.strokeStyle = "rgba(122, 170, 206, 0.9)";
+      // D. Ground-Truth Actual Outcome Corridor (Next 24h - Dashed Red)
+      ctx.strokeStyle = "rgba(220, 38, 38, 0.9)";
       ctx.lineWidth = 1.8;
       ctx.setLineDash([4, 3]);
       ctx.beginPath();
@@ -227,8 +227,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Primary Forecast Vector (Solid Deep Slate Navy / Accent)
-      ctx.strokeStyle = "#355872";
+      // Primary Forecast Vector (Solid High-Contrast Marine Blue)
+      ctx.strokeStyle = "#0284C7";
       ctx.lineWidth = 2.6;
       ctx.beginPath();
       ctx.moveTo(nowX, nowY);
@@ -248,17 +248,17 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         const px = getX(pt.idx);
         const py = getY(pt.val);
 
-        // Dot: #9CD5FF with #355872 border
-        ctx.fillStyle = "#9CD5FF";
+        // Dot
+        ctx.fillStyle = "#0284C7";
         ctx.beginPath();
         ctx.arc(px, py, 4.5, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.strokeStyle = "#355872";
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = "rgba(2, 132, 199, 0.35)";
+        ctx.lineWidth = 2.5;
         ctx.stroke();
 
         // Value text
-        ctx.fillStyle = "#355872";
+        ctx.fillStyle = "#0369A1";
         ctx.font = "bold 9px 'IBM Plex Mono', monospace";
         ctx.textAlign = "left";
         ctx.fillText(`${pt.lbl}: ${Math.round(pt.val)}k`, px + 7, py - 4);
@@ -267,8 +267,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       // ==========================================
       // Full Lifecycle Audit View
       // ==========================================
-      // 1. Observed Best Track across all timesteps (Solid Navy #355872)
-      ctx.strokeStyle = "#355872";
+      // 1. Observed Best Track across all timesteps (Solid Ink #0F172A)
+      ctx.strokeStyle = "#0F172A";
       ctx.lineWidth = 2.2;
       ctx.beginPath();
       for (let i = 0; i < N; i++) {
@@ -279,8 +279,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       }
       ctx.stroke();
 
-      // 2. Predicted +24h Trajectory across Full Lifecycle (Steel Blue #7AAACE)
-      ctx.strokeStyle = "#7AAACE";
+      // 2. Predicted +24h Trajectory across Full Lifecycle (Marine Blue)
+      ctx.strokeStyle = "#0284C7";
       ctx.lineWidth = 2.0;
       ctx.beginPath();
       for (let i = 0; i < N; i++) {
@@ -292,8 +292,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       }
       ctx.stroke();
 
-      // 3. Actual +24h Ground Truth Target Path (Dashed #355872 / Steel Blue)
-      ctx.strokeStyle = "rgba(53, 88, 114, 0.6)";
+      // 3. Actual +24h Ground Truth Target Path (Dashed Red)
+      ctx.strokeStyle = "rgba(220, 38, 38, 0.9)";
       ctx.lineWidth = 1.6;
       ctx.setLineDash([4, 3]);
       ctx.beginPath();
@@ -308,7 +308,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     }
 
     // "NOW" Vertical Timeline Marker Line
-    ctx.strokeStyle = "#7AAACE";
+    ctx.strokeStyle = "#0284C7";
     ctx.lineWidth = 1.4;
     ctx.setLineDash([2, 2]);
     ctx.beginPath();
@@ -318,16 +318,16 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     ctx.setLineDash([]);
 
     // Observation Beacon at NOW
-    ctx.fillStyle = "#355872";
+    ctx.fillStyle = saffirColor(currStep.observed_kt);
     ctx.beginPath();
     ctx.arc(nowX, nowY, 5.5, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.strokeStyle = "#9CD5FF";
+    ctx.strokeStyle = "#FFFFFF";
     ctx.lineWidth = 2.5;
     ctx.stroke();
 
     // NOW Pill Label at top
-    ctx.fillStyle = "#355872";
+    ctx.fillStyle = "#0284C7";
     ctx.font = "bold 9px 'IBM Plex Mono', monospace";
     ctx.textAlign = "center";
     ctx.fillText("NOW", nowX, padTop - 5);
@@ -347,7 +347,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.fillStyle = "#355872";
+      ctx.fillStyle = "#0F172A";
       ctx.beginPath();
       ctx.arc(hovX, hovY, 3, 0, 2 * Math.PI);
       ctx.fill();
@@ -419,7 +419,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#355872] animate-pulse" />
-            <h2 className="text-xs font-bold tracking-wider uppercase text-[#355872] font-mono">
+            <h2 className="text-xs font-bold tracking-wider uppercase text-foreground font-mono">
               Intensity Evolution &amp; Operational Forecast Window
             </h2>
           </div>
@@ -435,7 +435,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-xs cursor-pointer ${
                 viewMode === "realtime"
                   ? "bg-[#355872] text-[#F7F8F0] font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-[#355872]"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Real-Time Operations
@@ -446,7 +446,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-xs cursor-pointer ${
                 viewMode === "audit"
                   ? "bg-[#355872] text-[#F7F8F0] font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-[#355872]"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Full Lifecycle Audit
@@ -461,7 +461,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-xs cursor-pointer ${
                 smoothingMode === "raw"
                   ? "bg-[#355872] text-[#F7F8F0] font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-[#355872]"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Raw Model
@@ -472,7 +472,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-xs cursor-pointer ${
                 smoothingMode === "ema"
                   ? "bg-[#355872] text-[#F7F8F0] font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-[#355872]"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               EMA Smoothed (α=0.35)
@@ -484,9 +484,9 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       {/* Legend Banner */}
       <div className="flex flex-wrap items-center justify-between border-b border-hairline/60 bg-panel-raised/40 px-4 py-1.5 text-[11px]">
         <div className="flex flex-wrap items-center gap-4">
-          <LegendSwatch color="#355872" label="Observed Past" solid />
-          <LegendSwatch color="#355872" label="Model Forecast (+24h)" solid />
-          <LegendSwatch color="#7AAACE" label="Ground-Truth Verification (+24h)" dashed />
+          <LegendSwatch color="#0F172A" label="Observed Past" solid />
+          <LegendSwatch color="#0284C7" label="Model Forecast (+24h)" solid />
+          <LegendSwatch color="#DC2626" label="Ground-Truth Verification (+24h)" dashed />
           {viewMode === "realtime" && (
             <LegendSwatch color="rgba(122, 170, 206, 0.6)" label="Truth Envelope" dashed />
           )}
@@ -505,13 +505,13 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
           const err = forecast24 - observed24;
           return (
             <div className="flex flex-wrap items-center gap-2.5 font-mono text-[11px]">
-              <span className="rounded-xs bg-[#F7F8F0] border border-[#7AAACE]/50 px-1.5 py-0.5 text-[#355872] font-semibold">
+              <span className="rounded-xs bg-[#F7F8F0] border border-[#7AAACE]/50 px-1.5 py-0.5 text-foreground font-semibold">
                 CURRENT OBS (T+{activeHoverItem.elapsed_hours}h): {activeHoverItem.observed_kt} kt
               </span>
-              <span className="rounded-xs bg-[#9CD5FF]/35 border border-[#7AAACE]/60 px-1.5 py-0.5 text-[#355872] font-semibold">
+              <span className="rounded-xs bg-sky-50 border border-sky-300 px-1.5 py-0.5 text-sky-800 font-semibold">
                 +24h FORECAST: {forecast24} kt
               </span>
-              <span className="rounded-xs bg-[#7AAACE]/20 border border-[#7AAACE]/60 px-1.5 py-0.5 text-[#355872] font-semibold">
+              <span className="rounded-xs bg-red-50 border border-red-300 px-1.5 py-0.5 text-red-800 font-semibold">
                 +24h OBSERVED: {observed24} kt
               </span>
               <span className="text-muted-foreground font-semibold text-[10px]">

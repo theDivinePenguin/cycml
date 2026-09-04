@@ -72,65 +72,55 @@
 :root {
   --radius: 3px;
 
-  /* 4-Color Aesthetic Palette Tokens:
-   * Background Base: #F7F8F0
-   * Primary Dark / Text / Core Accents: #355872
-   * Secondary Surface / Borders / Subdued: #7AAACE
-   * Highlight / Active / Accent: #9CD5FF
-   */
-
+  /* Structural Surfaces & Boundaries */
   --background: #F7F8F0;
-  --foreground: #355872;
+  --foreground: oklch(0.20 0.015 245);
 
-  /* Panel surfaces & 1px borders */
   --panel: #FFFFFF;
   --panel-raised: rgba(122, 170, 206, 0.12);
   --hairline: rgba(122, 170, 206, 0.28);
+  --border: rgba(122, 170, 206, 0.35);
+  --input: rgba(122, 170, 206, 0.30);
+  --ring: #7AAACE;
 
   --card: var(--panel);
   --card-foreground: var(--foreground);
   --popover: var(--panel);
   --popover-foreground: var(--foreground);
 
-  /* Primary Dark / Core Chrome: #355872 */
+  /* Primary Chrome Accent */
   --primary: #355872;
   --primary-foreground: #F7F8F0;
   
-  /* Secondary / Subdued: #7AAACE */
   --secondary: rgba(122, 170, 206, 0.18);
-  --secondary-foreground: #355872;
+  --secondary-foreground: var(--foreground);
   
   --muted: rgba(122, 170, 206, 0.15);
   --muted-foreground: rgba(53, 88, 114, 0.75);
 
-  /* Highlight / Active: #9CD5FF */
   --accent: #9CD5FF;
   --accent-foreground: #355872;
 
-  --destructive: #A33B2E;
+  --destructive: oklch(0.52 0.22 25);
   --destructive-foreground: #F7F8F0;
-
-  --border: rgba(122, 170, 206, 0.35);
-  --input: rgba(122, 170, 206, 0.30);
-  --ring: #7AAACE;
 
   --signal: #355872;
   --ocean: #7AAACE;
 
-  /* Saffir–Simpson Scale tuned to palette harmony */
-  --saffir-td: #7AAACE;
-  --saffir-ts: #5381A5;
-  --saffir-cat1: #355872;
-  --saffir-cat2: #2B495F;
-  --saffir-cat3: #203A4C;
-  --saffir-cat4: #A33B2E;
-  --saffir-cat5: #7F281C;
+  /* Original Saffir–Simpson Scale (Untouched) */
+  --saffir-td: oklch(0.48 0.12 230);
+  --saffir-ts: oklch(0.48 0.14 185);
+  --saffir-cat1: oklch(0.48 0.15 130);
+  --saffir-cat2: oklch(0.54 0.16 75);
+  --saffir-cat3: oklch(0.52 0.19 45);
+  --saffir-cat4: oklch(0.48 0.22 25);
+  --saffir-cat5: oklch(0.44 0.22 350);
 
-  /* Operational RI Risk Tiers */
-  --risk-low: #7AAACE;
-  --risk-elevated: #4C7B9E;
-  --risk-high: #C25B4E;
-  --risk-critical: #A33B2E;
+  /* Original Operational RI Risk Tiers & Warnings (Untouched) */
+  --risk-low: oklch(0.46 0.14 165);
+  --risk-elevated: oklch(0.54 0.16 75);
+  --risk-high: oklch(0.52 0.19 45);
+  --risk-critical: oklch(0.48 0.22 25);
 }
 
 @layer base {

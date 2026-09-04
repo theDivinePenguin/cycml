@@ -15,10 +15,10 @@ export function AuxForecast({ data }: Props) {
   return (
     <section className="border border-hairline bg-panel shadow-xs">
       <div className="border-b border-hairline bg-panel-raised px-5 py-2.5 flex items-center justify-between">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-[#355872]">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           MODEL FORECAST
         </h2>
-        <span className="readout text-[11px] text-muted-foreground font-mono font-medium">
+        <span className="readout text-[11px] text-muted-foreground font-mono">
           HORIZON GUIDANCE
         </span>
       </div>
@@ -27,7 +27,10 @@ export function AuxForecast({ data }: Props) {
           <div key={e.k} className="px-5 py-4">
             <p className="readout text-xs text-muted-foreground font-semibold">{e.k}</p>
             <div className="mt-1 flex items-baseline gap-1.5">
-              <span className="readout text-3xl leading-none font-bold text-[#355872]">
+              <span
+                className="readout text-3xl leading-none font-bold"
+                style={{ color: saffirColor(e.v) }}
+              >
                 {e.v}
               </span>
               <span className="readout text-xs text-muted-foreground font-semibold">kt</span>

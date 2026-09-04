@@ -32,10 +32,10 @@ export function VerdictPanel({ data }: Props) {
   return (
     <section className="border border-hairline bg-panel shadow-xs" style={{ borderLeft: `3px solid ${color}` }}>
       <div className="flex items-baseline justify-between border-b border-hairline bg-panel-raised px-5 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-[#355872]">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           RETROSPECTIVE VERIFICATION
         </h2>
-        <span className="readout text-[11px] font-mono font-semibold text-[#355872] border border-[#7AAACE]/50 px-2 py-0.5 rounded-xs bg-[#9CD5FF]/30">
+        <span className="readout text-[11px] font-mono font-semibold text-muted-foreground border border-hairline px-2 py-0.5 rounded-xs bg-panel">
           CASE VERIFICATION AVAILABLE · HELD-OUT
         </span>
       </div>
@@ -46,7 +46,7 @@ export function VerdictPanel({ data }: Props) {
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider block font-semibold">
             +24h Forecast
           </span>
-          <span className="text-lg font-bold text-[#355872]">
+          <span className="text-lg font-bold text-primary">
             {forecast24} kt
           </span>
         </div>
@@ -54,7 +54,7 @@ export function VerdictPanel({ data }: Props) {
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider block font-semibold">
             +24h Observed
           </span>
-          <span className="text-lg font-bold text-[#355872]">
+          <span className="text-lg font-bold text-foreground">
             {observed24} kt
           </span>
         </div>
@@ -64,7 +64,7 @@ export function VerdictPanel({ data }: Props) {
           </span>
           <span
             className={`text-lg font-bold ${
-              Math.abs(error24) <= 10 ? "text-[#355872]" : "text-[#A33B2E]"
+              Math.abs(error24) <= 10 ? "text-emerald-700" : "text-amber-700"
             }`}
           >
             {error24 > 0 ? `+${error24}` : error24} kt
@@ -72,7 +72,7 @@ export function VerdictPanel({ data }: Props) {
         </div>
       </div>
 
-      <div className="space-y-2 px-5 py-4 text-[13px] leading-relaxed text-[#355872]/90">
+      <div className="space-y-2 px-5 py-4 text-[13px] leading-relaxed text-foreground/85">
         <p className="font-medium">{model}</p>
         <p className="font-medium">{verdict}</p>
         <p className="text-muted-foreground text-[11px] font-mono">
