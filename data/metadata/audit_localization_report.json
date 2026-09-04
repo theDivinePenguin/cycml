@@ -1,0 +1,17 @@
+{
+  "total_h5_samples": 70499,
+  "raw_patch_dim": [
+    201,
+    201,
+    4
+  ],
+  "spatial_resolution_deg": 0.07,
+  "fov_deg": 14.07,
+  "is_all_centered": true,
+  "nominal_center_pixel": [
+    100,
+    100
+  ],
+  "natural_negatives_available": false,
+  "total_cyclones": 1285
+}

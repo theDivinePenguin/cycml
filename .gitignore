@@ -54,4 +54,6 @@ frontend/dist/
 frontend/.output/
 frontend/.nitro/
 frontend/.wrangler/
+frontend_test_clone/
+
 

@@ -1,0 +1,26 @@
+{
+  "cache_columns": [
+    "sequence_idx",
+    "cyclone_id",
+    "timestamp",
+    "vmax",
+    "mslp",
+    "sst",
+    "cohc",
+    "shrd",
+    "rhmd",
+    "environment_age_hours",
+    "has_env_data",
+    "missing_sst",
+    "missing_cohc",
+    "missing_shrd",
+    "missing_rhmd",
+    "missing_mslp"
+  ],
+  "feature_dim": 6,
+  "total_dim": 12,
+  "v_diffs": 0,
+  "stats_discrepancies": 0,
+  "max_tensor_diff": 1.1879817041204888e-07,
+  "zero_nans": true
+}

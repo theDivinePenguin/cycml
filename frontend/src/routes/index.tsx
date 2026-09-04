@@ -9,7 +9,7 @@ import { RiskHeadline } from "@/components/tc/RiskHeadline";
 import { IntensityChart } from "@/components/tc/IntensityChart";
 import { AuxForecast } from "@/components/tc/AuxForecast";
 import { VerdictPanel } from "@/components/tc/VerdictPanel";
-import { STORMS, fetchForecast } from "@/lib/forecast-api";
+import { AVAILABLE_MODELS, DEFAULT_MODEL_ID, STORMS, fetchForecast } from "@/lib/forecast-api";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,6 +32,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Console() {
+  const [modelId, setModelId] = useState(DEFAULT_MODEL_ID);
   const [stormId, setStormId] = useState(STORMS[0]!.id);
   const [step, setStep] = useState(16);
   const [playing, setPlaying] = useState(false);
@@ -39,8 +40,8 @@ function Console() {
   const steps = STORMS.find((s) => s.id === stormId)!.steps;
 
   const { data } = useQuery({
-    queryKey: ["forecast", stormId, step],
-    queryFn: () => fetchForecast(stormId, step),
+    queryKey: ["forecast", stormId, step, modelId],
+    queryFn: () => fetchForecast(stormId, step, modelId),
     placeholderData: (prev) => prev,
   });
 
@@ -66,7 +67,12 @@ function Console() {
 
   return (
     <div className="min-h-screen">
-      <HeaderBar status="Operational" />
+      <HeaderBar
+        status="Operational"
+        modelId={modelId}
+        onModelChange={setModelId}
+        models={AVAILABLE_MODELS}
+      />
       <StormSelector
         storms={STORMS}
         stormId={stormId}
@@ -97,16 +103,13 @@ function Console() {
               <VerdictPanel data={data} />
             </div>
           </div>
-          <p className="readout mt-6 text-[11px] text-muted-foreground">
-            Guidance product — retrospective replay of held-out cases. Not an official warning
-            product; consult NHC/JTWC advisories for operational decisions.
+          <p className="readout mt-6 text-[11px] text-muted-foreground font-mono">
+            OPERATIONAL NOTE: Rapid intensification (RI) is defined per National Hurricane Center /
+            JTWC criteria as an intensity increase ≥ 30 kt in 24 h. Retrospective best-track verification
+            is drawn from held-out cyclone splits (JTWC / HURDAT2).
           </p>
         </main>
-      ) : (
-        <div className="readout px-6 py-24 text-sm text-muted-foreground">
-          Acquiring analysis…
-        </div>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -52,13 +52,58 @@ interface RawStorm {
   timesteps: RawTimestep[];
 }
 
+export interface ModelOption {
+  id: string;
+  category?: string;
+  name: string;
+  badge: string;
+  tag: string;
+  lead_mae: string;
+  ri_mae: string;
+  ri_precision: string;
+  slope: string;
+  modalities?: string[];
+}
+
+interface MultiModelPayload {
+  models: ModelOption[];
+  storms: Record<string, Record<string, RawStorm>>;
+}
+
 type StormDataMap = Record<string, RawStorm>;
 
-const STORMS_DATA: StormDataMap = stormDataRaw as unknown as StormDataMap;
+const rawPayload = stormDataRaw as unknown as (MultiModelPayload | StormDataMap);
+const isMultiModel = "models" in rawPayload && "storms" in rawPayload;
+
+export const AVAILABLE_MODELS: ModelOption[] = isMultiModel
+  ? (rawPayload as MultiModelPayload).models
+  : [
+      {
+        id: "default",
+        category: "Production",
+        name: "Active Model",
+        badge: "Standard",
+        tag: "Default",
+        lead_mae: "",
+        ri_mae: "",
+        ri_precision: "",
+        slope: "",
+        modalities: ["IR1 Thermal Infrared", "Atmospheric SHIPS Reanalysis"],
+      },
+    ];
+
+export const DEFAULT_MODEL_ID = AVAILABLE_MODELS.some(m => m.id === "exp2_ultra")
+  ? "exp2_ultra"
+  : (AVAILABLE_MODELS[0]?.id || "default");
+
+const ALL_STORMS: Record<string, StormDataMap> = isMultiModel
+  ? (rawPayload as MultiModelPayload).storms
+  : { default: rawPayload as StormDataMap };
+
+const defaultStorms = ALL_STORMS[DEFAULT_MODEL_ID] || Object.values(ALL_STORMS)[0] || {};
 
 function formatTimestamp(ts: string): string {
   if (!ts) return new Date().toISOString();
-  // Format YYYYMMDDHH to ISO 8601
   if (ts.length === 10) {
     const y = ts.substring(0, 4);
     const m = ts.substring(4, 6);
@@ -88,8 +133,8 @@ function normalizeTrend(trend: string): "Weakening" | "Stable" | "Intensifying" 
   return "Intensifying";
 }
 
-export const STORMS: StormOption[] = Object.keys(STORMS_DATA).map((id) => {
-  const s = STORMS_DATA[id]!;
+export const STORMS: StormOption[] = Object.keys(defaultStorms).map((id) => {
+  const s = defaultStorms[id]!;
   const firstTs = s.timesteps?.[0]?.timestamp;
   return {
     id: s.id,
@@ -112,8 +157,13 @@ function calcEma(arr: number[], a: number = EMA_ALPHA): number[] {
   return res;
 }
 
-export function buildForecastFromRealData(stormId: string, stepIdx: number): ForecastResponse {
-  const storm = STORMS_DATA[stormId] ?? STORMS_DATA[Object.keys(STORMS_DATA)[0]!]!;
+export function buildForecastFromRealData(
+  stormId: string,
+  stepIdx: number,
+  modelId: string = DEFAULT_MODEL_ID,
+): ForecastResponse {
+  const modelStorms = ALL_STORMS[modelId] || ALL_STORMS[DEFAULT_MODEL_ID] || Object.values(ALL_STORMS)[0]!;
+  const storm = modelStorms[stormId] ?? modelStorms[Object.keys(modelStorms)[0]!]!;
   const timesteps = storm.timesteps || [];
   const safeIdx = Math.max(0, Math.min(timesteps.length - 1, stepIdx));
   const curr = timesteps[safeIdx] || {
@@ -134,71 +184,71 @@ export function buildForecastFromRealData(stormId: string, stepIdx: number): For
     predicted_plus_24h: 35,
     latitude: 15.0,
     longitude: 130.0,
-    environmental: { sst: 29.0, ohc: 60.0, shear: 10.0, rh: 70.0, mslp: 1000.0 },
+    environmental: { sst: 29.0, ohc: 65, shear: 8.5, rh: 72, mslp: 998 },
   };
 
-  const raw6 = timesteps.map((t) => t.predicted_plus_6h);
-  const raw12 = timesteps.map((t) => t.predicted_plus_12h);
-  const raw24 = timesteps.map((t) => t.predicted_plus_24h);
-  const ema6 = calcEma(raw6);
-  const ema12 = calcEma(raw12);
-  const ema24 = calcEma(raw24);
+  const rawPred6 = timesteps.map((t) => t.predicted_plus_6h);
+  const rawPred12 = timesteps.map((t) => t.predicted_plus_12h);
+  const rawPred24 = timesteps.map((t) => t.predicted_plus_24h);
 
-  const lifecycle = timesteps.map((st, i) => ({
-    step_index: st.step_index,
-    elapsed_hours: Math.round(st.elapsed_hours ?? st.step_index * 3),
-    observed_kt: Math.round(st.vmax_curr),
-    actual_plus_24h: Math.round(st.vmax_plus_24h),
-    pred_6h: Math.round(st.predicted_plus_6h),
-    pred_12h: Math.round(st.predicted_plus_12h),
-    pred_24h: Math.round(st.predicted_plus_24h),
-    ema_6h: Math.round(ema6[i] ?? st.predicted_plus_6h),
-    ema_12h: Math.round(ema12[i] ?? st.predicted_plus_12h),
-    ema_24h: Math.round(ema24[i] ?? st.predicted_plus_24h),
+  const ema6 = calcEma(rawPred6);
+  const ema12 = calcEma(rawPred12);
+  const ema24 = calcEma(rawPred24);
+
+  const lifecycle = timesteps.map((t, idx) => ({
+    step_index: idx,
+    elapsed_hours: t.elapsed_hours,
+    observed_kt: t.vmax_curr,
+    actual_plus_24h: t.vmax_plus_24h,
+    pred_6h: t.predicted_plus_6h,
+    pred_12h: t.predicted_plus_12h,
+    pred_24h: t.predicted_plus_24h,
+    ema_6h: Math.round(ema6[idx]! * 10) / 10,
+    ema_12h: Math.round(ema12[idx]! * 10) / 10,
+    ema_24h: Math.round(ema24[idx]! * 10) / 10,
   }));
 
-  const timeline = timesteps.map((st) => ({
-    t: Math.round(st.elapsed_hours ?? st.step_index * 3),
-    observed_kt: Math.round(st.vmax_curr),
-    predicted_kt: Math.round(st.predicted_plus_24h),
-  }));
+  const timeline = [
+    { t: -12, observed_kt: timesteps[Math.max(0, safeIdx - 4)]?.vmax_curr ?? curr.vmax_curr, predicted_kt: timesteps[Math.max(0, safeIdx - 4)]?.vmax_curr ?? curr.vmax_curr },
+    { t: -6, observed_kt: timesteps[Math.max(0, safeIdx - 2)]?.vmax_curr ?? curr.vmax_curr, predicted_kt: timesteps[Math.max(0, safeIdx - 2)]?.vmax_curr ?? curr.vmax_curr },
+    { t: 0, observed_kt: curr.vmax_curr, predicted_kt: curr.vmax_curr },
+    { t: 6, observed_kt: timesteps[Math.min(timesteps.length - 1, safeIdx + 2)]?.vmax_curr ?? curr.vmax_curr, predicted_kt: curr.predicted_plus_6h },
+    { t: 12, observed_kt: timesteps[Math.min(timesteps.length - 1, safeIdx + 4)]?.vmax_curr ?? curr.vmax_curr, predicted_kt: curr.predicted_plus_12h },
+    { t: 24, observed_kt: curr.vmax_plus_24h, predicted_kt: curr.predicted_plus_24h },
+  ];
 
-  const windKt = Math.round(curr.vmax_curr);
+  const modelMeta = AVAILABLE_MODELS.find((m) => m.id === modelId) ?? AVAILABLE_MODELS[0];
 
   return {
     storm_name: storm.name,
     timestamp: formatTimestamp(curr.timestamp),
-    current_wind_kt: windKt,
-    category: categoryLabel(windKt),
+    current_wind_kt: curr.vmax_curr,
+    category: curr.category || categoryLabel(curr.vmax_curr),
     coordinates: {
-      lat: Math.round((curr.latitude ?? 0) * 10) / 10,
-      lon: Math.round((curr.longitude ?? 0) * 10) / 10,
+      lat: curr.latitude,
+      lon: curr.longitude,
     },
-    environmental: {
-      sst: Math.round((curr.environmental?.sst ?? 28.5) * 10) / 10,
-      ohc: Math.round(curr.environmental?.ohc ?? 50),
-      shear: Math.round((curr.environmental?.shear ?? 10.0) * 10) / 10,
-      rh: Math.round(curr.environmental?.rh ?? 65),
-      mslp: Math.round(curr.environmental?.mslp ?? 1005),
-    },
+    environmental: curr.environmental,
     trend: normalizeTrend(curr.predicted_trend),
-    ri_probability: Math.round((curr.ri_probability / 100.0) * 1000) / 1000,
+    ri_probability: curr.ri_probability / 100.0,
     forecast: {
-      "+6h": Math.round(curr.predicted_plus_6h),
-      "+12h": Math.round(curr.predicted_plus_12h),
-      "+24h": Math.round(curr.predicted_plus_24h),
+      "+6h": curr.predicted_plus_6h,
+      "+12h": curr.predicted_plus_12h,
+      "+24h": curr.predicted_plus_24h,
     },
     timeline,
+    actual_outcome_kt: curr.vmax_plus_24h,
     lifecycle,
-    actual_outcome_kt: Math.round(curr.vmax_plus_24h),
+    model_id: modelId,
+    model_name: modelMeta?.name ?? modelId,
+    active_modalities: modelMeta?.modalities ?? ["IR1 Thermal Infrared (10.8 µm)", "Temporal Sequence History"],
   };
 }
 
-export async function fetchStorms(): Promise<StormOption[]> {
-  return STORMS;
-}
-
-/** GET /forecast?storm_id=X&t=Y */
-export async function fetchForecast(stormId: string, t: number): Promise<ForecastResponse> {
-  return buildForecastFromRealData(stormId, t);
+export async function fetchForecast(
+  stormId: string,
+  stepIdx: number,
+  modelId: string = DEFAULT_MODEL_ID,
+): Promise<ForecastResponse> {
+  return Promise.resolve(buildForecastFromRealData(stormId, stepIdx, modelId));
 }

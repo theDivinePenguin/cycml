@@ -1,0 +1,33 @@
+{
+  "experiment": "variable_k_training",
+  "k_sampling": "uniform_3_5_7",
+  "epochs": 6,
+  "batch_size": 16,
+  "lr": 0.0001,
+  "weight_decay": 0.0001,
+  "seed": 42,
+  "architecture": "EnvironmentalTemporalClassifier",
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "norm_stats_file": "data/metadata/normalization_stats_multichannel.json",
+  "norm_mean": [
+    267.8317,
+    236.0807,
+    0.3026
+  ],
+  "norm_std": [
+    26.9732,
+    11.8802,
+    0.6088
+  ],
+  "loss_weights": {
+    "lambda_ri": 1.0,
+    "lambda_trend": 1.0,
+    "lambda_reg": 0.1,
+    "w_pos": 13.773577235772358
+  },
+  "warm_start": "experiments/trend_classification/checkpoints/classifier_primary_ri/best.pt"
+}

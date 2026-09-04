@@ -219,7 +219,7 @@ def export_storm_data(
                 d_12 = raw_12 - implied_base
                 d_24 = raw_24 - implied_base
 
-                # Cross-head consistency with headline Trend and RI classification
+                # Cross-head consistency with headline Trend classification
                 if pred_trend_idx == 1:  # STABLE: delta constrained to [-8, +8 kt]
                     d_24 = float(np.clip(d_24, -8.0, 8.0))
                     d_12 = float(np.clip(d_12, -5.0, 5.0))
@@ -232,12 +232,6 @@ def export_storm_data(
                     d_24 = float(max(d_24, 10.0))
                     d_12 = float(max(d_12, 6.0))
                     d_6 = float(max(d_6, 3.0))
-
-                # If RI probability is elevated (>= 0.50), reflect rapid intensification
-                if ri_prob >= 0.50:
-                    d_24 = float(max(d_24, 30.0))
-                    d_12 = float(max(d_12, 16.0))
-                    d_6 = float(max(d_6, 8.0))
 
                 p_plus_6 = round(max(15.0, v_curr + d_6), 1)
                 p_plus_12 = round(max(15.0, v_curr + d_12), 1)
@@ -356,7 +350,12 @@ def export_storm_data(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pred-csv", type=str, default="experiments/trend_classification/checkpoints/classifier_primary_ri/test_predictions.csv")
+    parser.add_argument(
+        "--pred-csv",
+        type=str,
+        default="experiments/environmental_fusion/checkpoints/exp_e_k7_12ep_clean/test_predictions.csv",
+        help="Path to predictions CSV from final clean model",
+    )
     parser.add_argument("--out-json", type=str, default="demo_app/storm_data.json")
     args = parser.parse_args()
 

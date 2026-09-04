@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "python_version": "3.11.15",
+  "torch_version": "2.11.0+cu128",
+  "cuda_version": "12.8",
+  "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "git_commit": "68086b168c9285f1f96099b8092b9b5b80c1ffde",
+  "start_time": "2026-09-04T15:18:47Z",
+  "command": "experiments/variable_k/scripts/train_variable_k.py --epochs 6 --batch-size 16 --lr 1e-4 --seed 42",
+  "manifests": {
+    "train": "data/metadata/forecast_train_sequences_k7.csv",
+    "val": "data/metadata/forecast_val_sequences_k7.csv",
+    "test": "data/metadata/forecast_test_sequences_k7.csv",
+    "env_cache": "data/metadata/environmental_features_k7.pt"
+  }
+}

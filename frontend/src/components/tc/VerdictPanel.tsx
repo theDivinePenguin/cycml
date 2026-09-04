@@ -36,7 +36,7 @@ export function VerdictPanel({ data }: Props) {
           RETROSPECTIVE VERIFICATION
         </h2>
         <span className="readout text-[11px] font-mono font-semibold text-muted-foreground border border-hairline px-2 py-0.5 rounded-xs bg-panel">
-          CASE VERIFICATION AVAILABLE · HELD-OUT
+          {data.model_name ? `${data.model_name.toUpperCase()} · ` : ""}HELD-OUT CASE VERIFICATION
         </span>
       </div>
 

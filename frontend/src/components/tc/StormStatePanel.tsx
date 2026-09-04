@@ -1,4 +1,4 @@
-import { Wind } from "lucide-react";
+import { Radio, Wind } from "lucide-react";
 import type { ForecastResponse } from "@/lib/forecast-types";
 import { formatCoords, formatUTC, saffirAbbrev, saffirColor } from "./scale";
 
@@ -101,6 +101,29 @@ export function StormStatePanel({ data }: Props) {
             </div>
           ))}
         </dl>
+      </div>
+
+      {/* Multi-Modal Sensor Telemetry */}
+      <div className="border-t border-hairline bg-panel-raised/40 px-5 py-3">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-xs font-semibold uppercase tracking-wider font-mono text-muted-foreground flex items-center gap-1.5">
+            <Radio className="h-3 w-3 text-[#355872]" />
+            Multi-Modal Sensor Inputs
+          </h3>
+          <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-100/60 px-1.5 py-0.5 rounded-xs border border-emerald-300/40">
+            ONLINE
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {(data.active_modalities || ["IR1 Thermal Infrared", "Atmospheric SHIPS"]).map((m, idx) => (
+            <span
+              key={idx}
+              className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-xs bg-white border border-hairline text-[#355872] shadow-2xs"
+            >
+              {m}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

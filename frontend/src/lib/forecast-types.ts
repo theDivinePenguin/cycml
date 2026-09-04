@@ -28,6 +28,9 @@ export interface ForecastResponse {
     ema_12h: number;
     ema_24h: number;
   }>;
+  model_id?: string;
+  model_name?: string;
+  active_modalities?: string[];
 }
 
 export interface StormOption {

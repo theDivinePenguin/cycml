@@ -1,0 +1,132 @@
+{
+  "normal": {
+    "description": "Normal (Full Model)",
+    "metrics": {
+      "mae_24": 10.754934310913086,
+      "trend_acc": 0.6470067080116441,
+      "trend_macro_f1": 0.6482554845128138,
+      "ri_pr_auc": 0.4071435228311439,
+      "ri_roc_auc": 0.8631872100723983,
+      "ri_f1_tau": 0.4388318863456985,
+      "ri_rec_tau": 0.5119705340699816
+    },
+    "runtime_sec": 24.61
+  },
+  "temp_repeat_last": {
+    "description": "Ablation: Static Frame Repeated (No History)",
+    "metrics": {
+      "mae_24": 12.75888729095459,
+      "trend_acc": 0.6038476142260474,
+      "trend_macro_f1": 0.6052657700675773,
+      "ri_pr_auc": 0.29286923533078346,
+      "ri_roc_auc": 0.8209554552066705,
+      "ri_f1_tau": 0.36651285431773234,
+      "ri_rec_tau": 0.5119705340699816
+    },
+    "runtime_sec": 21.54
+  },
+  "temp_reverse": {
+    "description": "Ablation: Reversed Time Order",
+    "metrics": {
+      "mae_24": 11.99859619140625,
+      "trend_acc": 0.593089482344007,
+      "trend_macro_f1": 0.5854057477926718,
+      "ri_pr_auc": 0.23940806530627318,
+      "ri_roc_auc": 0.7693644231332379,
+      "ri_f1_tau": 0.2633832976445396,
+      "ri_rec_tau": 0.2265193370165746
+    },
+    "runtime_sec": 23.12
+  },
+  "temp_shuffle_history": {
+    "description": "Ablation: Shuffled History Frames",
+    "metrics": {
+      "mae_24": 11.029953002929688,
+      "trend_acc": 0.6347297810403746,
+      "trend_macro_f1": 0.6335251744707026,
+      "ri_pr_auc": 0.37189534542106684,
+      "ri_roc_auc": 0.8486433378034807,
+      "ri_f1_tau": 0.4154929577464789,
+      "ri_rec_tau": 0.43462246777163904
+    },
+    "runtime_sec": 22.43
+  },
+  "temp_zero_history": {
+    "description": "Ablation: Zeroed History (t only)",
+    "metrics": {
+      "mae_24": 28.117374420166016,
+      "trend_acc": 0.3283128717883812,
+      "trend_macro_f1": 0.2019898470377187,
+      "ri_pr_auc": 0.18820097102919847,
+      "ri_roc_auc": 0.7292753856065259,
+      "ri_f1_tau": 0.0,
+      "ri_rec_tau": 0.0
+    },
+    "runtime_sec": 22.61
+  },
+  "env_zero": {
+    "description": "Ablation: Zeroed Environment (Masks=1)",
+    "metrics": {
+      "mae_24": 13.70937442779541,
+      "trend_acc": 0.419946842171877,
+      "trend_macro_f1": 0.42103952051240645,
+      "ri_pr_auc": 0.3028815548725794,
+      "ri_roc_auc": 0.830657251825477,
+      "ri_f1_tau": 0.3537190082644628,
+      "ri_rec_tau": 0.39410681399631675
+    },
+    "runtime_sec": 23.31
+  },
+  "env_shuffle": {
+    "description": "Ablation: Shuffled Environment",
+    "metrics": {
+      "mae_24": 11.973820686340332,
+      "trend_acc": 0.550056954815846,
+      "trend_macro_f1": 0.5484167212023178,
+      "ri_pr_auc": 0.28274433511909913,
+      "ri_roc_auc": 0.8055440840127407,
+      "ri_f1_tau": 0.3754674644727001,
+      "ri_rec_tau": 0.4622467771639042
+    },
+    "runtime_sec": 18.7
+  },
+  "env_none": {
+    "description": "Ablation: Satellite-Only (x_env=None)",
+    "metrics": {
+      "mae_24": 83.96984100341797,
+      "trend_acc": 0.6133400835337299,
+      "trend_macro_f1": 0.6148707094511247,
+      "ri_pr_auc": 0.38467811772921096,
+      "ri_roc_auc": 0.7954891307340403,
+      "ri_f1_tau": 0.39126784214945426,
+      "ri_rec_tau": 0.429097605893186
+    },
+    "runtime_sec": 21.57
+  },
+  "env_no_vmax": {
+    "description": "Ablation: Environment Without Vmax",
+    "metrics": {
+      "mae_24": 13.429121017456055,
+      "trend_acc": 0.4733578028097709,
+      "trend_macro_f1": 0.4794953189559668,
+      "ri_pr_auc": 0.35967369847805003,
+      "ri_roc_auc": 0.8584232243428308,
+      "ri_f1_tau": 0.39572953736654803,
+      "ri_rec_tau": 0.5119705340699816
+    },
+    "runtime_sec": 25.56
+  },
+  "env_no_thermo_kinematic": {
+    "description": "Ablation: Environment Without SST/OHC/Shear/RH",
+    "metrics": {
+      "mae_24": 11.379499435424805,
+      "trend_acc": 0.6154917099101379,
+      "trend_macro_f1": 0.6078697636889898,
+      "ri_pr_auc": 0.3489324954481322,
+      "ri_roc_auc": 0.8318600118035919,
+      "ri_f1_tau": 0.38341968911917096,
+      "ri_rec_tau": 0.3406998158379374
+    },
+    "runtime_sec": 18.96
+  }
+}
