@@ -16,6 +16,18 @@ export interface ForecastResponse {
   forecast: { "+6h": number; "+12h": number; "+24h": number };
   timeline: Array<{ t: number; observed_kt: number; predicted_kt: number }>;
   actual_outcome_kt: number;
+  lifecycle?: Array<{
+    step_index: number;
+    elapsed_hours: number;
+    observed_kt: number;
+    actual_plus_24h: number;
+    pred_6h: number;
+    pred_12h: number;
+    pred_24h: number;
+    ema_6h: number;
+    ema_12h: number;
+    ema_24h: number;
+  }>;
 }
 
 export interface StormOption {

@@ -100,6 +100,18 @@ export const STORMS: StormOption[] = Object.keys(STORMS_DATA).map((id) => {
   };
 });
 
+const EMA_ALPHA = 0.35;
+
+function calcEma(arr: number[], a: number = EMA_ALPHA): number[] {
+  const res: number[] = [];
+  let s = arr[0] ?? 0;
+  for (let i = 0; i < arr.length; i++) {
+    s = a * (arr[i] ?? 0) + (1 - a) * s;
+    res.push(s);
+  }
+  return res;
+}
+
 export function buildForecastFromRealData(stormId: string, stepIdx: number): ForecastResponse {
   const storm = STORMS_DATA[stormId] ?? STORMS_DATA[Object.keys(STORMS_DATA)[0]!]!;
   const timesteps = storm.timesteps || [];
@@ -124,6 +136,26 @@ export function buildForecastFromRealData(stormId: string, stepIdx: number): For
     longitude: 130.0,
     environmental: { sst: 29.0, ohc: 60.0, shear: 10.0, rh: 70.0, mslp: 1000.0 },
   };
+
+  const raw6 = timesteps.map((t) => t.predicted_plus_6h);
+  const raw12 = timesteps.map((t) => t.predicted_plus_12h);
+  const raw24 = timesteps.map((t) => t.predicted_plus_24h);
+  const ema6 = calcEma(raw6);
+  const ema12 = calcEma(raw12);
+  const ema24 = calcEma(raw24);
+
+  const lifecycle = timesteps.map((st, i) => ({
+    step_index: st.step_index,
+    elapsed_hours: Math.round(st.elapsed_hours ?? st.step_index * 3),
+    observed_kt: Math.round(st.vmax_curr),
+    actual_plus_24h: Math.round(st.vmax_plus_24h),
+    pred_6h: Math.round(st.predicted_plus_6h),
+    pred_12h: Math.round(st.predicted_plus_12h),
+    pred_24h: Math.round(st.predicted_plus_24h),
+    ema_6h: Math.round(ema6[i] ?? st.predicted_plus_6h),
+    ema_12h: Math.round(ema12[i] ?? st.predicted_plus_12h),
+    ema_24h: Math.round(ema24[i] ?? st.predicted_plus_24h),
+  }));
 
   const timeline = timesteps.map((st) => ({
     t: Math.round(st.elapsed_hours ?? st.step_index * 3),
@@ -157,6 +189,7 @@ export function buildForecastFromRealData(stormId: string, stepIdx: number): For
       "+24h": Math.round(curr.predicted_plus_24h),
     },
     timeline,
+    lifecycle,
     actual_outcome_kt: Math.round(curr.vmax_plus_24h),
   };
 }

@@ -86,7 +86,12 @@ function Console() {
             </div>
             <div className="flex flex-col gap-5">
               <RiskHeadline data={data} />
-              <IntensityChart data={data} nowHour={step * 3} />
+              <IntensityChart
+                data={data}
+                nowHour={step * 3}
+                currentStep={step}
+                onStepChange={setStep}
+              />
               <VerdictPanel data={data} />
             </div>
           </div>
