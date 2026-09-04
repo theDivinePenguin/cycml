@@ -72,48 +72,56 @@
 :root {
   --radius: 3px;
 
-  --background: oklch(0.17 0.03 251);
-  --foreground: oklch(0.95 0.008 240);
-  --panel: oklch(0.215 0.032 251);
-  --panel-raised: oklch(0.255 0.034 251);
-  --hairline: oklch(0.34 0.03 251);
+  /* Warm-neutral off-white background (#F5F6F4 equivalent) */
+  --background: oklch(0.965 0.005 95);
+  /* Deep ink text (#161A1D) */
+  --foreground: oklch(0.20 0.015 245);
+
+  /* Light grey-white cards/panels */
+  --panel: oklch(0.995 0.002 95);
+  /* Raised headers & subtle interactive wells */
+  --panel-raised: oklch(0.948 0.006 95);
+  /* 1px structural hairpins */
+  --hairline: oklch(0.885 0.008 95);
 
   --card: var(--panel);
   --card-foreground: var(--foreground);
-  --popover: oklch(0.215 0.032 251);
+  --popover: var(--panel);
   --popover-foreground: var(--foreground);
 
-  --primary: oklch(0.68 0.09 238);
-  --primary-foreground: oklch(0.16 0.03 251);
-  --secondary: oklch(0.28 0.032 251);
-  --secondary-foreground: oklch(0.93 0.008 240);
-  --muted: oklch(0.27 0.028 251);
-  --muted-foreground: oklch(0.7 0.02 245);
-  --accent: oklch(0.3 0.038 251);
-  --accent-foreground: oklch(0.95 0.008 240);
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 240);
+  /* UI Chrome Accent: Deep operational marine blue/teal */
+  --primary: oklch(0.54 0.14 235);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.93 0.006 95);
+  --secondary-foreground: oklch(0.20 0.015 245);
+  --muted: oklch(0.94 0.006 95);
+  --muted-foreground: oklch(0.48 0.02 245);
+  --accent: oklch(0.92 0.008 95);
+  --accent-foreground: oklch(0.20 0.015 245);
+  --destructive: oklch(0.52 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.32 0.028 251);
-  --input: oklch(0.31 0.028 251);
-  --ring: oklch(0.68 0.09 238);
+  --border: oklch(0.875 0.008 95);
+  --input: oklch(0.88 0.008 95);
+  --ring: oklch(0.54 0.14 235);
 
-  --signal: oklch(0.83 0.16 92);
-  --ocean: oklch(0.86 0.04 224);
+  --signal: oklch(0.48 0.13 65);
+  --ocean: oklch(0.48 0.12 230);
 
-  /* Saffir–Simpson scale — unchanged, keep meteorological convention */
-  --saffir-td: oklch(0.72 0.09 232);
-  --saffir-ts: oklch(0.79 0.14 172);
-  --saffir-cat1: oklch(0.9 0.16 100);
-  --saffir-cat2: oklch(0.83 0.17 75);
-  --saffir-cat3: oklch(0.7 0.2 40);
-  --saffir-cat4: oklch(0.6 0.23 18);
-  --saffir-cat5: oklch(0.62 0.26 350);
+  /* Saffir–Simpson scale — tuned for high-contrast readability on light backgrounds */
+  --saffir-td: oklch(0.48 0.12 230);
+  --saffir-ts: oklch(0.48 0.14 185);
+  --saffir-cat1: oklch(0.48 0.15 130);
+  --saffir-cat2: oklch(0.54 0.16 75);
+  --saffir-cat3: oklch(0.52 0.19 45);
+  --saffir-cat4: oklch(0.48 0.22 25);
+  --saffir-cat5: oklch(0.44 0.22 350);
 
-  --risk-low: oklch(0.79 0.14 172);
-  --risk-elevated: oklch(0.86 0.16 88);
-  --risk-high: oklch(0.72 0.19 48);
-  --risk-critical: oklch(0.62 0.24 20);
+  /* Operational RI Risk Tiers (Strictly reserved for risk and trend) */
+  --risk-low: oklch(0.46 0.14 165);
+  --risk-elevated: oklch(0.54 0.16 75);
+  --risk-high: oklch(0.52 0.19 45);
+  --risk-critical: oklch(0.48 0.22 25);
 }
 
 @layer base {
@@ -127,8 +135,8 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv05";
     background-image:
-      linear-gradient(oklch(1 0 0 / 2.5%) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 2.5%) 1px, transparent 1px);
+      linear-gradient(oklch(0 0 0 / 2.5%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0 0 0 / 2.5%) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 }

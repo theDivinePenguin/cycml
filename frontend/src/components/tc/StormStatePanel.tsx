@@ -47,7 +47,7 @@ export function StormStatePanel({ data }: Props) {
   return (
     <section className="flex h-full flex-col border border-hairline bg-panel">
       <div className="flex items-baseline justify-between border-b border-hairline px-5 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           CURRENT OBSERVATION
         </h2>
         <span className="readout text-[11px] text-muted-foreground font-mono">
@@ -58,7 +58,7 @@ export function StormStatePanel({ data }: Props) {
       <div className="border-b border-hairline px-5 py-5" style={{ borderLeft: `3px solid ${color}` }}>
         <div className="flex items-center gap-2 text-muted-foreground">
           <Wind className="h-3.5 w-3.5" />
-          <span className="text-xs">Maximum sustained wind (1-min)</span>
+          <span className="text-xs font-medium">Maximum sustained wind (1-min)</span>
         </div>
         <div className="mt-1 flex items-end gap-2">
           <span className="readout text-6xl leading-none font-semibold" style={{ color }}>
@@ -67,12 +67,12 @@ export function StormStatePanel({ data }: Props) {
           <span className="readout mb-1 text-lg text-muted-foreground">kt</span>
           <span
             className="mb-1.5 ml-2 rounded-xs px-2 py-0.5 text-xs font-semibold"
-            style={{ background: color, color: "oklch(0.18 0.03 248)" }}
+            style={{ background: color, color: "#FFFFFF" }}
           >
             {saffirAbbrev(data.current_wind_kt)}
           </span>
         </div>
-        <p className="mt-2 text-sm text-foreground/80">{data.category}</p>
+        <p className="mt-2 text-sm text-foreground/90 font-medium">{data.category}</p>
         <p className="readout mt-2 text-xs text-muted-foreground">
           {formatCoords(data.coordinates.lat, data.coordinates.lon)} · {data.storm_name}
         </p>

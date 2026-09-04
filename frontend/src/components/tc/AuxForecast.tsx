@@ -15,7 +15,7 @@ export function AuxForecast({ data }: Props) {
   return (
     <section className="border border-hairline bg-panel">
       <div className="border-b border-hairline px-5 py-2.5 flex items-center justify-between">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           MODEL FORECAST
         </h2>
         <span className="readout text-[11px] text-muted-foreground font-mono">

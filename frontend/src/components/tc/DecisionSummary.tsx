@@ -38,20 +38,20 @@ export function DecisionSummary({ data }: Props) {
       className="relative overflow-hidden border border-hairline bg-panel"
       style={{
         borderLeft: `3px solid ${badgeColor}`,
-        background: `linear-gradient(135deg, color-mix(in oklab, ${badgeColor} 8%, var(--panel)) 0%, var(--panel) 100%)`,
+        background: `linear-gradient(135deg, color-mix(in oklab, ${badgeColor} 6%, var(--panel)) 0%, var(--panel) 100%)`,
       }}
     >
-      <div className="flex items-center justify-between border-b border-hairline bg-panel-raised/30 px-4 py-2">
-        <h2 className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-foreground/90 uppercase">
+      <div className="flex items-center justify-between border-b border-hairline bg-panel-raised/60 px-4 py-2">
+        <h2 className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-foreground uppercase">
           <TrendIcon className="h-3.5 w-3.5" style={{ color: badgeColor }} />
           24-HOUR OUTLOOK
         </h2>
         <span
           className="rounded-xs px-2 py-0.5 font-mono text-[10px] font-semibold"
           style={{
-            background: `color-mix(in oklab, ${badgeColor} 18%, transparent)`,
+            background: `color-mix(in oklab, ${badgeColor} 12%, transparent)`,
             color: badgeColor,
-            border: `1px solid color-mix(in oklab, ${badgeColor} 40%, transparent)`,
+            border: `1px solid color-mix(in oklab, ${badgeColor} 30%, transparent)`,
           }}
         >
           {data.trend.toUpperCase()}
@@ -74,10 +74,10 @@ export function DecisionSummary({ data }: Props) {
             <span
               className={`ml-1 rounded-xs px-1.5 py-0.5 text-xs font-semibold ${
                 delta24 > 0
-                  ? "border border-emerald-500/30 bg-emerald-500/15 text-emerald-400"
+                  ? "border border-emerald-600/30 bg-emerald-50 text-emerald-800"
                   : delta24 < 0
-                    ? "border border-blue-500/30 bg-blue-500/15 text-blue-400"
-                    : "bg-muted text-muted-foreground"
+                    ? "border border-blue-600/30 bg-blue-50 text-blue-800"
+                    : "border border-hairline bg-muted text-muted-foreground"
               }`}
             >
               {delta24 > 0 ? `+${delta24}` : delta24} kt / 24h
@@ -93,7 +93,7 @@ export function DecisionSummary({ data }: Props) {
           </div>
           <div>
             <span className="block text-[10px] text-muted-foreground">Δ24h FORECAST</span>
-            <span className="font-semibold text-cyan-400">
+            <span className="font-semibold text-primary">
               {delta24 > 0 ? `+${delta24}` : delta24} kt
             </span>
           </div>

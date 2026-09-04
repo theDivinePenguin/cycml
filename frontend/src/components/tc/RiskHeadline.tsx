@@ -23,11 +23,11 @@ export function RiskHeadline({ data }: Props) {
       className="relative border border-hairline bg-panel"
       style={{
         borderTop: `3px solid ${color}`,
-        background: `linear-gradient(180deg, color-mix(in oklab, ${color} 12%, var(--panel)) 0%, var(--panel) 60%)`,
+        background: `linear-gradient(180deg, color-mix(in oklab, ${color} 7%, var(--panel)) 0%, var(--panel) 60%)`,
       }}
     >
       <div className="flex items-baseline justify-between border-b border-hairline px-6 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           24-Hour Rapid Intensification Guidance
         </h2>
         <span className="readout text-[11px] text-muted-foreground font-mono">

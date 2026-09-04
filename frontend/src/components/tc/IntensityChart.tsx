@@ -86,7 +86,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     const getY = (val: number) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
 
     // 1. Clean, neutral horizontal gridlines (every 20 kt)
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.06)";
     ctx.lineWidth = 1;
     for (let v = 20; v <= maxVal; v += 20) {
       const y = getY(v);
@@ -95,14 +95,14 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.lineTo(padLeft + chartW, y);
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(148, 163, 184, 0.45)";
+      ctx.fillStyle = "rgba(71, 85, 105, 0.75)";
       ctx.font = "9px 'IBM Plex Mono', monospace";
       ctx.textAlign = "right";
       ctx.fillText(`${v}`, padLeft - 6, y + 3);
     }
 
     // X-Axis Baseline
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.12)";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(padLeft, padTop + chartH);
@@ -113,7 +113,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     const stepInterval = Math.max(1, Math.ceil(N / 8));
     for (let i = 0; i < N; i += stepInterval) {
       const x = getX(i);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.15)";
       ctx.beginPath();
       ctx.moveTo(x, padTop + chartH);
       ctx.lineTo(x, padTop + chartH + 4);
@@ -155,13 +155,13 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
 
         // Corridor gradient fill
         const grad = ctx.createLinearGradient(nowX, 0, future24X, 0);
-        grad.addColorStop(0, "rgba(56, 189, 248, 0.08)");
-        grad.addColorStop(1, "rgba(56, 189, 248, 0.02)");
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.08)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.02)");
         ctx.fillStyle = grad;
         ctx.fillRect(nowX, padTop, future24X - nowX, chartH);
 
         // Right boundary of corridor
-        ctx.strokeStyle = "rgba(56, 189, 248, 0.4)";
+        ctx.strokeStyle = "rgba(2, 132, 199, 0.35)";
         ctx.lineWidth = 1;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
@@ -171,14 +171,14 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         ctx.setLineDash([]);
 
         // Horizon tag
-        ctx.fillStyle = "rgba(56, 189, 248, 0.7)";
+        ctx.fillStyle = "#0284C7";
         ctx.font = "8.5px 'IBM Plex Mono', monospace";
         ctx.textAlign = "center";
         ctx.fillText("+24h WINDOW", (nowX + future24X) / 2, padTop + 12);
       }
 
-      // 0a. Full Lifecycle Ground-Truth Envelope (Faint Dashed White)
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.20)";
+      // 0a. Full Lifecycle Ground-Truth Envelope (Faint Dashed Charcoal)
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.20)";
       ctx.lineWidth = 1.2;
       ctx.setLineDash([3, 4]);
       ctx.beginPath();
@@ -191,8 +191,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // B. Observed Past Intensity Path (Solid Crisp White)
-      ctx.strokeStyle = "#FFFFFF";
+      // B. Observed Past Intensity Path (Solid Crisp Ink)
+      ctx.strokeStyle = "#0F172A";
       ctx.lineWidth = 2.4;
       ctx.beginPath();
       for (let i = 0; i <= safeCurrentStep; i++) {
@@ -207,14 +207,14 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       for (let i = 0; i <= safeCurrentStep; i += Math.max(1, Math.floor(N / 20))) {
         const x = getX(i);
         const y = getY(lifecycle[i]!.observed_kt);
-        ctx.fillStyle = "#FFFFFF";
+        ctx.fillStyle = "#0F172A";
         ctx.beginPath();
         ctx.arc(x, y, 2, 0, 2 * Math.PI);
         ctx.fill();
       }
 
       // D. Ground-Truth Actual Outcome Corridor (Next 24h - Dashed Red)
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.85)";
+      ctx.strokeStyle = "rgba(220, 38, 38, 0.9)";
       ctx.lineWidth = 1.8;
       ctx.setLineDash([4, 3]);
       ctx.beginPath();
@@ -227,8 +227,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Primary Forecast Vector (Solid High-Contrast Cyan)
-      ctx.strokeStyle = "#38BDF8";
+      // Primary Forecast Vector (Solid High-Contrast Marine Blue)
+      ctx.strokeStyle = "#0284C7";
       ctx.lineWidth = 2.6;
       ctx.beginPath();
       ctx.moveTo(nowX, nowY);
@@ -248,17 +248,17 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         const px = getX(pt.idx);
         const py = getY(pt.val);
 
-        // Glowing dot
-        ctx.fillStyle = "#38BDF8";
+        // Dot
+        ctx.fillStyle = "#0284C7";
         ctx.beginPath();
         ctx.arc(px, py, 4, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.strokeStyle = "rgba(14, 165, 233, 0.3)";
+        ctx.strokeStyle = "rgba(2, 132, 199, 0.35)";
         ctx.lineWidth = 3;
         ctx.stroke();
 
         // Value text
-        ctx.fillStyle = "#38BDF8";
+        ctx.fillStyle = "#0369A1";
         ctx.font = "bold 9px 'IBM Plex Mono', monospace";
         ctx.textAlign = "left";
         ctx.fillText(`${pt.lbl}: ${Math.round(pt.val)}k`, px + 6, py - 4);
@@ -267,8 +267,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       // ==========================================
       // Full Lifecycle Audit View
       // ==========================================
-      // 1. Observed Best Track across all timesteps (Solid White)
-      ctx.strokeStyle = "#FFFFFF";
+      // 1. Observed Best Track across all timesteps (Solid Ink)
+      ctx.strokeStyle = "#0F172A";
       ctx.lineWidth = 2.2;
       ctx.beginPath();
       for (let i = 0; i < N; i++) {
@@ -279,8 +279,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       }
       ctx.stroke();
 
-      // 2. Predicted +24h Trajectory across Full Lifecycle (Electric Cyan)
-      ctx.strokeStyle = "#38BDF8";
+      // 2. Predicted +24h Trajectory across Full Lifecycle (Marine Blue)
+      ctx.strokeStyle = "#0284C7";
       ctx.lineWidth = 2.0;
       ctx.beginPath();
       for (let i = 0; i < N; i++) {
@@ -293,7 +293,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
 
       // 3. Actual +24h Ground Truth Target Path (Dashed Red)
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.85)";
+      ctx.strokeStyle = "rgba(220, 38, 38, 0.9)";
       ctx.lineWidth = 1.6;
       ctx.setLineDash([4, 3]);
       ctx.beginPath();
@@ -308,7 +308,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     }
 
     // "NOW" Vertical Timeline Marker Line
-    ctx.strokeStyle = "#38BDF8";
+    ctx.strokeStyle = "#0284C7";
     ctx.lineWidth = 1.4;
     ctx.setLineDash([2, 2]);
     ctx.beginPath();
@@ -327,7 +327,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     ctx.stroke();
 
     // NOW Pill Label at top
-    ctx.fillStyle = "#38BDF8";
+    ctx.fillStyle = "#0284C7";
     ctx.font = "bold 9px 'IBM Plex Mono', monospace";
     ctx.textAlign = "center";
     ctx.fillText("NOW", nowX, padTop - 5);
@@ -338,7 +338,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       const hovItem = lifecycle[hoveredIdx]!;
       const hovY = getY(hovItem.observed_kt);
 
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.35)";
       ctx.lineWidth = 1;
       ctx.setLineDash([2, 2]);
       ctx.beginPath();
@@ -347,7 +347,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.fillStyle = "#FFFFFF";
+      ctx.fillStyle = "#0F172A";
       ctx.beginPath();
       ctx.arc(hovX, hovY, 3, 0, 2 * Math.PI);
       ctx.fill();
@@ -418,8 +418,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline px-4 py-2.5">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            <h2 className="text-xs font-semibold tracking-wider uppercase text-foreground/90 font-mono">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+            <h2 className="text-xs font-semibold tracking-wider uppercase text-foreground font-mono">
               Intensity Evolution &amp; Operational Forecast Window
             </h2>
           </div>
@@ -432,7 +432,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
             <button
               type="button"
               onClick={() => setViewMode("realtime")}
-              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
+              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm cursor-pointer ${
                 viewMode === "realtime"
                   ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
@@ -443,7 +443,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
             <button
               type="button"
               onClick={() => setViewMode("audit")}
-              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
+              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm cursor-pointer ${
                 viewMode === "audit"
                   ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
@@ -458,7 +458,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
             <button
               type="button"
               onClick={() => setSmoothingMode("raw")}
-              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
+              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm cursor-pointer ${
                 smoothingMode === "raw"
                   ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
@@ -469,7 +469,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
             <button
               type="button"
               onClick={() => setSmoothingMode("ema")}
-              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
+              className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm cursor-pointer ${
                 smoothingMode === "ema"
                   ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
@@ -484,15 +484,15 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       {/* Legend Banner */}
       <div className="flex flex-wrap items-center justify-between border-b border-hairline/60 bg-panel-raised/40 px-4 py-1.5 text-[11px]">
         <div className="flex flex-wrap items-center gap-4">
-          <LegendSwatch color="#FFFFFF" label="Observed Past" solid />
-          <LegendSwatch color="#38BDF8" label="Model Forecast (+24h)" solid />
-          <LegendSwatch color="#EF4444" label="Ground-Truth Verification (+24h)" dashed />
+          <LegendSwatch color="#0F172A" label="Observed Past" solid />
+          <LegendSwatch color="#0284C7" label="Model Forecast (+24h)" solid />
+          <LegendSwatch color="#DC2626" label="Ground-Truth Verification (+24h)" dashed />
           {viewMode === "realtime" && (
-            <LegendSwatch color="rgba(255, 255, 255, 0.4)" label="Truth Envelope" dashed />
+            <LegendSwatch color="rgba(15, 23, 42, 0.4)" label="Truth Envelope" dashed />
           )}
           {viewMode === "realtime" && (
             <span className="flex items-center gap-1.5 text-muted-foreground font-mono text-[10px]">
-              <span className="inline-block h-2 w-3 rounded-xs bg-cyan-400/20 border border-cyan-400/40" />
+              <span className="inline-block h-2 w-3 rounded-xs bg-sky-500/15 border border-sky-500/35" />
               +24h Active Corridor
             </span>
           )}
@@ -505,13 +505,13 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
           const err = forecast24 - observed24;
           return (
             <div className="flex flex-wrap items-center gap-2.5 font-mono text-[11px]">
-              <span className="rounded-xs bg-white/10 px-1.5 py-0.5 text-white font-semibold">
+              <span className="rounded-xs bg-muted border border-hairline px-1.5 py-0.5 text-foreground font-semibold">
                 CURRENT OBS (T+{activeHoverItem.elapsed_hours}h): {activeHoverItem.observed_kt} kt
               </span>
-              <span className="rounded-xs bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.5 text-cyan-300 font-semibold">
+              <span className="rounded-xs bg-sky-50 border border-sky-300 px-1.5 py-0.5 text-sky-800 font-semibold">
                 +24h FORECAST: {forecast24} kt
               </span>
-              <span className="rounded-xs bg-red-500/15 border border-red-500/30 px-1.5 py-0.5 text-red-300 font-semibold">
+              <span className="rounded-xs bg-red-50 border border-red-300 px-1.5 py-0.5 text-red-800 font-semibold">
                 +24h OBSERVED: {observed24} kt
               </span>
               <span className="text-muted-foreground text-[10px]">

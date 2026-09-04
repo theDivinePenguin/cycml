@@ -32,7 +32,7 @@ export function VerdictPanel({ data }: Props) {
   return (
     <section className="border border-hairline bg-panel" style={{ borderLeft: `3px solid ${color}` }}>
       <div className="flex items-baseline justify-between border-b border-hairline px-5 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground">
           RETROSPECTIVE VERIFICATION
         </h2>
         <span className="readout text-[11px] font-mono font-medium text-muted-foreground border border-hairline px-2 py-0.5 rounded-xs bg-panel-raised">
@@ -46,7 +46,7 @@ export function VerdictPanel({ data }: Props) {
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">
             +24h Forecast
           </span>
-          <span className="text-lg font-semibold text-cyan-400">
+          <span className="text-lg font-semibold text-primary">
             {forecast24} kt
           </span>
         </div>
@@ -54,7 +54,7 @@ export function VerdictPanel({ data }: Props) {
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">
             +24h Observed
           </span>
-          <span className="text-lg font-semibold text-white">
+          <span className="text-lg font-semibold text-foreground">
             {observed24} kt
           </span>
         </div>
@@ -64,7 +64,7 @@ export function VerdictPanel({ data }: Props) {
           </span>
           <span
             className={`text-lg font-semibold ${
-              Math.abs(error24) <= 10 ? "text-emerald-400" : "text-amber-400"
+              Math.abs(error24) <= 10 ? "text-emerald-700" : "text-amber-700"
             }`}
           >
             {error24 > 0 ? `+${error24}` : error24} kt
@@ -72,7 +72,7 @@ export function VerdictPanel({ data }: Props) {
         </div>
       </div>
 
-      <div className="space-y-2 px-5 py-4 text-[13px] leading-relaxed text-foreground/80">
+      <div className="space-y-2 px-5 py-4 text-[13px] leading-relaxed text-foreground/85">
         <p>{model}</p>
         <p>{verdict}</p>
         <p className="text-muted-foreground text-[11px]">

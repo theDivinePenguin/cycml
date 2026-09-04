@@ -12,12 +12,12 @@ const MODEL_META = [
 export function HeaderBar({ status }: HeaderBarProps) {
   const live = status === "Operational";
   return (
-    <header className="border-b border-hairline bg-panel/80 backdrop-blur-sm">
+    <header className="border-b border-hairline bg-panel">
       <div className="mx-auto flex max-w-[1500px] flex-wrap items-end justify-between gap-x-8 gap-y-4 px-6 py-4">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="font-sans text-2xl font-semibold tracking-tight text-white flex items-center gap-2">
-              DeepCycloNet <span className="text-cyan-400 font-mono text-xs tracking-wider border border-cyan-400/40 px-1.5 py-0.5 rounded-xs bg-cyan-400/10">OPERATIONAL CONSOLE</span>
+            <h1 className="font-sans text-2xl font-semibold tracking-tight text-foreground flex items-center gap-2">
+              DeepCycloNet <span className="text-primary font-mono text-xs tracking-wider border border-primary/30 px-1.5 py-0.5 rounded-xs bg-primary/10">OPERATIONAL CONSOLE</span>
             </h1>
             <span className="readout rounded-xs border border-hairline px-1.5 py-0.5 text-[11px] text-muted-foreground font-mono">
               SIH 26070
@@ -35,7 +35,7 @@ export function HeaderBar({ status }: HeaderBarProps) {
                 <dt className="text-[11px] font-medium tracking-wide text-muted-foreground">
                   {m.k}
                 </dt>
-                <dd className="readout text-xs text-foreground/85">{m.v}</dd>
+                <dd className="readout text-xs text-foreground font-medium">{m.v}</dd>
               </div>
             ))}
           </dl>
