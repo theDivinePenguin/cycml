@@ -30,23 +30,23 @@ export function VerdictPanel({ data }: Props) {
       )}%, consistent with a non-RI period.`;
 
   return (
-    <section className="border border-hairline bg-panel" style={{ borderLeft: `3px solid ${color}` }}>
-      <div className="flex items-baseline justify-between border-b border-hairline px-5 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+    <section className="border border-[#1C4D8D] bg-panel shadow-md" style={{ borderLeft: `3px solid ${color}` }}>
+      <div className="flex items-baseline justify-between border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-5 py-2.5">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-[#BDE8F5]">
           RETROSPECTIVE VERIFICATION
         </h2>
-        <span className="readout text-[11px] font-mono font-medium text-muted-foreground border border-hairline px-2 py-0.5 rounded-xs bg-panel-raised">
+        <span className="readout text-[11px] font-mono font-medium text-[#BDE8F5]/80 border border-[#1C4D8D] px-2 py-0.5 rounded-xs bg-[#0A1C3C]">
           CASE VERIFICATION AVAILABLE · HELD-OUT
         </span>
       </div>
 
       {/* Explicit +24h Verification Breakdown */}
-      <div className="border-b border-hairline bg-panel-raised/50 px-5 py-3 grid grid-cols-3 gap-4 font-mono text-xs">
+      <div className="border-b border-[#1C4D8D] bg-[#0A1C3C]/80 px-5 py-3 grid grid-cols-3 gap-4 font-mono text-xs">
         <div>
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">
+          <span className="text-[10px] text-[#8CB8E8] uppercase tracking-wider block font-semibold">
             +24h Forecast
           </span>
-          <span className="text-lg font-semibold text-cyan-400">
+          <span className="text-lg font-bold text-[#BDE8F5]">
             {forecast24} kt
           </span>
         </div>

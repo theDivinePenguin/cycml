@@ -72,36 +72,44 @@
 :root {
   --radius: 3px;
 
-  --background: oklch(0.17 0.03 251);
-  --foreground: oklch(0.95 0.008 240);
-  --panel: oklch(0.215 0.032 251);
-  --panel-raised: oklch(0.255 0.034 251);
-  --hairline: oklch(0.34 0.03 251);
+  /* 
+   * The 4-Color High-Contrast System:
+   * 1. Outer Deep Abyss: #060D1A (oklch 0.12 0.04 260) - Contrast backdrop
+   * 2. Panel & Cards:    #0F2854 (oklch 0.285 0.086 260.8) - Deep Navy Instrument
+   * 3. Headers & Frame:  #1C4D8D (oklch 0.423 0.118 256.6) - Marine Blue Header/Borders
+   * 4. Controls & Curves:#4988C4 (oklch 0.611 0.112 249.1) - Sea Blue Action
+   * 5. Readouts & Values:#BDE8F5 (oklch 0.905 0.048 218.1) - Cold Ice Cyan Data
+   */
+  --background: #060D1A;
+  --foreground: #EEF8FC;
+  --panel: #0F2854;
+  --panel-raised: #1C4D8D;
+  --hairline: #1C4D8D;
 
-  --card: var(--panel);
-  --card-foreground: var(--foreground);
-  --popover: oklch(0.215 0.032 251);
-  --popover-foreground: var(--foreground);
+  --card: #0F2854;
+  --card-foreground: #EEF8FC;
+  --popover: #0F2854;
+  --popover-foreground: #EEF8FC;
 
-  --primary: oklch(0.68 0.09 238);
-  --primary-foreground: oklch(0.16 0.03 251);
-  --secondary: oklch(0.28 0.032 251);
-  --secondary-foreground: oklch(0.93 0.008 240);
-  --muted: oklch(0.27 0.028 251);
-  --muted-foreground: oklch(0.7 0.02 245);
-  --accent: oklch(0.3 0.038 251);
-  --accent-foreground: oklch(0.95 0.008 240);
+  --primary: #4988C4;
+  --primary-foreground: #060D1A;
+  --secondary: #1C4D8D;
+  --secondary-foreground: #BDE8F5;
+  --muted: #0A1C3C;
+  --muted-foreground: #8CB8E8;
+  --accent: #1C4D8D;
+  --accent-foreground: #FFFFFF;
   --destructive: oklch(0.6 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 240);
 
-  --border: oklch(0.32 0.028 251);
-  --input: oklch(0.31 0.028 251);
-  --ring: oklch(0.68 0.09 238);
+  --border: #1C4D8D;
+  --input: #0A1D3B;
+  --ring: #4988C4;
 
   --signal: oklch(0.83 0.16 92);
-  --ocean: oklch(0.86 0.04 224);
+  --ocean: #BDE8F5;
 
-  /* Saffir–Simpson scale — unchanged, keep meteorological convention */
+  /* Saffir–Simpson scale — meteorological convention */
   --saffir-td: oklch(0.72 0.09 232);
   --saffir-ts: oklch(0.79 0.14 172);
   --saffir-cat1: oklch(0.9 0.16 100);

@@ -13,16 +13,16 @@ export function AuxForecast({ data }: Props) {
   }));
 
   return (
-    <section className="border border-hairline bg-panel">
-      <div className="border-b border-hairline px-5 py-2.5 flex items-center justify-between">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+    <section className="border border-[#1C4D8D] bg-panel shadow-md">
+      <div className="border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-5 py-2.5 flex items-center justify-between">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-[#BDE8F5]">
           MODEL FORECAST
         </h2>
-        <span className="readout text-[11px] text-muted-foreground font-mono">
+        <span className="readout text-[11px] text-[#BDE8F5]/80 font-mono">
           HORIZON GUIDANCE
         </span>
       </div>
-      <div className="grid grid-cols-3 divide-x divide-hairline">
+      <div className="grid grid-cols-3 divide-x divide-[#1C4D8D]">
         {entries.map((e) => (
           <div key={e.k} className="px-5 py-4">
             <p className="readout text-xs text-muted-foreground">{e.k}</p>

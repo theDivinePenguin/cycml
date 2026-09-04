@@ -20,17 +20,17 @@ export function RiskHeadline({ data }: Props) {
 
   return (
     <section
-      className="relative border border-hairline bg-panel"
+      className="relative border border-[#1C4D8D] bg-panel shadow-md"
       style={{
         borderTop: `3px solid ${color}`,
         background: `linear-gradient(180deg, color-mix(in oklab, ${color} 12%, var(--panel)) 0%, var(--panel) 60%)`,
       }}
     >
-      <div className="flex items-baseline justify-between border-b border-hairline px-6 py-2.5">
-        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-foreground/90">
+      <div className="flex items-baseline justify-between border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-6 py-2.5">
+        <h2 className="text-xs font-semibold tracking-wider uppercase font-mono text-[#BDE8F5]">
           24-Hour Rapid Intensification Guidance
         </h2>
-        <span className="readout text-[11px] text-muted-foreground font-mono">
+        <span className="readout text-[11px] text-[#BDE8F5]/80 font-mono">
           Threshold: ≥ 30 kt / 24 h
         </span>
       </div>

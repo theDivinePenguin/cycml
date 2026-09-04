@@ -227,8 +227,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Primary Forecast Vector (Solid High-Contrast Cyan)
-      ctx.strokeStyle = "#38BDF8";
+      // Primary Forecast Vector (Sea Blue #4988C4)
+      ctx.strokeStyle = "#4988C4";
       ctx.lineWidth = 2.6;
       ctx.beginPath();
       ctx.moveTo(nowX, nowY);
@@ -237,7 +237,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.lineTo(getX(p24Idx), getY(mainP24));
       ctx.stroke();
 
-      // Horizon prediction dots with badges
+      // Horizon prediction dots with badges (Cold Ice #BDE8F5)
       const horizonPts = [
         { idx: p6Idx, val: mainP6, lbl: "+6h" },
         { idx: p12Idx, val: mainP12, lbl: "+12h" },
@@ -249,16 +249,16 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         const py = getY(pt.val);
 
         // Glowing dot
-        ctx.fillStyle = "#38BDF8";
+        ctx.fillStyle = "#BDE8F5";
         ctx.beginPath();
         ctx.arc(px, py, 4, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.strokeStyle = "rgba(14, 165, 233, 0.3)";
+        ctx.strokeStyle = "rgba(73, 136, 196, 0.4)";
         ctx.lineWidth = 3;
         ctx.stroke();
 
         // Value text
-        ctx.fillStyle = "#38BDF8";
+        ctx.fillStyle = "#BDE8F5";
         ctx.font = "bold 9px 'IBM Plex Mono', monospace";
         ctx.textAlign = "left";
         ctx.fillText(`${pt.lbl}: ${Math.round(pt.val)}k`, px + 6, py - 4);
@@ -279,8 +279,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       }
       ctx.stroke();
 
-      // 2. Predicted +24h Trajectory across Full Lifecycle (Electric Cyan)
-      ctx.strokeStyle = "#38BDF8";
+      // 2. Predicted +24h Trajectory across Full Lifecycle (Sea Blue #4988C4)
+      ctx.strokeStyle = "#4988C4";
       ctx.lineWidth = 2.0;
       ctx.beginPath();
       for (let i = 0; i < N; i++) {
@@ -307,8 +307,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       ctx.setLineDash([]);
     }
 
-    // "NOW" Vertical Timeline Marker Line
-    ctx.strokeStyle = "#38BDF8";
+    // "NOW" Vertical Timeline Marker Line (Cold Ice #BDE8F5 / Sea Blue #4988C4)
+    ctx.strokeStyle = "#4988C4";
     ctx.lineWidth = 1.4;
     ctx.setLineDash([2, 2]);
     ctx.beginPath();
@@ -327,7 +327,7 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
     ctx.stroke();
 
     // NOW Pill Label at top
-    ctx.fillStyle = "#38BDF8";
+    ctx.fillStyle = "#BDE8F5";
     ctx.font = "bold 9px 'IBM Plex Mono', monospace";
     ctx.textAlign = "center";
     ctx.fillText("NOW", nowX, padTop - 5);
@@ -412,14 +412,14 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
   return (
     <section
       ref={containerRef}
-      className="flex h-full flex-col border border-hairline bg-panel transition-all"
+      className="flex h-full flex-col border border-[#1C4D8D] bg-panel shadow-md transition-all"
     >
       {/* Workstation Header and Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline px-4 py-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-4 py-2.5">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            <h2 className="text-xs font-semibold tracking-wider uppercase text-foreground/90 font-mono">
+            <span className="h-2 w-2 rounded-full bg-[#BDE8F5] animate-pulse" />
+            <h2 className="text-xs font-semibold tracking-wider uppercase text-[#BDE8F5] font-mono">
               Intensity Evolution &amp; Operational Forecast Window
             </h2>
           </div>
@@ -428,14 +428,14 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         {/* Control Toggles */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Mode Toggle: Realtime vs Audit */}
-          <div className="flex overflow-hidden rounded border border-hairline bg-panel-raised p-0.5">
+          <div className="flex overflow-hidden rounded border border-[#1C4D8D] bg-[#0A1C3C] p-0.5">
             <button
               type="button"
               onClick={() => setViewMode("realtime")}
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
                 viewMode === "realtime"
-                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#4988C4] text-[#060D1A] font-bold shadow-xs"
+                  : "text-[#8CB8E8] hover:text-[#EEF8FC]"
               }`}
             >
               Real-Time Operations
@@ -445,8 +445,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               onClick={() => setViewMode("audit")}
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
                 viewMode === "audit"
-                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#4988C4] text-[#060D1A] font-bold shadow-xs"
+                  : "text-[#8CB8E8] hover:text-[#EEF8FC]"
               }`}
             >
               Full Lifecycle Audit
@@ -454,14 +454,14 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
           </div>
 
           {/* Smoothing Toggle: Raw vs EMA */}
-          <div className="flex overflow-hidden rounded border border-hairline bg-panel-raised p-0.5">
+          <div className="flex overflow-hidden rounded border border-[#1C4D8D] bg-[#0A1C3C] p-0.5">
             <button
               type="button"
               onClick={() => setSmoothingMode("raw")}
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
                 smoothingMode === "raw"
-                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#4988C4] text-[#060D1A] font-bold shadow-xs"
+                  : "text-[#8CB8E8] hover:text-[#EEF8FC]"
               }`}
             >
               Raw Model
@@ -471,8 +471,8 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
               onClick={() => setSmoothingMode("ema")}
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors rounded-sm ${
                 smoothingMode === "ema"
-                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#4988C4] text-[#060D1A] font-bold shadow-xs"
+                  : "text-[#8CB8E8] hover:text-[#EEF8FC]"
               }`}
             >
               EMA Smoothed (α=0.35)
@@ -482,10 +482,10 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       </div>
 
       {/* Legend Banner */}
-      <div className="flex flex-wrap items-center justify-between border-b border-hairline/60 bg-panel-raised/40 px-4 py-1.5 text-[11px]">
+      <div className="flex flex-wrap items-center justify-between border-b border-[#1C4D8D] bg-[#0A1C3C]/80 px-4 py-1.5 text-[11px]">
         <div className="flex flex-wrap items-center gap-4">
           <LegendSwatch color="#FFFFFF" label="Observed Past" solid />
-          <LegendSwatch color="#38BDF8" label="Model Forecast (+24h)" solid />
+          <LegendSwatch color="#4988C4" label="Model Forecast (+24h)" solid />
           <LegendSwatch color="#EF4444" label="Ground-Truth Verification (+24h)" dashed />
           {viewMode === "realtime" && (
             <LegendSwatch color="rgba(255, 255, 255, 0.4)" label="Truth Envelope" dashed />

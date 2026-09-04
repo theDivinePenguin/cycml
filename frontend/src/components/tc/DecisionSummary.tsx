@@ -35,14 +35,14 @@ export function DecisionSummary({ data }: Props) {
 
   return (
     <section
-      className="relative overflow-hidden border border-hairline bg-panel"
+      className="relative overflow-hidden border border-[#1C4D8D] bg-panel shadow-md"
       style={{
         borderLeft: `3px solid ${badgeColor}`,
         background: `linear-gradient(135deg, color-mix(in oklab, ${badgeColor} 8%, var(--panel)) 0%, var(--panel) 100%)`,
       }}
     >
-      <div className="flex items-center justify-between border-b border-hairline bg-panel-raised/30 px-4 py-2">
-        <h2 className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-foreground/90 uppercase">
+      <div className="flex items-center justify-between border-b border-[#1C4D8D] bg-[#1C4D8D]/40 px-4 py-2">
+        <h2 className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-[#BDE8F5] uppercase">
           <TrendIcon className="h-3.5 w-3.5" style={{ color: badgeColor }} />
           24-HOUR OUTLOOK
         </h2>
