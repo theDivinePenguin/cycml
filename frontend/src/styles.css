@@ -1,0 +1,148 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Tropical Cyclone AI — operations-center design system.
+ * Palette is derived from the Saffir–Simpson scale used by NHC/JTWC products.
+ * All colors are oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 1px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 6px);
+  --radius-3xl: calc(var(--radius) + 10px);
+  --radius-4xl: calc(var(--radius) + 14px);
+
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-panel: var(--panel);
+  --color-panel-raised: var(--panel-raised);
+  --color-hairline: var(--hairline);
+  --color-signal: var(--signal);
+  --color-ocean: var(--ocean);
+
+  --color-td: var(--saffir-td);
+  --color-ts: var(--saffir-ts);
+  --color-cat1: var(--saffir-cat1);
+  --color-cat2: var(--saffir-cat2);
+  --color-cat3: var(--saffir-cat3);
+  --color-cat4: var(--saffir-cat4);
+  --color-cat5: var(--saffir-cat5);
+
+  --color-risk-low: var(--risk-low);
+  --color-risk-elevated: var(--risk-elevated);
+  --color-risk-high: var(--risk-high);
+  --color-risk-critical: var(--risk-critical);
+
+  --color-chart-1: var(--saffir-ts);
+  --color-chart-2: var(--saffir-cat2);
+  --color-chart-3: var(--saffir-cat4);
+  --color-chart-4: var(--signal);
+  --color-chart-5: var(--ocean);
+}
+
+:root {
+  --radius: 3px;
+
+  --background: oklch(0.17 0.03 251);
+  --foreground: oklch(0.95 0.008 240);
+  --panel: oklch(0.215 0.032 251);
+  --panel-raised: oklch(0.255 0.034 251);
+  --hairline: oklch(0.34 0.03 251);
+
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.215 0.032 251);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.68 0.09 238);
+  --primary-foreground: oklch(0.16 0.03 251);
+  --secondary: oklch(0.28 0.032 251);
+  --secondary-foreground: oklch(0.93 0.008 240);
+  --muted: oklch(0.27 0.028 251);
+  --muted-foreground: oklch(0.7 0.02 245);
+  --accent: oklch(0.3 0.038 251);
+  --accent-foreground: oklch(0.95 0.008 240);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0.005 240);
+
+  --border: oklch(0.32 0.028 251);
+  --input: oklch(0.31 0.028 251);
+  --ring: oklch(0.68 0.09 238);
+
+  --signal: oklch(0.83 0.16 92);
+  --ocean: oklch(0.86 0.04 224);
+
+  /* Saffir–Simpson scale — unchanged, keep meteorological convention */
+  --saffir-td: oklch(0.72 0.09 232);
+  --saffir-ts: oklch(0.79 0.14 172);
+  --saffir-cat1: oklch(0.9 0.16 100);
+  --saffir-cat2: oklch(0.83 0.17 75);
+  --saffir-cat3: oklch(0.7 0.2 40);
+  --saffir-cat4: oklch(0.6 0.23 18);
+  --saffir-cat5: oklch(0.62 0.26 350);
+
+  --risk-low: oklch(0.79 0.14 172);
+  --risk-elevated: oklch(0.86 0.16 88);
+  --risk-high: oklch(0.72 0.19 48);
+  --risk-critical: oklch(0.62 0.24 20);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv05";
+    background-image:
+      linear-gradient(oklch(1 0 0 / 2.5%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 2.5%) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+
+@utility readout {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
