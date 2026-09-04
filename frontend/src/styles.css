@@ -73,14 +73,14 @@
   --radius: 3px;
 
   /* Structural Surfaces & Boundaries */
-  --background: #F7F8F0;
-  --foreground: oklch(0.20 0.015 245);
+  --background: #EAF3FB;
+  --foreground: #355872;
 
   --panel: #FFFFFF;
   --panel-raised: rgba(122, 170, 206, 0.12);
-  --hairline: rgba(122, 170, 206, 0.28);
-  --border: rgba(122, 170, 206, 0.35);
-  --input: rgba(122, 170, 206, 0.30);
+  --hairline: rgba(122, 170, 206, 0.30);
+  --border: rgba(122, 170, 206, 0.40);
+  --input: rgba(122, 170, 206, 0.35);
   --ring: #7AAACE;
 
   --card: var(--panel);
@@ -88,7 +88,7 @@
   --popover: var(--panel);
   --popover-foreground: var(--foreground);
 
-  /* Primary Chrome Accent */
+  /* Primary Chrome Accent: Solid Dark Blue #355872 */
   --primary: #355872;
   --primary-foreground: #F7F8F0;
   
@@ -96,7 +96,7 @@
   --secondary-foreground: var(--foreground);
   
   --muted: rgba(122, 170, 206, 0.15);
-  --muted-foreground: rgba(53, 88, 114, 0.75);
+  --muted-foreground: #4B6E8A;
 
   --accent: #9CD5FF;
   --accent-foreground: #355872;
