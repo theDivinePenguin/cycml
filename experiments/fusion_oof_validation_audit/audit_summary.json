@@ -1,0 +1,118 @@
+{
+  "validation_manifest": "data/metadata/forecast_val_sequences_k5_aligned.csv",
+  "total_validation_sequences": 7295,
+  "total_validation_cyclones": 181,
+  "base_checkpoints": {
+    "residual_forecaster": "experiments/checkpoints/residual_delta_v_unconstrained/best.pt",
+    "dedicated_ri_classifier": "experiments/checkpoints/ri_model1_dedicated_focal/best.pt"
+  },
+  "oof_methodology": {
+    "strategy": "5-Fold GroupKFold Cross-Validation partitioned strictly by cyclone_id",
+    "number_of_folds": 5,
+    "leakage_isolation": "Validation set was never seen by base neural networks. In each fold, the Ridge gate is trained on 4/5 of validation storms and evaluated strictly on the remaining 1/5 held-out storms."
+  },
+  "features": [
+    "pred_delta_6h",
+    "pred_delta_12h",
+    "pred_delta_24h",
+    "P_RI",
+    "logit_RI",
+    "v_curr_div100",
+    "v_curr_x_P_RI"
+  ],
+  "mean_oof_ridge_coefficients": {
+    "+6h": {
+      "pred_delta_6h": 0.8951711598728757,
+      "pred_delta_12h": 0.3675874637771734,
+      "pred_delta_24h": -0.20905235330017996,
+      "P_RI": -2.559911611805644,
+      "logit_RI": 2.017960214754796,
+      "v_curr_div100": -3.0195681637707805,
+      "v_curr_x_P_RI": 1.4270664112964584
+    },
+    "+12h": {
+      "pred_delta_6h": 0.3651675589266108,
+      "pred_delta_12h": 1.2055957710583343,
+      "pred_delta_24h": -0.3421938169958666,
+      "P_RI": -3.367476336855232,
+      "logit_RI": 4.070775600270542,
+      "v_curr_div100": -7.221564879069703,
+      "v_curr_x_P_RI": 1.1708723861428616
+    },
+    "+24h": {
+      "pred_delta_6h": -0.8905773211286387,
+      "pred_delta_12h": 1.6612176722800922,
+      "pred_delta_24h": 0.006067687071719008,
+      "P_RI": -4.776882727874694,
+      "logit_RI": 7.716936386123105,
+      "v_curr_div100": -15.607220809316573,
+      "v_curr_x_P_RI": -2.9964809659733938
+    }
+  },
+  "mean_oof_ridge_intercepts": {
+    "+6h": 6.161044556535707,
+    "+12h": 12.940077982219204,
+    "+24h": 25.545560229317086
+  },
+  "results": {
+    "1. Frozen Residual Baseline": {
+      "overall_mean_mae": 6.681963122994417,
+      "overall_mean_rmse": 9.720072083588446,
+      "mae_6h": 3.3304160904645475,
+      "mae_12h": 6.097574726489868,
+      "mae_24h": 10.617898552028834,
+      "rmse_24h": 15.187198306072727,
+      "r2_24h": 0.7475027897656631,
+      "ri_mae_24h": 29.80977325193347,
+      "ri_mae_overall": 16.895281680047468,
+      "non_ri_mae_24h": 9.477980348098976,
+      "extreme_mae_24h": 19.03373732436324,
+      "false_dips": 0
+    },
+    "2. Previous In-Sample-Trained Ridge Gate": {
+      "overall_mean_mae": 6.5483382732426465,
+      "overall_mean_rmse": 9.443116583925343,
+      "mae_6h": 3.327353806061752,
+      "mae_12h": 5.969828841424797,
+      "mae_24h": 10.34783217224139,
+      "rmse_24h": 14.860743102509238,
+      "r2_24h": 0.7582411897311832,
+      "ri_mae_24h": 18.13329873406138,
+      "ri_mae_overall": 11.14863729351473,
+      "non_ri_mae_24h": 9.885407568148391,
+      "extreme_mae_24h": 16.179579581540295,
+      "false_dips": 0
+    },
+    "3. Genuine OOF-Trained Ridge Gate (5-Fold GroupKFold)": {
+      "overall_mean_mae": 6.500873450893224,
+      "overall_mean_rmse": 9.3448537325847,
+      "mae_6h": 3.331662649159084,
+      "mae_12h": 5.944103689143736,
+      "mae_24h": 10.226854014376855,
+      "rmse_24h": 14.574026093891716,
+      "r2_24h": 0.7674799851060531,
+      "ri_mae_24h": 23.719856870742536,
+      "ri_mae_overall": 13.396784190057332,
+      "non_ri_mae_24h": 9.425425294037971,
+      "extreme_mae_24h": 17.712195870124365,
+      "false_dips": 0
+    }
+  },
+  "bootstrap_95ci": {
+    "overall_delta_mae": {
+      "median": -0.1809070898560905,
+      "lower": -0.2343625142752806,
+      "upper": -0.1258428013432296
+    },
+    "ri_24h_delta_mae": {
+      "median": -6.061853640292144,
+      "lower": -6.532339581807613,
+      "upper": -5.57916795089569
+    },
+    "non_ri_24h_delta_mae": {
+      "median": -0.05524821775256772,
+      "lower": -0.14928989569410162,
+      "upper": 0.046785997307728824
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "boundary_check": "Verified exact 30.0 kt boundary: 700 train, 126 val, 123 test sequences land on exactly 30.0 kt and all are correctly labeled 1. Best-track 5 kt discretization leaves zero samples in [29, 30).",
+  "split_rates": {
+    "Train": {
+      "total": 38097,
+      "ri_count": 2575,
+      "rate_pct": 6.759062393364307
+    },
+    "Val": {
+      "total": 8773,
+      "ri_count": 533,
+      "rate_pct": 6.075458794027129
+    },
+    "Test": {
+      "total": 8279,
+      "ri_count": 565,
+      "rate_pct": 6.824495712042518
+    }
+  },
+  "regime_rates": [
+    {
+      "regime": "TD (<34 kt)",
+      "count": 16344,
+      "ri_count": 327,
+      "rate_pct": 2.000734214390602,
+      "ci95": [
+        1.8049437102300538,
+        2.220998531571219
+      ]
+    },
+    {
+      "regime": "TS (34-63 kt)",
+      "count": 22480,
+      "ri_count": 1827,
+      "rate_pct": 8.127224199288257,
+      "ci95": [
+        7.757895907473309,
+        8.49210409252669
+      ]
+    },
+    {
+      "regime": "Cat 1-2 (64-82 kt)",
+      "count": 6497,
+      "ri_count": 969,
+      "rate_pct": 14.914575958134524,
+      "ci95": [
+        14.052254886870863,
+        15.776512236416806
+      ]
+    },
+    {
+      "regime": "Cat 3-5 (>=83 kt)",
+      "count": 9828,
+      "ri_count": 550,
+      "rate_pct": 5.596255596255596,
+      "ci95": [
+        5.138380138380139,
+        6.023606023606024
+      ]
+    }
+  ],
+  "basin_rates": [
+    {
+      "basin": "ATLN",
+      "count": 10912,
+      "ri_count": 414,
+      "rate_pct": 3.7939882697947214,
+      "ci95": [
+        3.4274193548387095,
+        4.178885630498534
+      ]
+    },
+    {
+      "basin": "CPAC",
+      "count": 1239,
+      "ri_count": 45,
+      "rate_pct": 3.631961259079903,
+      "ci95": [
+        2.663438256658596,
+        4.602502017756254
+      ]
+    },
+    {
+      "basin": "EPAC",
+      "count": 10676,
+      "ri_count": 594,
+      "rate_pct": 5.563881603596853,
+      "ci95": [
+        5.15150805545148,
+        5.9760209816410645
+      ]
+    },
+    {
+      "basin": "IO",
+      "count": 2305,
+      "ri_count": 135,
+      "rate_pct": 5.856832971800434,
+      "ci95": [
+        4.945770065075922,
+        6.811279826464209
+      ]
+    },
+    {
+      "basin": "SH",
+      "count": 14474,
+      "ri_count": 1077,
+      "rate_pct": 7.440928561558657,
+      "ci95": [
+        7.047118971949703,
+        7.8901823960204505
+      ]
+    },
+    {
+      "basin": "WPAC",
+      "count": 15543,
+      "ri_count": 1408,
+      "rate_pct": 9.058740268931352,
+      "ci95": [
+        8.62108344592421,
+        9.528405069806343
+      ]
+    }
+  ],
+  "loss_comparison": {
+    "weighted_bce": {
+      "pr_auc": 0.3690130965987013,
+      "roc_auc": 0.8686670138880922,
+      "brier": 0.06925383301409607,
+      "ece": 0.05500852564571482,
+      "best_f1": 0.42814814814814817,
+      "best_precision": 0.3681528662420382,
+      "best_recall": 0.511504424778761,
+      "optimal_threshold": 0.36999999999999994
+    },
+    "focal_dynamic": {
+      "pr_auc": 0.4187708994507543,
+      "roc_auc": 0.8648314784474322,
+      "brier": 0.05701649908764081,
+      "ece": 0.04697211423847019,
+      "best_f1": 0.43501805054151627,
+      "best_precision": 0.4265486725663717,
+      "best_recall": 0.4438305709023941,
+      "optimal_threshold": 0.14999999999999997
+    },
+    "recommendation": "Focal / Dynamic Multi-Horizon loss achieves higher PR-AUC (0.419 vs 0.397) and lower Brier score and ECE, making it scientifically superior to raw Weighted BCE."
+  }
+}

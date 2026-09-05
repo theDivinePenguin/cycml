@@ -19,8 +19,8 @@
   --radius-3xl: calc(var(--radius) + 10px);
   --radius-4xl: calc(var(--radius) + 14px);
 
-  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Source Code Pro", ui-monospace, monospace;
+  --font-mono: "Source Code Pro", ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

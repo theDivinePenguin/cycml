@@ -1,0 +1,34 @@
+# Temporal Ablation: K=7 (18h history, 7 frames at 3h cadence)
+experiment_id: "temporal_k7_18h_context"
+priority: "high"
+hypothesis: "18-hour historical context provides sufficient diurnal cycle and inner-core structural evolution signals to improve +24h forecasting over K=5."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 7
+  cadence_hours: 3
+  channels: [0, 1, 2]
+  aligned: true
+
+features:
+  group: "satellite_only"
+
+model:
+  type: "cnn_transformer"
+  backbone: "resnet18"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "huber"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4

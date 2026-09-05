@@ -1,0 +1,7 @@
+model_name,directional_acc_all_pos_pct,ri30_count,ri30_predicted_weakening_count,severe_reversal_rate_pct,ri45_count,ri45_predicted_weakening_count,extreme_reversal_rate_pct,ri60_count,ri60_predicted_weakening_count,catastrophic_reversal_rate_pct
+Baseline Clean K=7,75.51,543,81,14.92,203,28,13.79,58,6,10.34
+Exp 1B: Delta-Only (1/1/1),77.72,543,85,15.65,203,30,14.78,58,5,8.62
+Exp 2: Moderate (1/2/4),79.5,543,72,13.26,203,24,11.82,58,5,8.62
+Exp 2: Strong (1/3/6),74.06,543,89,16.39,203,28,13.79,58,5,8.62
+Exp 2: Ultra (1/6/12),82.64,543,50,9.21,203,14,6.9,58,3,5.17
+Exp 2: Extreme (1/10/20),78.03,543,73,13.44,203,24,11.82,58,6,10.34

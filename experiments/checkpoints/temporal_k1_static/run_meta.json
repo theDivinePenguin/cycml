@@ -1,0 +1,28 @@
+{
+  "experiment_id": "temporal_k1_static",
+  "priority": "high",
+  "hypothesis": "Single-frame estimation lacks historical rate-of-change signals, serving as lower-bound reference for temporal modeling value.",
+  "git_commit": "unknown",
+  "timestamp": "2026-09-05 18:30:27",
+  "random_seed": 42,
+  "model_type": "cnn_transformer",
+  "backbone": "resnet18",
+  "k_history": 1,
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "environmental_features": "satellite_only",
+  "loss": "huber",
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "parameter_count": 12921411,
+  "gpu": "NVIDIA H200 NVL",
+  "peak_vram_mb": 904.1,
+  "total_training_sec": 168.4,
+  "best_epoch": 3,
+  "best_metric_name": "val_mae",
+  "best_metric_val": 9.8181,
+  "checkpoint_path": "experiments/checkpoints/temporal_k1_static/best.pt"
+}

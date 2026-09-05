@@ -21,6 +21,7 @@ class DeltaJointLoss(nn.Module):
         lambda_reg_delta: float = 0.1,
         ri_weights: Optional[Tuple[float, float, float]] = None,  # (w_low, w_mid, w_high)
         huber_beta: float = 1.0,
+        delta_loss_type: str = "huber",  # 'huber' or 'power_15'
     ):
         super().__init__()
         self.mode = mode
@@ -30,6 +31,7 @@ class DeltaJointLoss(nn.Module):
         self.lambda_reg_delta = lambda_reg_delta
         self.ri_weights = ri_weights
         self.huber_beta = huber_beta
+        self.delta_loss_type = delta_loss_type
 
         self.loss_ri = nn.BCEWithLogitsLoss(pos_weight=ri_pos_weight)
         self.loss_trend = nn.CrossEntropyLoss(weight=trend_class_weights)
@@ -52,28 +54,37 @@ class DeltaJointLoss(nn.Module):
         # 2. Trend Loss
         l_trend = self.loss_trend(trend_logits, trend_targets)
 
-        # 3. Delta Regression Loss (with optional RI-aware sample weighting)
-        if self.ri_weights is not None:
-            # Weighted Huber on Delta V
-            # ri_weights = (w_low, w_mid, w_high)
-            w_low, w_mid, w_high = self.ri_weights
-            actual_dv24 = reg_delta_targets[:, 2]
-
-            sample_weights = torch.ones_like(actual_dv24) * w_low
-            mid_mask = (actual_dv24 >= 15.0) & (actual_dv24 < 30.0)
-            high_mask = actual_dv24 >= 30.0
-            sample_weights[mid_mask] = w_mid
-            sample_weights[high_mask] = w_high
-
-            # Compute elementwise Smooth L1 / Huber
-            huber_elementwise = F.smooth_l1_loss(
-                reg_delta_preds, reg_delta_targets, beta=self.huber_beta, reduction="none"
-            )  # (B, 3)
-            # Weight +24h specifically or all delta horizons:
-            weighted_huber_24 = huber_elementwise[:, 2] * sample_weights
-            l_delta = (huber_elementwise[:, 0].mean() + huber_elementwise[:, 1].mean() + weighted_huber_24.mean()) / 3.0
+        # 3. Delta Regression Loss (Huber or Power-1.5)
+        if self.delta_loss_type == "power_15":
+            # Power-1.5 Loss: |diff|^1.5
+            diff = torch.abs(reg_delta_preds - reg_delta_targets) + 1e-6
+            power_elem = torch.pow(diff, 1.5)
+            if self.ri_weights is not None:
+                w_low, w_mid, w_high = self.ri_weights
+                actual_dv24 = reg_delta_targets[:, 2]
+                sample_weights = torch.ones_like(actual_dv24) * w_low
+                sample_weights[(actual_dv24 >= 15.0) & (actual_dv24 < 30.0)] = w_mid
+                sample_weights[actual_dv24 >= 30.0] = w_high
+                weighted_power_24 = power_elem[:, 2] * sample_weights
+                l_delta = (power_elem[:, 0].mean() + power_elem[:, 1].mean() + weighted_power_24.mean()) / 3.0
+            else:
+                # Unweighted Power-1.5 loss (clean factorial condition)
+                l_delta = (power_elem[:, 0].mean() + power_elem[:, 1].mean() + power_elem[:, 2].mean()) / 3.0
         else:
-            l_delta = F.smooth_l1_loss(reg_delta_preds, reg_delta_targets, beta=self.huber_beta)
+            # Standard Smooth L1 / Huber
+            if self.ri_weights is not None:
+                w_low, w_mid, w_high = self.ri_weights
+                actual_dv24 = reg_delta_targets[:, 2]
+                sample_weights = torch.ones_like(actual_dv24) * w_low
+                sample_weights[(actual_dv24 >= 15.0) & (actual_dv24 < 30.0)] = w_mid
+                sample_weights[actual_dv24 >= 30.0] = w_high
+                huber_elementwise = F.smooth_l1_loss(
+                    reg_delta_preds, reg_delta_targets, beta=self.huber_beta, reduction="none"
+                )  # (B, 3)
+                weighted_huber_24 = huber_elementwise[:, 2] * sample_weights
+                l_delta = (huber_elementwise[:, 0].mean() + huber_elementwise[:, 1].mean() + weighted_huber_24.mean()) / 3.0
+            else:
+                l_delta = F.smooth_l1_loss(reg_delta_preds, reg_delta_targets, beta=self.huber_beta)
 
         # 4. Absolute Regression Loss (if active)
         if self.mode == "abs_and_delta" and reg_abs_preds is not None and reg_abs_targets is not None:

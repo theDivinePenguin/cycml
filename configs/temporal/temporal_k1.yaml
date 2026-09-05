@@ -1,0 +1,34 @@
+# Temporal Ablation: K=1 (0h history, single satellite frame)
+experiment_id: "temporal_k1_static"
+priority: "high"
+hypothesis: "Single-frame estimation lacks historical rate-of-change signals, serving as lower-bound reference for temporal modeling value."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 1
+  cadence_hours: 3
+  channels: [0, 1, 2]
+  aligned: true
+
+features:
+  group: "satellite_only"
+
+model:
+  type: "cnn_transformer"
+  backbone: "resnet18"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "huber"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4

@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "leakage_investigation": {
+    "henriette_epac_train": "201308E (81 frames, Train)",
+    "henriette_cpac_test": "201302C (57 frames, Test)",
+    "cross_basin_evidence": "Physical storm crossed 140W from EPAC into CPAC on 2013-08-12 00Z to 06Z; same physical cyclone.",
+    "additional_track_fragments": {
+      "200819S": "Severe TC Nicholas (test) preceded by precursor 200817S (train) off Western Australia",
+      "201420E": "TS Trudy (test) whose remnants re-emerged in Bay of Campeche as TS Hanna 201409L (train)"
+    }
+  },
+  "manifests_created": {
+    "clean_test_sequences": "data/metadata/forecast_test_sequences_k5_clean.csv",
+    "track_clean_test_sequences": "data/metadata/forecast_test_sequences_k5_track_clean.csv",
+    "clean_test_metadata": "data/metadata/test_metadata_all_basins_clean.csv",
+    "track_clean_test_metadata": "data/metadata/test_metadata_all_basins_track_clean.csv"
+  },
+  "frame_counts": {
+    "original_test_frames": 10581,
+    "clean_test_frames": 10524,
+    "clean_removed_frames": 57,
+    "track_clean_test_frames": 10430,
+    "track_clean_removed_frames": 151
+  },
+  "sequence_counts": {
+    "original_test_sequences": 8279,
+    "clean_test_sequences": 8234,
+    "clean_removed_sequences": 45,
+    "track_clean_test_sequences": 8164,
+    "track_clean_removed_sequences": 115
+  },
+  "metrics_original": {
+    "n_samples": 7901,
+    "mae_overall": 7.384529384466101,
+    "mae_6h": 4.594093152765472,
+    "mae_12h": 6.748536894064043,
+    "mae_24h": 10.810958106568789,
+    "rmse_overall": 11.277480981762436,
+    "rmse_6h": 6.740008111314837,
+    "rmse_12h": 9.814149353908245,
+    "rmse_24h": 15.485460761651002,
+    "r2_overall": 0.864385964082703,
+    "ri_pr_auc": 0.3974488255550057,
+    "ri_roc_auc": 0.8549057990275802,
+    "ri_brier": 0.06295883638286236,
+    "ri_f1": 0.4435087719298246,
+    "ri_precision": 0.35827664399092973,
+    "ri_recall": 0.58195211786372
+  },
+  "metrics_clean": {
+    "n_samples": 7858,
+    "mae_overall": 7.400559938915755,
+    "mae_6h": 4.606635276151692,
+    "mae_12h": 6.764237719521506,
+    "mae_24h": 10.830806821074066,
+    "rmse_overall": 11.299000231312478,
+    "rmse_6h": 6.754872801656325,
+    "rmse_12h": 9.834050457937687,
+    "rmse_24h": 15.513393042973465,
+    "r2_overall": 0.863859894757137,
+    "ri_pr_auc": 0.39781456145139404,
+    "ri_roc_auc": 0.8550912691069712,
+    "ri_brier": 0.06330312918965032,
+    "ri_f1": 0.4435087719298246,
+    "ri_precision": 0.35827664399092973,
+    "ri_recall": 0.58195211786372
+  },
+  "delta_clean": {
+    "n_samples": null,
+    "mae_overall": 0.016030554449653955,
+    "mae_6h": 0.012542123386220183,
+    "mae_12h": 0.015700825457463097,
+    "mae_24h": 0.019848714505277698,
+    "rmse_overall": 0.021519249550042474,
+    "rmse_6h": 0.014864690341488185,
+    "rmse_12h": 0.019901104029441896,
+    "rmse_24h": 0.027932281322463837,
+    "r2_overall": -0.000526069325565981,
+    "ri_pr_auc": 0.0003657358963883306,
+    "ri_roc_auc": 0.00018547007939095916,
+    "ri_brier": 0.0003442928067879658,
+    "ri_f1": 0.0,
+    "ri_precision": 0.0,
+    "ri_recall": 0.0
+  },
+  "metrics_track_clean": {
+    "n_samples": 7792,
+    "mae_overall": 7.413501454483231,
+    "mae_6h": 4.617945328542095,
+    "mae_12h": 6.776373203285421,
+    "mae_24h": 10.846185831622176,
+    "rmse_overall": 11.324657669987314,
+    "rmse_6h": 6.772789094045598,
+    "rmse_12h": 9.858058658184865,
+    "rmse_24h": 15.546434363112683,
+    "r2_overall": 0.8641003132763266,
+    "ri_pr_auc": 0.3980445913493255,
+    "ri_roc_auc": 0.8547148308003111,
+    "ri_brier": 0.06383930146868534,
+    "ri_f1": 0.4435087719298246,
+    "ri_precision": 0.35827664399092973,
+    "ri_recall": 0.58195211786372
+  },
+  "delta_track_clean": {
+    "n_samples": null,
+    "mae_overall": 0.028972070017129425,
+    "mae_6h": 0.023852175776622353,
+    "mae_12h": 0.02783630922137803,
+    "mae_24h": 0.035227725053387005,
+    "rmse_overall": 0.047176688224878305,
+    "rmse_6h": 0.032780982730761465,
+    "rmse_12h": 0.04390930427661921,
+    "rmse_24h": 0.06097360146168107,
+    "r2_overall": -0.00028565080637632523,
+    "ri_pr_auc": 0.0005957657943198025,
+    "ri_roc_auc": -0.00019096822726916152,
+    "ri_brier": 0.0008804650858229846,
+    "ri_f1": 0.0,
+    "ri_precision": 0.0,
+    "ri_recall": 0.0
+  }
+}

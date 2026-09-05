@@ -1,0 +1,25 @@
+phase,model_name,n_samples,mean_actual_dv,mean_pred_dv,mae_intensity_kt,mae_delta_kt,bias_delta_kt,directional_accuracy_pct,predicted_weakening_pct
+Phase A: Pre-RI / Boundary (<15 kt),Baseline Clean K=7,6218,-7.45,-6.32,9.12,9.12,1.13,39.1,60.8
+Phase A: Pre-RI / Boundary (<15 kt),Exp 1B: Delta-Only (1/1/1),6218,-7.45,-6.21,9.06,9.06,1.24,39.3,60.7
+Phase A: Pre-RI / Boundary (<15 kt),Exp 2: Moderate (1/2/4),6218,-7.45,-5.97,9.15,9.15,1.48,39.2,60.8
+Phase A: Pre-RI / Boundary (<15 kt),Exp 2: Strong (1/3/6),6218,-7.45,-7.39,9.39,9.39,0.06,34.5,65.5
+Phase A: Pre-RI / Boundary (<15 kt),Exp 2: Ultra (1/6/12),6218,-7.45,-5.39,9.99,9.99,2.06,41.4,58.6
+Phase A: Pre-RI / Boundary (<15 kt),Exp 2: Extreme (1/10/20),6218,-7.45,-6.9,9.78,9.78,0.55,36.1,63.9
+Phase B: Moderate RI (15–30 kt),Baseline Clean K=7,1140,19.33,9.55,12.08,12.08,-9.78,80.0,19.9
+Phase B: Moderate RI (15–30 kt),Exp 1B: Delta-Only (1/1/1),1140,19.33,9.06,11.51,11.51,-10.27,82.5,17.5
+Phase B: Moderate RI (15–30 kt),Exp 2: Moderate (1/2/4),1140,19.33,10.46,10.66,10.66,-8.87,84.8,15.2
+Phase B: Moderate RI (15–30 kt),Exp 2: Strong (1/3/6),1140,19.33,9.46,11.68,11.68,-9.87,80.0,20.0
+Phase B: Moderate RI (15–30 kt),Exp 2: Ultra (1/6/12),1140,19.33,12.53,9.24,9.24,-6.8,87.9,12.1
+Phase B: Moderate RI (15–30 kt),Exp 2: Extreme (1/10/20),1140,19.33,10.79,10.54,10.54,-8.53,82.1,17.9
+Phase C: Strong RI (30–45 kt),Baseline Clean K=7,340,34.5,15.3,20.08,20.08,-19.2,84.1,15.6
+Phase C: Strong RI (30–45 kt),Exp 1B: Delta-Only (1/1/1),340,34.5,13.2,21.5,21.5,-21.3,83.8,16.2
+Phase C: Strong RI (30–45 kt),Exp 2: Moderate (1/2/4),340,34.5,14.81,20.15,20.15,-19.69,85.9,14.1
+Phase C: Strong RI (30–45 kt),Exp 2: Strong (1/3/6),340,34.5,13.99,20.95,20.95,-20.51,82.1,17.9
+Phase C: Strong RI (30–45 kt),Exp 2: Ultra (1/6/12),340,34.5,17.74,17.44,17.44,-16.76,89.4,10.6
+Phase C: Strong RI (30–45 kt),Exp 2: Extreme (1/10/20),340,34.5,16.36,18.59,18.59,-18.14,85.6,14.4
+Phase D: Extreme RI (>=45 kt),Baseline Clean K=7,203,54.26,16.52,37.75,37.75,-37.74,85.7,13.8
+Phase D: Extreme RI (>=45 kt),Exp 1B: Delta-Only (1/1/1),203,54.26,13.78,40.48,40.48,-40.48,85.2,14.8
+Phase D: Extreme RI (>=45 kt),Exp 2: Moderate (1/2/4),203,54.26,15.85,38.4,38.4,-38.4,88.2,11.8
+Phase D: Extreme RI (>=45 kt),Exp 2: Strong (1/3/6),203,54.26,15.64,38.61,38.61,-38.61,86.2,13.8
+Phase D: Extreme RI (>=45 kt),Exp 2: Ultra (1/6/12),203,54.26,19.23,35.03,35.03,-35.03,93.1,6.9
+Phase D: Extreme RI (>=45 kt),Exp 2: Extreme (1/10/20),203,54.26,17.09,37.16,37.16,-37.16,88.2,11.8

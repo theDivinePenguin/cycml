@@ -63,7 +63,7 @@ def train_and_evaluate_ablation_model(run_info: dict, device: torch.device):
     cfg_path = run_info["config_path"]
     save_dir = Path(run_info["save_dir"])
     save_dir.mkdir(parents=True, exist_ok=True)
-    
+
     pred_csv_path = save_dir / "test_predictions.csv"
     metrics_json_path = save_dir / "test_metrics.json"
     if pred_csv_path.exists() and metrics_json_path.exists():
@@ -137,10 +137,19 @@ def train_and_evaluate_ablation_model(run_info: dict, device: torch.device):
     history = trainer.fit()
     duration_min = (time.time() - t0) / 60.0
 
-    print(f"\n[{name}] Training finished in {duration_min:.2f} min. Loading best checkpoint for test evaluation...")
+    # -------------------------------------------------------------
+    # LEGACY SCRIPT SAFEGUARD: Test set evaluation is locked
+    # -------------------------------------------------------------
+    import sys
+    best_ckpt_path = save_dir / "best.pt"
+    best_ckpt = torch.load(best_ckpt_path, map_location=device)
 
-    # Load best checkpoint for test evaluation
-    best_ckpt = torch.load(save_dir / "best.pt", map_location=device)
+    if not ("--eval-test" in sys.argv and "--confirm-locked-test-eval" in sys.argv):
+        print(f"\n[TEST LOCK PROTECTED] Training of {name} finished in {duration_min:.2f} min. Test set evaluation is locked.")
+        print("  To evaluate test set, use canonical runner: python evaluate.py --split test --eval-test --confirm-locked-test-eval")
+        return {"status": "SUCCESS_TRAIN_ONLY_TEST_LOCKED", "val_mae": float(best_ckpt.get("val_mae", -1.0))}
+
+    print(f"\n[{name}] Training finished in {duration_min:.2f} min. Loading best checkpoint for test evaluation...")
     model.load_state_dict(best_ckpt["model_state_dict"])
     model.eval()
 

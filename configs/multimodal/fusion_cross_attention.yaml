@@ -1,0 +1,35 @@
+# Multi-Modal Fusion: Cross-Attention
+experiment_id: "fusion_cross_attention"
+priority: "high"
+hypothesis: "Cross-attention allows spatial tokens to attend directly to environmental thermodynamic factors, capturing spatial asymmetries."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2]
+
+features:
+  group: "all_environmental"
+
+model:
+  type: "ri_multitask"
+  backbone: "resnet18"
+  temporal_type: "transformer"
+  fusion_type: "cross_attention"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "focal"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 25
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4

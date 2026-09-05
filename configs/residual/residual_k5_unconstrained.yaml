@@ -1,0 +1,41 @@
+# Model B: Residual Delta-V Forecaster (Unconstrained)
+experiment_id: "residual_delta_v_unconstrained"
+priority: "essential"
+hypothesis: "Directly predicting continuous intensity change Delta V(tau) and reconstructing V_hat(t+tau) = V(t) + Delta V_hat improves trajectory smoothness and bias compared to direct absolute regression."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2]
+  aligned: true
+
+features:
+  group: "satellite_only"
+
+model:
+  type: "residual"
+  backbone: "resnet18"
+  temporal_type: "transformer"
+  parameterization: "unconstrained"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "huber"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 25
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4
+
+sanity:
+  min_intensity_kt: 0.0
+  max_plausible_kt: 200.0
+  large_step_change_kt: 45.0

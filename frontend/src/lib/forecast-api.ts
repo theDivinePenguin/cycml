@@ -92,9 +92,9 @@ export const AVAILABLE_MODELS: ModelOption[] = isMultiModel
       },
     ];
 
-export const DEFAULT_MODEL_ID = AVAILABLE_MODELS.some(m => m.id === "exp2_ultra")
-  ? "exp2_ultra"
-  : (AVAILABLE_MODELS[0]?.id || "default");
+export const DEFAULT_MODEL_ID = AVAILABLE_MODELS.some(m => m.id === "residual_delta_v_unconstrained")
+  ? "residual_delta_v_unconstrained"
+  : (AVAILABLE_MODELS.some(m => m.id === "exp2_ultra") ? "exp2_ultra" : (AVAILABLE_MODELS[0]?.id || "default"));
 
 const ALL_STORMS: Record<string, StormDataMap> = isMultiModel
   ? (rawPayload as MultiModelPayload).storms

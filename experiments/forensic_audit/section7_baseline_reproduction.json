@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "n_validation_sequences": 8773,
+  "full_validation_metrics": {
+    "persistence": {
+      "overall_mae": 8.14962574565903,
+      "+6h_mae": 3.7827425054143395,
+      "+12h_mae": 7.289410691895589,
+      "+24h_mae": 13.376724039667161,
+      "expected_overall": 8.15,
+      "match": true
+    },
+    "linear_trend_6h": {
+      "overall_mae": 8.295489950226072,
+      "+6h_mae": 3.0241650518636725,
+      "+12h_mae": 6.754359968083894,
+      "+24h_mae": 15.10794483073065,
+      "expected_overall": 8.29,
+      "match": true
+    },
+    "direct_cnn_transformer": {
+      "overall_mae": 9.137227535247803,
+      "+6h_mae": 7.610576152801514,
+      "+12h_mae": 8.552576065063477,
+      "+24h_mae": 11.248530387878418
+    }
+  },
+  "sample_200_metrics": {
+    "persistence": {
+      "overall_mae": 6.858333333333334,
+      "+6h": 3.215,
+      "+12h": 6.19,
+      "+24h": 11.17
+    },
+    "linear_trend_6h": {
+      "overall_mae": 7.928333333333334,
+      "+6h": 3.015,
+      "+12h": 6.58,
+      "+24h": 14.19
+    }
+  }
+}

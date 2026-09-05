@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "total_aligned_origins": 45400,
+  "is_exactly_45400": true,
+  "split_breakdown": {
+    "train": 31280,
+    "val": 7295,
+    "test": 6825
+  },
+  "per_split_details": {
+    "train": {
+      "unaligned_counts": {
+        "k1": 41661,
+        "k3": 39875,
+        "k5": 38097,
+        "k7": 36343,
+        "k9": 34622,
+        "k11": 32933,
+        "k13": 31280
+      },
+      "aligned_count": 31280,
+      "equals_k13": true,
+      "cyclones_in_aligned": 816
+    },
+    "val": {
+      "unaligned_counts": {
+        "k1": 9532,
+        "k3": 9152,
+        "k5": 8773,
+        "k7": 8396,
+        "k9": 8024,
+        "k11": 7658,
+        "k13": 7295
+      },
+      "aligned_count": 7295,
+      "equals_k13": true,
+      "cyclones_in_aligned": 181
+    },
+    "test": {
+      "unaligned_counts": {
+        "k1": 9043,
+        "k3": 8661,
+        "k5": 8279,
+        "k7": 7901,
+        "k9": 7533,
+        "k11": 7174,
+        "k13": 6825
+      },
+      "aligned_count": 6825,
+      "equals_k13": true,
+      "cyclones_in_aligned": 171
+    }
+  },
+  "mathematical_proof": "Every origin sequence of length K=13 requires 13 consecutive observations at 3h cadence [t-36h, ..., t]. By definition, any such continuous window contains subwindows of lengths 1, 3, 5, 7, 9, 11 terminating at the same origin t. Because K13 has no cadence gaps, intersection(K1..K13) = K13 = 45,400 origins exactly."
+}

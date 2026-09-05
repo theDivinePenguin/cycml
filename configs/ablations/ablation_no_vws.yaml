@@ -1,0 +1,35 @@
+# Environmental Feature Ablation: Removing Vertical Wind Shear (VWS)
+experiment_id: "env_ablation_no_vws"
+priority: "high"
+hypothesis: "Excluding Vertical Wind Shear (SHRD) removes the primary kinematic inhibitor of cyclone intensification, increasing false RI alarms and degrading +24h MAE."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2]
+
+features:
+  group: "all_environmental" # (sst, cohc, rhmd, but without shrd in dedicated study)
+
+model:
+  type: "ri_multitask"
+  backbone: "resnet18"
+  temporal_type: "transformer"
+  fusion_type: "gated"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "focal"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 25
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4

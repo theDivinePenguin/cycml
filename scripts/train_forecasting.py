@@ -175,12 +175,25 @@ def run_forecasting_experiment(
     test_metrics_path = save_dir / "test_metrics.json"
     best_ckpt_path = save_dir / "best.pt"
 
+    # -------------------------------------------------------------
+    # LEGACY SCRIPT SAFEGUARD: Test set evaluation is locked
+    # -------------------------------------------------------------
+    eval_test_confirmed = False
+    import sys
+    if "--eval-test" in sys.argv and "--confirm-locked-test-eval" in sys.argv:
+        eval_test_confirmed = True
+
     if test_pred_path.exists() and test_metrics_path.exists():
         print(f"\n[{save_dir_name}] Already completed with test predictions and metrics. Skipping.")
         with open(test_metrics_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
     if best_ckpt_path.exists() and not test_pred_path.exists():
+        if not eval_test_confirmed:
+            print(f"\n[DEPRECATION / TEST LOCK] {save_dir_name} found best.pt, but TEST SET IS LOCKED.")
+            print("  Skipping test evaluation. Canonical training must use `train.py`.")
+            print("  To force evaluation, pass: --eval-test --confirm-locked-test-eval")
+            return {"status": "TEST_LOCKED", "model_type": model_type}
         print(f"\n[{save_dir_name}] Found saved best.pt checkpoint! Running test set evaluation directly...")
         meta_dir = Path("data/metadata")
         test_seq_df = pd.read_csv(meta_dir / "forecast_test_sequences_k5.csv")
@@ -353,7 +366,18 @@ def run_forecasting_experiment(
             print("  [Thermal Relief] Cooling pause for 15 seconds...")
             time.sleep(15)
 
-    pd.DataFrame(log_rows).to_csv(save_dir / "training_log.csv", index=False)
+    # -------------------------------------------------------------
+    # LEGACY SCRIPT SAFEGUARD: Test set evaluation is locked
+    # -------------------------------------------------------------
+    if not eval_test_confirmed:
+        print(f"\n[TEST LOCK PROTECTED] Training complete. Test set evaluation is locked.")
+        print("  To evaluate test set, use canonical runner: python evaluate.py --split test --eval-test --confirm-locked-test-eval")
+        train_ds.close()
+        val_ds.close()
+        if 'test_ds' in locals():
+            test_ds.close()
+        gc.collect()
+        return {"status": "SUCCESS_TRAIN_ONLY_TEST_LOCKED", "best_epoch": best_epoch, "best_val_mae": best_val_mae}
 
     # Load best model for test evaluation
     print(f"\n[{save_dir_name}] Evaluating best checkpoint (Epoch {best_epoch}) on 8,279 test sequences...")

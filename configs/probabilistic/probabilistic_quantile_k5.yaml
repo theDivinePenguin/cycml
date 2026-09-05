@@ -1,0 +1,36 @@
+# Probabilistic Quantile Forecaster (q10, q50, q90)
+experiment_id: "probabilistic_quantile_k5"
+priority: "high"
+hypothesis: "Direct pinball loss with monotonic parameterization yields well-calibrated predictive intervals (cones) reflecting forecast uncertainty without quantile crossings."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2]
+  aligned: true
+
+features:
+  group: "satellite_only"
+
+model:
+  type: "probabilistic"
+  backbone: "resnet18"
+  temporal_type: "transformer"
+  monotonic: true
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "pinball"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 25
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4

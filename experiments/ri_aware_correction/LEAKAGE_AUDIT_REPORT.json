@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-05 21:09:58 UTC",
+  "model_audited": "MLP_AllHorizons_scale_15kt",
+  "audit_results": {
+    "future_target_leakage": "PASS",
+    "feature_construction": "PASS",
+    "train_val_contamination": "PASS",
+    "ri_classifier_causality": "PASS",
+    "environmental_causality": "PASS",
+    "scaler_leakage": "PASS",
+    "validation_reproduction": "PASS"
+  },
+  "final_verdict": "SAFE",
+  "issues_found": [],
+  "reproduced_metrics": {
+    "mae_6h": 2.828935574915401,
+    "mae_12h": 5.306492335303142,
+    "mae_24h": 9.513657791744947,
+    "overall_mae": 5.883028567321163,
+    "ri_mae_24h": 21.12079240952352,
+    "non_ri_mae_24h": 8.824241866872534
+  },
+  "artifact_hashes": {
+    "experiments/checkpoints/residual_delta_v_unconstrained/best.pt": "0f609867c12e264e51d8be534df98391",
+    "experiments/checkpoints/ri_model1_dedicated_focal/best.pt": "a0b84517283ae27893661954ab198138",
+    "experiments/final_locked_test/final_frozen_ridge_gate.json": "c0fa6ea1617b2be368a729f517410082",
+    "reports/FINAL_LOCKED_TEST_REPORT.md": "e0d886bc5a41cec87f741a0d38373ebc",
+    "data/metadata/forecast_test_sequences_k5_aligned.csv": "6e6882fc72988ab8f85f5bcd7a3ef4f8"
+  }
+}

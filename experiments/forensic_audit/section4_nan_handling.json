@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "total_nan_frames": 467,
+  "nan_frame_pct": 0.6624207435566463,
+  "geographical_root_cause": "GridSat-B1 geostationary satellite coverage limit at ~50N-60N. Recurving Atlantic/WPAC cyclones moving to high latitudes naturally enter grid boundary, resulting in 100% NaN IR1 observations.",
+  "basin_breakdown": [
+    {
+      "region": "WPAC",
+      "total_frames": 19911,
+      "nan_frames": 26,
+      "pct_of_basin_nan": 0.1305810858319522,
+      "pct_of_all_nans": 5.567451820128479
+    },
+    {
+      "region": "SH",
+      "total_frames": 18434,
+      "nan_frames": 32,
+      "pct_of_basin_nan": 0.1735922751437561,
+      "pct_of_all_nans": 6.852248394004283
+    },
+    {
+      "region": "ATLN",
+      "total_frames": 13707,
+      "nan_frames": 399,
+      "pct_of_basin_nan": 2.910921427008098,
+      "pct_of_all_nans": 85.4389721627409
+    },
+    {
+      "region": "EPAC",
+      "total_frames": 13615,
+      "nan_frames": 9,
+      "pct_of_basin_nan": 0.06610356224752112,
+      "pct_of_all_nans": 1.9271948608137044
+    },
+    {
+      "region": "IO",
+      "total_frames": 3353,
+      "nan_frames": 1,
+      "pct_of_basin_nan": 0.029824038174768867,
+      "pct_of_all_nans": 0.21413276231263384
+    },
+    {
+      "region": "CPAC",
+      "total_frames": 1479,
+      "nan_frames": 0,
+      "pct_of_basin_nan": 0.0,
+      "pct_of_all_nans": 0.0
+    }
+  ],
+  "intensity_breakdown": [
+    {
+      "intensity_category": "TD (<34)",
+      "total": 27033,
+      "valid": 26977,
+      "nan": 56,
+      "nan_pct": 0.2071542189176192
+    },
+    {
+      "intensity_category": "TS (34-63)",
+      "total": 26510,
+      "valid": 26160,
+      "nan": 350,
+      "nan_pct": 1.3202565069784986
+    },
+    {
+      "intensity_category": "Cat 1 (64-82)",
+      "total": 6937,
+      "valid": 6901,
+      "nan": 36,
+      "nan_pct": 0.518956321176301
+    },
+    {
+      "intensity_category": "Cat 2 (83-95)",
+      "total": 3628,
+      "valid": 3622,
+      "nan": 6,
+      "nan_pct": 0.16538037486218302
+    },
+    {
+      "intensity_category": "Cat 3 (96-112)",
+      "total": 2848,
+      "valid": 2847,
+      "nan": 1,
+      "nan_pct": 0.0351123595505618
+    },
+    {
+      "intensity_category": "Cat 4 (113-136)",
+      "total": 2949,
+      "valid": 2942,
+      "nan": 7,
+      "nan_pct": 0.23736859952526282
+    },
+    {
+      "intensity_category": "Cat 5 (>=137)",
+      "total": 594,
+      "valid": 583,
+      "nan": 11,
+      "nan_pct": 1.8518518518518516
+    }
+  ],
+  "controlled_eval": {
+    "n_samples": 3232,
+    "approach_a_current": {
+      "mae": 9.334266662597656,
+      "rmse": 13.022179682998122,
+      "r2": 0.8153826594352722
+    },
+    "approach_b_neutral": {
+      "mae": 9.345166206359863,
+      "rmse": 13.00280907432091,
+      "r2": 0.8159327507019043
+    },
+    "delta": {
+      "mae": 0.010899543762207031,
+      "rmse": -0.019370608677212076,
+      "r2": 0.0005500912666320801
+    }
+  },
+  "scientific_conclusion": "Approach C (Exclusion) creates severe geographical and physical population bias: 85.4% of excluded frames are Atlantic storms at high latitude during extratropical transition, artificially biasing test metrics. Approach B (Neutral Mean 267.83K -> 0.0 sigma) eliminates the -9.93 sigma unphysical shock without discarding data and should be standard in sequence_dataset.py."
+}

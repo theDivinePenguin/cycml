@@ -1,0 +1,492 @@
+{
+  "features": [
+    "pred_delta_6h",
+    "pred_delta_12h",
+    "pred_delta_24h",
+    "P_RI",
+    "logit_RI",
+    "v_curr_div100",
+    "v_curr_x_P_RI"
+  ],
+  "ridge_alpha": 10.0,
+  "coefficients": [
+    [
+      0.7892575339718171,
+      0.6329228849582269,
+      -0.37037208016613177,
+      -4.698190329254217,
+      2.304071804309042,
+      -4.64864723888233,
+      7.738304563442427
+    ],
+    [
+      -0.3761700270395031,
+      2.0615788675017828,
+      -0.6757799238672888,
+      -2.9293009780333246,
+      4.160893591538963,
+      -10.138434945692374,
+      16.124593357984036
+    ],
+    [
+      -3.9856951687719007,
+      4.191275673894855,
+      -0.6403700060809966,
+      8.898811617025423,
+      8.729629456044616,
+      -19.288994694308975,
+      11.609909149534689
+    ]
+  ],
+  "intercepts": [
+    7.413833862371785,
+    13.479579061694517,
+    27.420251169859434
+  ],
+  "equations": {
+    "+6h": "+7.4138 + +0.7893*pred_delta_6h + +0.6329*pred_delta_12h + -0.3704*pred_delta_24h + -4.6982*P_RI + +2.3041*logit_RI + -4.6486*v_curr_div100 + +7.7383*v_curr_x_P_RI",
+    "+12h": "+13.4796 + -0.3762*pred_delta_6h + +2.0616*pred_delta_12h + -0.6758*pred_delta_24h + -2.9293*P_RI + +4.1609*logit_RI + -10.1384*v_curr_div100 + +16.1246*v_curr_x_P_RI",
+    "+24h": "+27.4203 + -3.9857*pred_delta_6h + +4.1913*pred_delta_12h + -0.6404*pred_delta_24h + +8.8988*P_RI + +8.7296*logit_RI + -19.2890*v_curr_div100 + +11.6099*v_curr_x_P_RI"
+  },
+  "storm_breakdown": {
+    "total_cyclones": 181,
+    "ri_cyclones_count": 59,
+    "improved_cyclones_count": 57,
+    "worsened_cyclones_count": 2,
+    "pct_improved": 96.61016949152543,
+    "storms": [
+      {
+        "cyclone_id": "200301I",
+        "ri_timesteps": 3,
+        "res_mae": 28.044474681218464,
+        "gate_mae": 21.773749144395257,
+        "improvement_kt": 6.270725536823207
+      },
+      {
+        "cyclone_id": "200302I",
+        "ri_timesteps": 4,
+        "res_mae": 29.745016396045685,
+        "gate_mae": 5.7614019198206226,
+        "improvement_kt": 23.983614476225064
+      },
+      {
+        "cyclone_id": "200314W",
+        "ri_timesteps": 9,
+        "res_mae": 18.52988560994466,
+        "gate_mae": 6.772749323326966,
+        "improvement_kt": 11.757136286617694
+      },
+      {
+        "cyclone_id": "200315S",
+        "ri_timesteps": 8,
+        "res_mae": 30.512268543243408,
+        "gate_mae": 16.006759222412875,
+        "improvement_kt": 14.505509320830534
+      },
+      {
+        "cyclone_id": "200329S",
+        "ri_timesteps": 3,
+        "res_mae": 24.583657781283062,
+        "gate_mae": 9.523340799717895,
+        "improvement_kt": 15.060316981565167
+      },
+      {
+        "cyclone_id": "200407S",
+        "ri_timesteps": 10,
+        "res_mae": 27.77322359085083,
+        "gate_mae": 19.432988372544468,
+        "improvement_kt": 8.340235218306361
+      },
+      {
+        "cyclone_id": "200409L",
+        "ri_timesteps": 8,
+        "res_mae": 38.86218826472759,
+        "gate_mae": 18.675794228387364,
+        "improvement_kt": 20.18639403634023
+      },
+      {
+        "cyclone_id": "200411L",
+        "ri_timesteps": 1,
+        "res_mae": 28.012396812438965,
+        "gate_mae": 26.807642038508988,
+        "improvement_kt": 1.2047547739299773
+      },
+      {
+        "cyclone_id": "200416S",
+        "ri_timesteps": 10,
+        "res_mae": 32.17830753326416,
+        "gate_mae": 14.946840674129584,
+        "improvement_kt": 17.231466859134578
+      },
+      {
+        "cyclone_id": "200427W",
+        "ri_timesteps": 7,
+        "res_mae": 19.200065885271346,
+        "gate_mae": 6.228113987899489,
+        "improvement_kt": 12.971951897371857
+      },
+      {
+        "cyclone_id": "200503W",
+        "ri_timesteps": 13,
+        "res_mae": 26.56632639811589,
+        "gate_mae": 19.09335796667836,
+        "improvement_kt": 7.472968431437529
+      },
+      {
+        "cyclone_id": "200515E",
+        "ri_timesteps": 3,
+        "res_mae": 26.429426193237305,
+        "gate_mae": 24.757848412343396,
+        "improvement_kt": 1.6715777808939087
+      },
+      {
+        "cyclone_id": "200520L",
+        "ri_timesteps": 3,
+        "res_mae": 28.518117825190227,
+        "gate_mae": 18.530443634800687,
+        "improvement_kt": 9.98767419038954
+      },
+      {
+        "cyclone_id": "200525L",
+        "ri_timesteps": 10,
+        "res_mae": 56.47554302215576,
+        "gate_mae": 36.47706440190224,
+        "improvement_kt": 19.998478620253522
+      },
+      {
+        "cyclone_id": "200526S",
+        "ri_timesteps": 14,
+        "res_mae": 30.3750809941973,
+        "gate_mae": 24.208032965212613,
+        "improvement_kt": 6.167048028984688
+      },
+      {
+        "cyclone_id": "200527L",
+        "ri_timesteps": 3,
+        "res_mae": 28.43340547879537,
+        "gate_mae": 11.898150390332253,
+        "improvement_kt": 16.535255088463117
+      },
+      {
+        "cyclone_id": "200603S",
+        "ri_timesteps": 4,
+        "res_mae": 34.92772948741913,
+        "gate_mae": 12.414455690449294,
+        "improvement_kt": 22.513273796969834
+      },
+      {
+        "cyclone_id": "200605E",
+        "ri_timesteps": 1,
+        "res_mae": 17.807726860046387,
+        "gate_mae": 8.915765847098555,
+        "improvement_kt": 8.891961012947831
+      },
+      {
+        "cyclone_id": "200607L",
+        "ri_timesteps": 1,
+        "res_mae": 19.943724632263184,
+        "gate_mae": 18.23529718693976,
+        "improvement_kt": 1.708427445323423
+      },
+      {
+        "cyclone_id": "200608L",
+        "ri_timesteps": 8,
+        "res_mae": 26.033044576644897,
+        "gate_mae": 5.968493495269076,
+        "improvement_kt": 20.06455108137582
+      },
+      {
+        "cyclone_id": "200620S",
+        "ri_timesteps": 11,
+        "res_mae": 46.060132666067645,
+        "gate_mae": 31.927257855276086,
+        "improvement_kt": 14.13287481079156
+      },
+      {
+        "cyclone_id": "200704W",
+        "ri_timesteps": 8,
+        "res_mae": 7.907677173614502,
+        "gate_mae": 3.365863188054524,
+        "improvement_kt": 4.541813985559978
+      },
+      {
+        "cyclone_id": "200807L",
+        "ri_timesteps": 8,
+        "res_mae": 43.13992917537689,
+        "gate_mae": 12.157051764694469,
+        "improvement_kt": 30.982877410682423
+      },
+      {
+        "cyclone_id": "200815E",
+        "ri_timesteps": 9,
+        "res_mae": 32.8106641040908,
+        "gate_mae": 25.14425074391588,
+        "improvement_kt": 7.666413360174918
+      },
+      {
+        "cyclone_id": "200818S",
+        "ri_timesteps": 5,
+        "res_mae": 25.532283115386964,
+        "gate_mae": 13.939070500141856,
+        "improvement_kt": 11.593212615245108
+      },
+      {
+        "cyclone_id": "200904E",
+        "ri_timesteps": 5,
+        "res_mae": 32.672497825324534,
+        "gate_mae": 22.569232318984298,
+        "improvement_kt": 10.103265506340236
+      },
+      {
+        "cyclone_id": "200913E",
+        "ri_timesteps": 5,
+        "res_mae": 30.10790948867798,
+        "gate_mae": 19.628298260244474,
+        "improvement_kt": 10.479611228433505
+      },
+      {
+        "cyclone_id": "200916W",
+        "ri_timesteps": 3,
+        "res_mae": 34.20357211430868,
+        "gate_mae": 31.637365131310528,
+        "improvement_kt": 2.5662069829981498
+      },
+      {
+        "cyclone_id": "200920E",
+        "ri_timesteps": 3,
+        "res_mae": 37.35858788092931,
+        "gate_mae": 25.455105544546004,
+        "improvement_kt": 11.903482336383309
+      },
+      {
+        "cyclone_id": "200923W",
+        "ri_timesteps": 2,
+        "res_mae": 14.14530324935913,
+        "gate_mae": 7.9307859968203545,
+        "improvement_kt": 6.214517252538776
+      },
+      {
+        "cyclone_id": "201004I",
+        "ri_timesteps": 4,
+        "res_mae": 55.35533022880554,
+        "gate_mae": 44.40469680148493,
+        "improvement_kt": 10.95063342732061
+      },
+      {
+        "cyclone_id": "201011W",
+        "ri_timesteps": 1,
+        "res_mae": 30.14702731370926,
+        "gate_mae": 20.90192914477801,
+        "improvement_kt": 9.24509816893125
+      },
+      {
+        "cyclone_id": "201016W",
+        "ri_timesteps": 6,
+        "res_mae": 20.450597325960796,
+        "gate_mae": 11.167119273717937,
+        "improvement_kt": 9.28347805224286
+      },
+      {
+        "cyclone_id": "201111E",
+        "ri_timesteps": 6,
+        "res_mae": 31.160895268122356,
+        "gate_mae": 30.2591679956109,
+        "improvement_kt": 0.901727272511458
+      },
+      {
+        "cyclone_id": "201113E",
+        "ri_timesteps": 13,
+        "res_mae": 42.10813722386956,
+        "gate_mae": 30.971328570272696,
+        "improvement_kt": 11.136808653596866
+      },
+      {
+        "cyclone_id": "201205E",
+        "ri_timesteps": 7,
+        "res_mae": 27.75084032331194,
+        "gate_mae": 18.166177204178094,
+        "improvement_kt": 9.584663119133847
+      },
+      {
+        "cyclone_id": "201208L",
+        "ri_timesteps": 4,
+        "res_mae": 31.060900390148163,
+        "gate_mae": 31.05066667177393,
+        "improvement_kt": 0.010233718374234257
+      },
+      {
+        "cyclone_id": "201209W",
+        "ri_timesteps": 5,
+        "res_mae": 46.08334028720856,
+        "gate_mae": 38.263517301759904,
+        "improvement_kt": 7.819822985448653
+      },
+      {
+        "cyclone_id": "201210S",
+        "ri_timesteps": 8,
+        "res_mae": 24.66237123310566,
+        "gate_mae": 9.984046257533013,
+        "improvement_kt": 14.678324975572647
+      },
+      {
+        "cyclone_id": "201213E",
+        "ri_timesteps": 4,
+        "res_mae": 11.951228141784668,
+        "gate_mae": 12.325561623201363,
+        "improvement_kt": -0.374333481416695
+      },
+      {
+        "cyclone_id": "201214S",
+        "ri_timesteps": 3,
+        "res_mae": 29.569095691045124,
+        "gate_mae": 26.737839248528484,
+        "improvement_kt": 2.83125644251664
+      },
+      {
+        "cyclone_id": "201302S",
+        "ri_timesteps": 1,
+        "res_mae": 29.044928312301636,
+        "gate_mae": 30.42916951875575,
+        "improvement_kt": -1.3842412064541136
+      },
+      {
+        "cyclone_id": "201307W",
+        "ri_timesteps": 14,
+        "res_mae": 13.849693843296595,
+        "gate_mae": 6.748256876515621,
+        "improvement_kt": 7.101436966780975
+      },
+      {
+        "cyclone_id": "201407S",
+        "ri_timesteps": 8,
+        "res_mae": 27.834404316265136,
+        "gate_mae": 19.203674535248794,
+        "improvement_kt": 8.630729781016342
+      },
+      {
+        "cyclone_id": "201419E",
+        "ri_timesteps": 8,
+        "res_mae": 41.39318943070248,
+        "gate_mae": 21.948371699820115,
+        "improvement_kt": 19.444817730882363
+      },
+      {
+        "cyclone_id": "201507W",
+        "ri_timesteps": 13,
+        "res_mae": 35.510671670620255,
+        "gate_mae": 18.923879218589835,
+        "improvement_kt": 16.58679245203042
+      },
+      {
+        "cyclone_id": "201509S",
+        "ri_timesteps": 8,
+        "res_mae": 41.53173738718033,
+        "gate_mae": 37.38915291076634,
+        "improvement_kt": 4.142584476413987
+      },
+      {
+        "cyclone_id": "201510E",
+        "ri_timesteps": 4,
+        "res_mae": 36.74474701285362,
+        "gate_mae": 10.75049634006373,
+        "improvement_kt": 25.994250672789892
+      },
+      {
+        "cyclone_id": "201511L",
+        "ri_timesteps": 9,
+        "res_mae": 27.805723879072403,
+        "gate_mae": 27.43205038206197,
+        "improvement_kt": 0.37367349701043295
+      },
+      {
+        "cyclone_id": "201511W",
+        "ri_timesteps": 11,
+        "res_mae": 28.24207104607062,
+        "gate_mae": 19.046328222152113,
+        "improvement_kt": 9.195742823918508
+      },
+      {
+        "cyclone_id": "201512E",
+        "ri_timesteps": 10,
+        "res_mae": 19.523798418045043,
+        "gate_mae": 7.83112458674434,
+        "improvement_kt": 11.692673831300702
+      },
+      {
+        "cyclone_id": "201513S",
+        "ri_timesteps": 3,
+        "res_mae": 74.33370749155681,
+        "gate_mae": 44.346819189427414,
+        "improvement_kt": 29.986888302129394
+      },
+      {
+        "cyclone_id": "201513W",
+        "ri_timesteps": 15,
+        "res_mae": 16.456499989827474,
+        "gate_mae": 4.745618512082286,
+        "improvement_kt": 11.710881477745188
+      },
+      {
+        "cyclone_id": "201515E",
+        "ri_timesteps": 8,
+        "res_mae": 18.241865396499634,
+        "gate_mae": 7.44033310829091,
+        "improvement_kt": 10.801532288208723
+      },
+      {
+        "cyclone_id": "201517W",
+        "ri_timesteps": 9,
+        "res_mae": 16.54419337378608,
+        "gate_mae": 6.452196466696563,
+        "improvement_kt": 10.091996907089516
+      },
+      {
+        "cyclone_id": "201518S",
+        "ri_timesteps": 7,
+        "res_mae": 39.31338456698826,
+        "gate_mae": 25.33424552642374,
+        "improvement_kt": 13.979139040564522
+      },
+      {
+        "cyclone_id": "201615L",
+        "ri_timesteps": 13,
+        "res_mae": 34.11221901499308,
+        "gate_mae": 28.222037655911492,
+        "improvement_kt": 5.890181359081588
+      },
+      {
+        "cyclone_id": "201620E",
+        "ri_timesteps": 13,
+        "res_mae": 19.66931728216318,
+        "gate_mae": 10.42949548534822,
+        "improvement_kt": 9.239821796814962
+      },
+      {
+        "cyclone_id": "201630W",
+        "ri_timesteps": 12,
+        "res_mae": 30.111009299755096,
+        "gate_mae": 4.590653285023467,
+        "improvement_kt": 25.52035601473163
+      }
+    ]
+  },
+  "bootstrap_95ci": {
+    "overall_delta_mae": {
+      "median": -0.13296719481149033,
+      "ci_lower_2.5": -0.2087387679444361,
+      "ci_upper_97.5": -0.053799494670952484,
+      "prob_better": 99.9
+    },
+    "ri_24h_delta_mae": {
+      "median": -11.62359159658262,
+      "ci_lower_2.5": -12.496463733426042,
+      "ci_upper_97.5": -10.747044571464063,
+      "prob_better": 100.0
+    },
+    "non_ri_24h_delta_mae": {
+      "median": 0.4030153178718967,
+      "ci_lower_2.5": 0.25788786927961416,
+      "ci_upper_97.5": 0.5469270894467531
+    }
+  }
+}

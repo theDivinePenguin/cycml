@@ -1,0 +1,197 @@
+{
+  "timestamp": "2026-09-05 15:38:53",
+  "environment": {
+    "python_version": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "pytorch_version": "2.11.0+cu128",
+    "cuda_version_pytorch": "12.8",
+    "driver_version": "580.173.02",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "compute_capability": [
+      8,
+      9
+    ],
+    "total_vram_gb": 23.52,
+    "total_vram_bytes": 25250627584,
+    "bf16_support": true,
+    "fp16_support": true,
+    "cuda_available": true,
+    "tensor_test_passed": true,
+    "nvidia_smi": "Sat Sep  5 15:37:54 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 4090        Off |   00000000:05:00.0 Off |                  Off |\n|  0%   27C    P2             16W /  450W |     512MiB /  24564MiB |      6%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+"
+  },
+  "dependencies": {
+    "import_results": {
+      "torch": "OK",
+      "torchvision": "OK",
+      "h5py": "OK",
+      "pandas": "OK",
+      "numpy": "OK",
+      "scipy": "OK",
+      "sklearn": "OK",
+      "yaml": "OK",
+      "src.data.sequence_dataset": "OK",
+      "src.models.temporal_forecaster": "OK",
+      "src.models.residual_forecaster": "OK",
+      "src.models.ri_models": "OK",
+      "train": "OK"
+    },
+    "all_imports_passed": true,
+    "pytest_passed": true,
+    "pytest_output_snippet": "  /workspace/cycml/src/models/temporal_forecaster.py:189: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True\n    self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\ntests/test_trend_classification.py::test_temporal_classifier_forward_backward\n  /workspace/cycml/src/models/temporal_classifier.py:54: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True\n    self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================= 40 passed, 8 warnings in 14.23s ========================\n"
+  },
+  "data_access": {
+    "files": {
+      "data/raw/TCIR-ATLN_EPAC_WPAC.h5": {
+        "exists": true,
+        "size_mb": 0.62,
+        "detail": "HDF5 dataset 'matrix' shape: (47381, 201, 201, 4)"
+      },
+      "data/raw/TCIR-CPAC_IO_SH.h5": {
+        "exists": true,
+        "size_mb": 0.62,
+        "detail": "HDF5 dataset 'matrix' shape: (47381, 201, 201, 4)"
+      },
+      "data/metadata/metadata_all_basins.csv": {
+        "exists": true,
+        "size_mb": 8.91,
+        "detail": "CSV rows: 70,499, cols: 13"
+      },
+      "data/metadata/forecast_train_sequences_k5_aligned.csv": {
+        "exists": true,
+        "size_mb": 17.71,
+        "detail": "CSV rows: 31,280, cols: 18"
+      },
+      "data/metadata/forecast_val_sequences_k5_aligned.csv": {
+        "exists": true,
+        "size_mb": 4.09,
+        "detail": "CSV rows: 7,295, cols: 18"
+      },
+      "data/metadata/forecast_test_sequences_k5_aligned.csv": {
+        "exists": true,
+        "size_mb": 3.83,
+        "detail": "CSV rows: 6,825, cols: 18"
+      }
+    },
+    "all_files_accessible": true
+  },
+  "model_check": {
+    "checkpoint_path": "/workspace/cycml/experiments/forecasting/checkpoints/cnn_transformer_k5/best.pt",
+    "checkpoint_epoch": 18,
+    "best_val_mae": 9.138,
+    "input_shape": [
+      1,
+      5,
+      3,
+      201,
+      201
+    ],
+    "output_shape": [
+      1,
+      3
+    ],
+    "predictions": [
+      [
+        52.60764694213867,
+        51.91411209106445,
+        48.896949768066406
+      ]
+    ],
+    "is_finite": true
+  },
+  "micro_benchmark": [
+    {
+      "batch_size": 16,
+      "precision": "bf16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 361.5,
+      "peak_reserved_mb": 480.0,
+      "avg_forward_ms": 5.71,
+      "samples_per_sec": 2800.2
+    },
+    {
+      "batch_size": 16,
+      "precision": "fp16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 336.8,
+      "peak_reserved_mb": 456.0,
+      "avg_forward_ms": 4.45,
+      "samples_per_sec": 3591.6
+    },
+    {
+      "batch_size": 16,
+      "precision": "fp32",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 494.0,
+      "peak_reserved_mb": 502.0,
+      "avg_forward_ms": 7.64,
+      "samples_per_sec": 2092.9
+    },
+    {
+      "batch_size": 32,
+      "precision": "bf16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 585.8,
+      "peak_reserved_mb": 874.0,
+      "avg_forward_ms": 9.79,
+      "samples_per_sec": 3269.9
+    },
+    {
+      "batch_size": 32,
+      "precision": "fp16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 585.8,
+      "peak_reserved_mb": 874.0,
+      "avg_forward_ms": 9.3,
+      "samples_per_sec": 3442.1
+    },
+    {
+      "batch_size": 32,
+      "precision": "fp32",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 927.9,
+      "peak_reserved_mb": 1066.0,
+      "avg_forward_ms": 16.31,
+      "samples_per_sec": 1961.9
+    },
+    {
+      "batch_size": 64,
+      "precision": "bf16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1111.5,
+      "peak_reserved_mb": 1680.0,
+      "avg_forward_ms": 20.34,
+      "samples_per_sec": 3146.9
+    },
+    {
+      "batch_size": 64,
+      "precision": "fp16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1111.5,
+      "peak_reserved_mb": 1680.0,
+      "avg_forward_ms": 19.81,
+      "samples_per_sec": 3230.7
+    },
+    {
+      "batch_size": 64,
+      "precision": "fp32",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1798.9,
+      "peak_reserved_mb": 2064.0,
+      "avg_forward_ms": 33.33,
+      "samples_per_sec": 1920.2
+    }
+  ],
+  "training_smoke_test": {
+    "num_steps": 150,
+    "batch_size": 32,
+    "initial_loss": 54.9295,
+    "final_loss": 32.6305,
+    "early_10_avg_loss": 52.6613,
+    "late_10_avg_loss": 23.3799,
+    "moving_avg_decreased": true,
+    "finite_gradients": true,
+    "parameters_updated": true,
+    "no_nans_or_infs": true,
+    "test_passed": true
+  },
+  "verdict": "PASS"
+}

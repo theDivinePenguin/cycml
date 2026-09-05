@@ -1,4 +1,17 @@
-"""Build and save temporal forecasting sequence manifests with strict cyclone isolation and zero leakage."""
+"""Build and save temporal forecasting sequence manifests with strict cyclone isolation and zero leakage.
+
+Physical time representations:
+  - Cadence: 3 hours
+  - Horizons: +6h, +12h, +24h (all 3 required for future evaluation)
+  - K=1:  0 hours context ([t])
+  - K=3:  6 hours context ([t-6h, t-3h, t])
+  - K=5: 12 hours context ([t-12h, t-9h, t-6h, t-3h, t])
+  - K=7: 18 hours context ([t-18h, ..., t])
+  - K=9: 24 hours context ([t-24h, ..., t])
+  - K=11: 30 hours context ([t-30h, ..., t])
+  - K=13: 36 hours context ([t-36h, ..., t])
+"""
+import argparse
 from datetime import datetime, timedelta
 import json
 from pathlib import Path
@@ -26,7 +39,7 @@ def build_sequences_for_df(df: pd.DataFrame, k_history: int = 5, cadence_hours: 
     df["dt"] = df["timestamp"].apply(parse_tcir_timestamp)
     df = df.sort_values(by=["cyclone_id", "dt"]).reset_index(drop=True)
 
-    # Build per-cyclone lookup: cyclone_id -> {dt: row_index}
+    # Build per-cyclone lookup: cyclone_id -> {dt: row_dict}
     cyclone_map = {}
     for idx, row in df.iterrows():
         cid = row["cyclone_id"]
@@ -95,21 +108,26 @@ def build_sequences_for_df(df: pd.DataFrame, k_history: int = 5, cadence_hours: 
     return seq_df
 
 
-def main():
-    meta_dir = Path("data/metadata")
+def build_and_save_manifests(k_history: int, meta_dir: Path, cadence_hours: int = 3, force: bool = False):
+    train_path = meta_dir / f"forecast_train_sequences_k{k_history}.csv"
+    val_path = meta_dir / f"forecast_val_sequences_k{k_history}.csv"
+    test_path = meta_dir / f"forecast_test_sequences_k{k_history}.csv"
+
+    if train_path.exists() and val_path.exists() and test_path.exists() and not force:
+        print(f"[K={k_history}] Manifests already exist. Skipping. (Pass --force to rebuild)")
+        return
+
+    span_hours = (k_history - 1) * cadence_hours
+    print(f"\nBuilding Sequences for K={k_history} ({span_hours}h historical span, Cadence={cadence_hours}h)...")
+
     train_df = pd.read_csv(meta_dir / "train_metadata_all_basins.csv")
     val_df = pd.read_csv(meta_dir / "val_metadata_all_basins.csv")
     test_df = pd.read_csv(meta_dir / "test_metadata_all_basins.csv")
 
-    print("=" * 80)
-    print("BUILDING FORECASTING SEQUENCE MANIFESTS (K=5, Cadence=3h, Horizons=+6h,+12h,+24h)")
-    print("=" * 80)
+    train_seq = build_sequences_for_df(train_df, k_history=k_history, cadence_hours=cadence_hours)
+    val_seq = build_sequences_for_df(val_df, k_history=k_history, cadence_hours=cadence_hours)
+    test_seq = build_sequences_for_df(test_df, k_history=k_history, cadence_hours=cadence_hours)
 
-    train_seq = build_sequences_for_df(train_df, k_history=5, cadence_hours=3)
-    val_seq = build_sequences_for_df(val_df, k_history=5, cadence_hours=3)
-    test_seq = build_sequences_for_df(test_df, k_history=5, cadence_hours=3)
-
-    print(f"Generated Sequences (K=5, 3h cadence):")
     print(f"  • Train Sequences: {len(train_seq):,} from {train_seq['cyclone_id'].nunique()} cyclones")
     print(f"  • Val Sequences:   {len(val_seq):,} from {val_seq['cyclone_id'].nunique()} cyclones")
     print(f"  • Test Sequences:  {len(test_seq):,} from {test_seq['cyclone_id'].nunique()} cyclones")
@@ -119,46 +137,34 @@ def main():
     val_cids = set(val_seq["cyclone_id"].unique())
     test_cids = set(test_seq["cyclone_id"].unique())
 
-    assert len(train_cids & val_cids) == 0, "Leakage detected between Train and Val!"
-    assert len(train_cids & test_cids) == 0, "Leakage detected between Train and Test!"
-    assert len(val_cids & test_cids) == 0, "Leakage detected between Val and Test!"
-    print("\n[Verification Passed] Zero cyclone leakage across all sequence splits (0% overlap).")
-
-    # Save sequence manifests
-    train_path = meta_dir / "forecast_train_sequences_k5.csv"
-    val_path = meta_dir / "forecast_val_sequences_k5.csv"
-    test_path = meta_dir / "forecast_test_sequences_k5.csv"
+    assert len(train_cids & val_cids) == 0, f"[K={k_history}] Leakage detected between Train and Val!"
+    assert len(train_cids & test_cids) == 0, f"[K={k_history}] Leakage detected between Train and Test!"
+    assert len(val_cids & test_cids) == 0, f"[K={k_history}] Leakage detected between Val and Test!"
 
     train_seq.to_csv(train_path, index=False)
     val_seq.to_csv(val_path, index=False)
     test_seq.to_csv(test_path, index=False)
+    print(f"  [Saved K={k_history}] -> {train_path.name}, {val_path.name}, {test_path.name}")
 
-    print(f"\n[Saved Sequence Manifests]:")
-    print(f"  • {train_path}")
-    print(f"  • {val_path}")
-    print(f"  • {test_path}")
 
-    # Also build K=3 sequence manifests for temporal ablation
-    train_seq_k3 = build_sequences_for_df(train_df, k_history=3, cadence_hours=3)
-    val_seq_k3 = build_sequences_for_df(val_df, k_history=3, cadence_hours=3)
-    test_seq_k3 = build_sequences_for_df(test_df, k_history=3, cadence_hours=3)
+def main():
+    parser = argparse.ArgumentParser(description="Build temporal sequence manifests for arbitrary K.")
+    parser.add_argument("--k-list", type=int, nargs="+", default=[1, 3, 5, 7, 9, 11, 13], help="List of K history lengths")
+    parser.add_argument("--cadence-hours", type=int, default=3, help="Cadence interval in hours (default: 3)")
+    parser.add_argument("--metadata-dir", type=str, default="data/metadata", help="Metadata directory")
+    parser.add_argument("--force", action="store_true", help="Force rebuild even if files exist")
+    args = parser.parse_args()
 
-    train_seq_k3.to_csv(meta_dir / "forecast_train_sequences_k3.csv", index=False)
-    val_seq_k3.to_csv(meta_dir / "forecast_val_sequences_k3.csv", index=False)
-    test_seq_k3.to_csv(meta_dir / "forecast_test_sequences_k3.csv", index=False)
-    print(f"[Saved K=3 Sequence Manifests for Temporal Ablation] -> {meta_dir}/forecast_*_sequences_k3.csv")
+    meta_dir = Path(args.metadata_dir)
+    print("=" * 80)
+    print(f"BUILDING TEMPORAL FORECASTING MANIFESTS: K in {args.k_list}")
+    print("Zero-Duplication Protocol: Only index pointers into raw HDF5 are saved.")
+    print("=" * 80)
 
-    # Also build K=7 sequence manifests
-    print("\nBuilding K=7 Sequence Manifests (18-hour historical context)...")
-    train_seq_k7 = build_sequences_for_df(train_df, k_history=7, cadence_hours=3)
-    val_seq_k7 = build_sequences_for_df(val_df, k_history=7, cadence_hours=3)
-    test_seq_k7 = build_sequences_for_df(test_df, k_history=7, cadence_hours=3)
+    for k in args.k_list:
+        build_and_save_manifests(k_history=k, meta_dir=meta_dir, cadence_hours=args.cadence_hours, force=args.force)
 
-    train_seq_k7.to_csv(meta_dir / "forecast_train_sequences_k7.csv", index=False)
-    val_seq_k7.to_csv(meta_dir / "forecast_val_sequences_k7.csv", index=False)
-    test_seq_k7.to_csv(meta_dir / "forecast_test_sequences_k7.csv", index=False)
-    print(f"Generated K=7 Sequences: Train={len(train_seq_k7):,}, Val={len(val_seq_k7):,}, Test={len(test_seq_k7):,}")
-    print(f"[Saved K=7 Sequence Manifests] -> {meta_dir}/forecast_*_sequences_k7.csv")
+    print("\n[Done] All requested sequence manifests verified and ready.")
 
 
 if __name__ == "__main__":

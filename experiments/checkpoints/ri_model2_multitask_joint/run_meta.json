@@ -1,0 +1,28 @@
+{
+  "experiment_id": "ri_model2_multitask_joint",
+  "priority": "essential",
+  "hypothesis": "Jointly learning continuous multi-horizon forecasting alongside binary RI classification improves representation sharing and enhances RI PR-AUC over single-task classifiers.",
+  "git_commit": "55d6b80",
+  "timestamp": "2026-09-05 19:35:19",
+  "random_seed": 42,
+  "model_type": "ri_multitask",
+  "backbone": "resnet18",
+  "k_history": 5,
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "environmental_features": "full_feature_set",
+  "loss": "focal",
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "parameter_count": 13219847,
+  "gpu": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "peak_vram_mb": 3451.2,
+  "total_training_sec": 3.2,
+  "best_epoch": 1,
+  "best_metric_name": "pr_auc",
+  "best_metric_val": 39.7895,
+  "checkpoint_path": "experiments/checkpoints/ri_model2_multitask_joint/best.pt"
+}

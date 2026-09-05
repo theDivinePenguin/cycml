@@ -343,8 +343,18 @@ def run_training(
             print(f"  [Thermal Safety] Cooling down GPU for {cooldown_seconds}s before epoch {epoch + 1}...")
             time.sleep(cooldown_seconds)
 
-    # Save training log
-    pd.DataFrame(log_rows).to_csv(save_dir / "training_log.csv", index=False)
+    # -------------------------------------------------------------
+    # LEGACY SCRIPT SAFEGUARD: Test set evaluation is locked
+    # -------------------------------------------------------------
+    import sys
+    if not ("--eval-test" in sys.argv and "--confirm-locked-test-eval" in sys.argv):
+        print(f"\n[TEST LOCK PROTECTED] Training complete. Test set evaluation is locked.")
+        print("  To evaluate test set, use canonical runner: python evaluate.py --split test --eval-test --confirm-locked-test-eval")
+        train_ds.close()
+        val_ds.close()
+        if 'test_ds' in locals():
+            test_ds.close()
+        return {"status": "SUCCESS_TRAIN_ONLY_TEST_LOCKED", "best_epoch": best_epoch}
 
     # Load best checkpoint and evaluate on held-out test set
     print(f"\nLoading best checkpoint from Epoch {best_epoch} for Test Set Evaluation...")

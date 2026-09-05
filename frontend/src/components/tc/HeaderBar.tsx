@@ -135,7 +135,7 @@ export function HeaderBar({
                         className="bg-[#9CD5FF]/30 border border-[#7AAACE]/60 px-1.5 py-0.5 rounded-xs text-[10px] font-bold text-[#355872]"
                         title={mod}
                       >
-                        {mod.split(" ")[0]}
+                        {typeof mod === "string" ? mod.split(" ")[0] : String(mod)}
                       </span>
                     ))}
                   </div>

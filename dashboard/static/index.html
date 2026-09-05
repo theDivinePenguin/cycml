@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepCycloNet: Tropical Cyclone Intensity & RI Intelligence Suite</title>
+  <meta name="description" content="Interactive performance and evaluation dashboard for DeepCycloNet tropical cyclone intensity forecasting and rapid intensification suite.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar / Top Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+            <path d="M12 6a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 8a2 2 0 1 1 2-2 2 2 0 0 1-2 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">DeepCycloNet <span class="badge-tag">H200 SUITE</span></h1>
+          <p class="brand-subtitle">Tropical Cyclone Intensity, RI & Uncertainty Prediction</p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <div class="status-chip live">
+          <span class="pulse-dot"></span>
+          <span>NVIDIA H200 NVL (141GB)</span>
+        </div>
+        <div class="status-chip secondary">
+          <span>Local RTX 5050 (8GB) Standby</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Executive Metrics Grid -->
+    <section class="kpi-grid">
+      <div class="kpi-card cyan-glow">
+        <div class="kpi-header">
+          <span class="kpi-label">Val MAE (SOTA)</span>
+          <span class="kpi-pill cyan">-28.5% Error</span>
+        </div>
+        <div class="kpi-value" id="kpi-sota-mae">6.68 <span class="kpi-unit">kt</span></div>
+        <div class="kpi-subtext">Residual ΔV Unconstrained (vs. 9.34 kt Baseline)</div>
+      </div>
+
+      <div class="kpi-card emerald-glow">
+        <div class="kpi-header">
+          <span class="kpi-label">+6h Forecast MAE</span>
+          <span class="kpi-pill emerald">R² = 0.97</span>
+        </div>
+        <div class="kpi-value" id="kpi-6h-mae">3.33 <span class="kpi-unit">kt</span></div>
+        <div class="kpi-subtext">-57.0% error reduction on immediate horizon</div>
+      </div>
+
+      <div class="kpi-card purple-glow">
+        <div class="kpi-header">
+          <span class="kpi-label">Physical Coherence</span>
+          <span class="kpi-pill purple">100% Monotonic</span>
+        </div>
+        <div class="kpi-value" id="kpi-false-dips">0 <span class="kpi-unit">False Dips</span></div>
+        <div class="kpi-subtext">Baseline had 4 unphysical dips; Residual = ZERO</div>
+      </div>
+
+      <div class="kpi-card red-glow">
+        <div class="kpi-header">
+          <span class="kpi-label">RI Classification (Focal)</span>
+          <span class="kpi-pill red">ROC-AUC 0.911</span>
+        </div>
+        <div class="kpi-value" id="kpi-ri-prauc">0.4245 <span class="kpi-unit">PR-AUC</span></div>
+        <div class="kpi-subtext">+15.0% relative PR-AUC gain under 5% extreme imbalance</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" id="tab-leaderboard-btn" onclick="switchTab('leaderboard')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Model Leaderboard
+      </button>
+      <button class="tab-btn" id="tab-inspector-btn" onclick="switchTab('inspector')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></svg>
+        Storm Trajectory Inspector
+      </button>
+      <button class="tab-btn" id="tab-ri-btn" onclick="switchTab('ri')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Rapid Intensification (RI) Center
+      </button>
+      <button class="tab-btn" id="tab-speedup-btn" onclick="switchTab('speedup')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M9 2v2M20 15h2M20 9h2M15 20v2M9 20v2M2 15h2M2 9h2"/></svg>
+        Hardware Speedup (H200 vs RTX 5050)
+      </button>
+    </nav>
+
+    <!-- TAB 1: Model Leaderboard -->
+    <main class="tab-content active" id="tab-leaderboard">
+      <div class="content-split">
+        <div class="card flex-2">
+          <div class="card-header">
+            <h2 class="card-title">Trained Model Performance Comparison</h2>
+            <span class="card-hint">Validation Set: 7,295 aligned sequences</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Model Architecture</th>
+                  <th>Family</th>
+                  <th>Val MAE</th>
+                  <th>+6h MAE</th>
+                  <th>+12h MAE</th>
+                  <th>+24h MAE</th>
+                  <th>False Dips</th>
+                  <th>RI PR-AUC</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-tbody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card flex-1">
+          <div class="card-header">
+            <h2 class="card-title">Forecast Horizon Error Breakdown</h2>
+            <span class="card-hint">Lower is better (kt)</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="horizonErrorChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 2: Storm Trajectory Inspector -->
+    <section class="tab-content" id="tab-inspector">
+      <div class="inspector-controls card">
+        <div class="control-group">
+          <label for="storm-select" class="control-label">Select Cyclone Validation Case:</label>
+          <select id="storm-select" class="form-select" onchange="onStormSelect(this.value)">
+            <!-- Populated via JavaScript -->
+          </select>
+        </div>
+        <div class="storm-meta-tags" id="storm-meta-tags">
+          <!-- Populated via JavaScript -->
+        </div>
+      </div>
+
+      <div class="content-split">
+        <div class="card flex-2">
+          <div class="card-header">
+            <h2 class="card-title">Predicted vs Ground Truth Intensity Trajectory</h2>
+            <span class="card-hint">Includes q10–q90 Probabilistic Uncertainty Cone</span>
+          </div>
+          <div class="chart-wrapper large">
+            <canvas id="trajectoryChart"></canvas>
+          </div>
+          <div class="chart-legend-custom" id="trajectory-legend">
+            <!-- Custom Legend -->
+          </div>
+        </div>
+
+        <div class="card flex-1">
+          <div class="card-header">
+            <h2 class="card-title">Physical Trajectory Diagnostics</h2>
+          </div>
+          <div class="diagnostic-panel" id="diagnostic-panel">
+            <!-- Diagnostics injected here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Rapid Intensification Center -->
+    <section class="tab-content" id="tab-ri">
+      <div class="content-split">
+        <div class="card flex-1">
+          <div class="card-header">
+            <h2 class="card-title">RI Event Classifier Probability Gauge</h2>
+            <span class="card-hint">Criteria: ΔV ≥ 30 kt in 24 hours</span>
+          </div>
+          <div class="gauge-container">
+            <div class="gauge-circle" id="gauge-circle">
+              <div class="gauge-inner">
+                <span class="gauge-percent" id="gauge-percent">0%</span>
+                <span class="gauge-label">P(RI)</span>
+              </div>
+            </div>
+            <div class="ri-verdict-box" id="ri-verdict-box">
+              <!-- RI Alert Box -->
+            </div>
+          </div>
+
+          <div class="threshold-slider-group">
+            <div class="slider-header">
+              <label for="threshold-slider">Operational Decision Threshold:</label>
+              <span class="threshold-val" id="threshold-display">0.40</span>
+            </div>
+            <input type="range" id="threshold-slider" min="0.05" max="0.95" step="0.05" value="0.40" oninput="onThresholdChange(this.value)">
+            <div class="slider-annotations">
+              <span>0.05 (High Recall)</span>
+              <span class="highlight">0.40 (Optimal F1: 0.465)</span>
+              <span>0.95 (High Precision)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card flex-1">
+          <div class="card-header">
+            <h2 class="card-title">Dedicated Focal Loss Ablation</h2>
+            <span class="card-hint">Addressing 5.2% Rare Event Imbalance</span>
+          </div>
+          <div class="ri-metrics-grid">
+            <div class="metric-mini-card">
+              <div class="mm-label">PR-AUC (Focal Loss)</div>
+              <div class="mm-val cyan">0.4245</div>
+              <div class="mm-delta">+15.0% vs Standard Cross-Entropy</div>
+            </div>
+            <div class="metric-mini-card">
+              <div class="mm-label">ROC-AUC</div>
+              <div class="mm-val emerald">0.9115</div>
+              <div class="mm-delta">Crossed the 0.91 threshold</div>
+            </div>
+            <div class="metric-mini-card">
+              <div class="mm-label">Brier Score</div>
+              <div class="mm-val purple">0.0472</div>
+              <div class="mm-delta">-31.9% reduction in probabilistic error</div>
+            </div>
+            <div class="metric-mini-card">
+              <div class="mm-label">Expected Calibration Error (ECE)</div>
+              <div class="mm-val amber">0.0784</div>
+              <div class="mm-delta">Well-calibrated probabilities</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Hardware Speedup -->
+    <section class="tab-content" id="tab-speedup">
+      <div class="content-split">
+        <div class="card flex-1">
+          <div class="card-header">
+            <h2 class="card-title">Compute Benchmark Comparison</h2>
+            <span class="card-hint">Measured on full 31,232 sequence training split</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Hardware Configuration</th>
+                  <th>Throughput</th>
+                  <th>Epoch Duration</th>
+                  <th>4-Epoch Model</th>
+                  <th>VRAM Headroom</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight-row">
+                  <td><strong>NVIDIA H200 NVL</strong> (Cloud)</td>
+                  <td><span class="badge-tag live">170 – 228 samples/s</span></td>
+                  <td><strong>~2.3 – 3.1 min</strong></td>
+                  <td><strong>~12 – 14 min</strong></td>
+                  <td>141 GB (Used ~3.5 GB)</td>
+                </tr>
+                <tr>
+                  <td><strong>NVIDIA RTX 5050 Laptop</strong> (Local)</td>
+                  <td>18 – 22 samples/s</td>
+                  <td>~28 – 30 min</td>
+                  <td>~1 hr 50 min – 2 hrs</td>
+                  <td>8 GB (Near OOM limit)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="speedup-highlight-box">
+            <div class="speedup-multiplier">9.1x</div>
+            <div class="speedup-desc">
+              <strong>Actual Cloud Acceleration Speedup</strong>
+              <p>The entire 6-model research suite trained in <strong>~1 hour 15 minutes</strong> on H200 instead of <strong>~11+ hours</strong> on the mobile GPU.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card flex-1">
+          <div class="card-header">
+            <h2 class="card-title">Training Time per Model (H200 vs Laptop)</h2>
+            <span class="card-hint">Minutes (Lower is faster)</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="speedupChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>DeepCycloNet Tropical Cyclone Intelligence Suite &bull; Google DeepMind Research Prototype</div>
+      <div class="footer-links">
+        <span>Active Checkpoints: <code>experiments/checkpoints/</code></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

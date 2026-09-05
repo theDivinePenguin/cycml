@@ -1,0 +1,28 @@
+{
+  "experiment_id": "temporal_k7_18h_context",
+  "priority": "high",
+  "hypothesis": "18-hour historical context provides sufficient diurnal cycle and inner-core structural evolution signals to improve +24h forecasting over K=5.",
+  "git_commit": "unknown",
+  "timestamp": "2026-09-05 17:44:33",
+  "random_seed": 42,
+  "model_type": "cnn_transformer",
+  "backbone": "resnet18",
+  "k_history": 7,
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "environmental_features": "satellite_only",
+  "loss": "huber",
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "parameter_count": 12921411,
+  "gpu": "NVIDIA H200 NVL",
+  "peak_vram_mb": 4796.3,
+  "total_training_sec": 6.9,
+  "best_epoch": 1,
+  "best_metric_name": "val_mae",
+  "best_metric_val": 34.9998,
+  "checkpoint_path": "experiments/checkpoints/temporal_k7_18h_context/best.pt"
+}

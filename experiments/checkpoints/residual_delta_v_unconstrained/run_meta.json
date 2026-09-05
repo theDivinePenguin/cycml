@@ -1,0 +1,28 @@
+{
+  "experiment_id": "residual_delta_v_unconstrained",
+  "priority": "essential",
+  "hypothesis": "Directly predicting continuous intensity change Delta V(tau) and reconstructing V_hat(t+tau) = V(t) + Delta V_hat improves trajectory smoothness and bias compared to direct absolute regression.",
+  "git_commit": "unknown",
+  "timestamp": "2026-09-05 18:00:43",
+  "random_seed": 42,
+  "model_type": "residual",
+  "backbone": "resnet18",
+  "k_history": 5,
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "environmental_features": "satellite_only",
+  "loss": "huber",
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "parameter_count": 12921411,
+  "gpu": "NVIDIA H200 NVL",
+  "peak_vram_mb": 3498.6,
+  "total_training_sec": 5.7,
+  "best_epoch": 1,
+  "best_metric_name": "val_mae",
+  "best_metric_val": 5.2454,
+  "checkpoint_path": "experiments/checkpoints/residual_delta_v_unconstrained/best.pt"
+}

@@ -1,0 +1,37 @@
+# RI Model 1: Dedicated Image + Temporal RI Classifier (Focal Loss)
+experiment_id: "ri_model1_dedicated_focal"
+priority: "essential"
+hypothesis: "Focal loss down-weights well-classified non-RI examples and dynamically focuses gradient updates on rare RI transitions, improving PR-AUC."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2]
+  aligned: true
+
+features:
+  group: "full_feature_set"
+
+model:
+  type: "ri_dedicated"
+  backbone: "resnet18"
+  temporal_type: "transformer"
+  fusion_type: "gated"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.15
+  pretrained: true
+
+training:
+  loss: "focal"
+  gamma: 2.0
+  eval_metric: "pr_auc"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 7
+  num_workers: 4

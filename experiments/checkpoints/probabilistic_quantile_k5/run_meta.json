@@ -1,0 +1,28 @@
+{
+  "experiment_id": "probabilistic_quantile_k5",
+  "priority": "high",
+  "hypothesis": "Direct pinball loss with monotonic parameterization yields well-calibrated predictive intervals (cones) reflecting forecast uncertainty without quantile crossings.",
+  "git_commit": "unknown",
+  "timestamp": "2026-09-05 19:43:11",
+  "random_seed": 42,
+  "model_type": "probabilistic",
+  "backbone": "resnet18",
+  "k_history": 5,
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "environmental_features": "satellite_only",
+  "loss": "pinball",
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "parameter_count": 12922185,
+  "gpu": "NVIDIA H200 NVL",
+  "peak_vram_mb": 3498.6,
+  "total_training_sec": 670.8,
+  "best_epoch": 4,
+  "best_metric_name": "val_mae",
+  "best_metric_val": 11.934,
+  "checkpoint_path": "experiments/checkpoints/probabilistic_quantile_k5/best.pt"
+}

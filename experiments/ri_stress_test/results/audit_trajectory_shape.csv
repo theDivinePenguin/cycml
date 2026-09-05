@@ -1,0 +1,2 @@
+Actual_Mean_Slope (kt/h),Pred_Mean_Slope (kt/h),Actual_Mean_Acceleration (kt/h^2),Pred_Mean_Acceleration (kt/h^2),Actual_Std_Acceleration,Pred_Std_Acceleration,Actual_Mean_Trajectory_Range (kt),Pred_Mean_Trajectory_Range (kt),Actual_Mean_Trajectory_Variance,Pred_Mean_Trajectory_Variance,Variance_Suppression_Factor
+-0.008131882040248074,-0.048969311939853606,-0.07352444838206135,0.11994015114515906,0.8996619835446589,0.15740980407765331,15.173395772687002,14.584001319565019,61.29970098721681,45.593468990931015,0.7437796311671878

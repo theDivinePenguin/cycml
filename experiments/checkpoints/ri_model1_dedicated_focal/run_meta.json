@@ -1,0 +1,28 @@
+{
+  "experiment_id": "ri_model1_dedicated_focal",
+  "priority": "essential",
+  "hypothesis": "Focal loss down-weights well-classified non-RI examples and dynamically focuses gradient updates on rare RI transitions, improving PR-AUC.",
+  "git_commit": "unknown",
+  "timestamp": "2026-09-05 18:58:00",
+  "random_seed": 42,
+  "model_type": "ri_dedicated",
+  "backbone": "resnet18",
+  "k_history": 5,
+  "channels": [
+    0,
+    1,
+    2
+  ],
+  "environmental_features": "full_feature_set",
+  "loss": "focal",
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "parameter_count": 13161473,
+  "gpu": "NVIDIA H200 NVL",
+  "peak_vram_mb": 3502.2,
+  "total_training_sec": 894.7,
+  "best_epoch": 4,
+  "best_metric_name": "pr_auc",
+  "best_metric_val": 0.4245,
+  "checkpoint_path": "experiments/checkpoints/ri_model1_dedicated_focal/best.pt"
+}

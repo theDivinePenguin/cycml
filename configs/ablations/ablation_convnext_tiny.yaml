@@ -1,0 +1,33 @@
+# Model E: ConvNeXt-Tiny Spatial Backbone
+experiment_id: "backbone_convnext_tiny"
+priority: "high-risk"
+hypothesis: "Modern depthwise separable 7x7 conv kernels in ConvNeXt capture large-scale peripheral cloud bands better than standard ResNet18."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2]
+
+features:
+  group: "satellite_only"
+
+model:
+  type: "cnn_transformer"
+  backbone: "convnext_tiny"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "huber"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 48
+  epochs: 25
+  learning_rate: 0.00008
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4

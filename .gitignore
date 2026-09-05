@@ -56,4 +56,15 @@ frontend/.nitro/
 frontend/.wrangler/
 frontend_test_clone/
 
+# 7. Feature Caches & Training Logs
+*.npz
+experiments/**/*.npz
+experiments/h200_logs/*.log
+*.log
 
+# 8. Local Dashboard Temporary Data
+dashboard/data/*.json
+!dashboard/data/.gitkeep
+
+# 9. Intermediate Exploratory Factorial Predictions
+experiments/ri_target_loss/results/exp_2x2_B_dynamics/*.csv

@@ -1,0 +1,144 @@
+{
+  "status": "PASS",
+  "n_validation_samples": 8773,
+  "metrics_per_condition": {
+    "1. Normal Chronological": {
+      "mae_overall": 9.137227535247803,
+      "mae_6h": 7.610576152801514,
+      "mae_12h": 8.552576065063477,
+      "mae_24h": 11.248530387878418,
+      "rmse_overall": 12.763995100392806,
+      "rmse_6h": 10.404480746509755,
+      "rmse_12h": 11.770306510726273,
+      "rmse_24h": 15.555236346890304,
+      "r2_overall": 0.8000905513763428
+    },
+    "2. Reversed Sequence": {
+      "mae_overall": 9.504033724466959,
+      "mae_6h": 7.626141548156738,
+      "mae_12h": 8.853408813476562,
+      "mae_24h": 12.032550811767578,
+      "rmse_overall": 13.359078220692307,
+      "rmse_6h": 10.466976732978388,
+      "rmse_12h": 12.241025790445168,
+      "rmse_24h": 16.613085155643784,
+      "r2_overall": 0.7811419169108073
+    },
+    "3. Random Permutation": {
+      "mae_overall": 9.29272174835205,
+      "mae_6h": 7.614226341247559,
+      "mae_12h": 8.686594009399414,
+      "mae_24h": 11.57734489440918,
+      "rmse_overall": 12.998629668956285,
+      "rmse_6h": 10.429777840783833,
+      "rmse_12h": 11.972595712530476,
+      "rmse_24h": 15.96151013871191,
+      "r2_overall": 0.7927178740501404
+    },
+    "4. Repeated Current Frame": {
+      "mae_overall": 11.10294246673584,
+      "mae_6h": 9.753157615661621,
+      "mae_12h": 10.296652793884277,
+      "mae_24h": 13.259016990661621,
+      "rmse_overall": 15.332927587918139,
+      "rmse_6h": 13.134588317808834,
+      "rmse_12h": 14.01048757920406,
+      "rmse_24h": 18.34352291038098,
+      "r2_overall": 0.7113707860310873
+    },
+    "5. Current Only (Zero History)": {
+      "mae_overall": 18.01181125640869,
+      "mae_6h": 22.569616317749023,
+      "mae_12h": 18.11080551147461,
+      "mae_24h": 13.355011940002441,
+      "rmse_overall": 21.33519299666816,
+      "rmse_6h": 25.209246389283933,
+      "rmse_12h": 20.720708924173238,
+      "rmse_24h": 17.3412081118732,
+      "r2_overall": 0.4371045033137004
+    },
+    "6. Shuffled History (Fixed Current)": {
+      "mae_overall": 9.174125512441,
+      "mae_6h": 7.599728107452393,
+      "mae_12h": 8.581206321716309,
+      "mae_24h": 11.341442108154297,
+      "rmse_overall": 12.810935915869976,
+      "rmse_6h": 10.391339040902682,
+      "rmse_12h": 11.821615587252591,
+      "rmse_24h": 15.640643048347478,
+      "r2_overall": 0.798628032207489
+    }
+  },
+  "paired_statistics_vs_normal": {
+    "2. Reversed Sequence": {
+      "mean_paired_diff": 0.3668062388896942,
+      "median_paired_diff": 0.16705322265625,
+      "bootstrap_ci95": [
+        0.3192727267742157,
+        0.4189308285713196
+      ],
+      "wilcoxon_stat": 16028635.0,
+      "wilcoxon_p_value": 2.208093252562902e-39,
+      "pct_samples_worsened": 55.203465177248376,
+      "pct_samples_improved": 44.50017097914055,
+      "pct_samples_tied": 0.2963638436110794
+    },
+    "3. Random Permutation": {
+      "mean_paired_diff": 0.15549375116825104,
+      "median_paired_diff": 0.03339529037475586,
+      "bootstrap_ci95": [
+        0.11920197308063507,
+        0.1906818002462387
+      ],
+      "wilcoxon_stat": 16827942.0,
+      "wilcoxon_p_value": 5.336736166373403e-14,
+      "pct_samples_worsened": 51.9434628975265,
+      "pct_samples_improved": 46.278354040807024,
+      "pct_samples_tied": 1.7781830616664767
+    },
+    "4. Repeated Current Frame": {
+      "mean_paired_diff": 1.9657142162322998,
+      "median_paired_diff": 1.1004726886749268,
+      "bootstrap_ci95": [
+        1.8007841110229492,
+        2.1207315921783447
+      ],
+      "wilcoxon_stat": 13619904.0,
+      "wilcoxon_p_value": 0.0,
+      "pct_samples_worsened": 60.04787415935255,
+      "pct_samples_improved": 39.65576199703636,
+      "pct_samples_tied": 0.2963638436110794
+    },
+    "5. Current Only (Zero History)": {
+      "mean_paired_diff": 8.87458324432373,
+      "median_paired_diff": 9.782010078430176,
+      "bootstrap_ci95": [
+        8.66131591796875,
+        9.081487655639648
+      ],
+      "wilcoxon_stat": 4241431.0,
+      "wilcoxon_p_value": 0.0,
+      "pct_samples_worsened": 80.5881682434743,
+      "pct_samples_improved": 19.411831756525704,
+      "pct_samples_tied": 0.0
+    },
+    "6. Shuffled History (Fixed Current)": {
+      "mean_paired_diff": 0.03689767047762871,
+      "median_paired_diff": 0.0,
+      "bootstrap_ci95": [
+        0.014460146427154541,
+        0.05806894227862358
+      ],
+      "wilcoxon_stat": 16431834.0,
+      "wilcoxon_p_value": 0.24216268956661224,
+      "pct_samples_worsened": 46.700102587484324,
+      "pct_samples_improved": 46.40373874387325,
+      "pct_samples_tied": 6.896158668642426
+    }
+  },
+  "scientific_synthesis": {
+    "history_vs_current_contribution": "Zeroing history degraded MAE by +8.8746 kt, proving historical context provides useful spatial signal.",
+    "order_invariance_evidence": "Shuffling history with fixed current frame altered MAE by only +0.0369 kt (95% CI: [+0.0145, +0.0581]), and reversing full sequence changed MAE by +0.3668 kt.",
+    "verdict": "The temporal Transformer uses the history frames primarily as a set-like spatial ensemble rather than strictly leveraging sequential order dynamics. Causal temporal inductive biases (such as causal masks, delta-tokens, or causal GRUs) are required for genuine temporal dependence."
+  }
+}

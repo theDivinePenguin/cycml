@@ -1,0 +1,89 @@
+{
+  "total_frames": 70499,
+  "total_cyclones": 1285,
+  "years": [
+    2003,
+    2016
+  ],
+  "hdf5_matrices": {
+    "ATLN_EPAC_WPAC": [
+      47381,
+      201,
+      201,
+      4
+    ],
+    "CPAC_IO_SH": [
+      23118,
+      201,
+      201,
+      4
+    ]
+  },
+  "cadence_3h_exact_pct": 99.99711041118849,
+  "gaps_gt_3h_count": 2,
+  "basin_breakdown": [
+    {
+      "region": "ATLN",
+      "frames": 13707,
+      "pct_frames": 19.442828976297534,
+      "cyclones": 235,
+      "pct_cyclones": 18.28793774319066,
+      "mean_vmax": 48.63668198730576,
+      "max_vmax": 160.0
+    },
+    {
+      "region": "CPAC",
+      "frames": 1479,
+      "pct_frames": 2.097902097902098,
+      "cyclones": 19,
+      "pct_cyclones": 1.4785992217898831,
+      "mean_vmax": 44.37795807978364,
+      "max_vmax": 140.0
+    },
+    {
+      "region": "EPAC",
+      "frames": 13615,
+      "pct_frames": 19.31233067135704,
+      "cyclones": 247,
+      "pct_cyclones": 19.221789883268485,
+      "mean_vmax": 44.82254865956666,
+      "max_vmax": 185.0
+    },
+    {
+      "region": "IO",
+      "frames": 3353,
+      "pct_frames": 4.756095831146541,
+      "cyclones": 79,
+      "pct_cyclones": 6.147859922178988,
+      "mean_vmax": 40.20101401729794,
+      "max_vmax": 145.0
+    },
+    {
+      "region": "SH",
+      "frames": 18434,
+      "pct_frames": 26.147888622533657,
+      "cyclones": 330,
+      "pct_cyclones": 25.680933852140075,
+      "mean_vmax": 48.16648584138006,
+      "max_vmax": 155.0
+    },
+    {
+      "region": "WPAC",
+      "frames": 19911,
+      "pct_frames": 28.242953800763132,
+      "cyclones": 381,
+      "pct_cyclones": 29.64980544747082,
+      "mean_vmax": 55.0568027723369,
+      "max_vmax": 170.0
+    }
+  ],
+  "intensity_breakdown": {
+    "TD (<34)": 27033,
+    "TS (34-63)": 26510,
+    "Cat 1 (64-82)": 6937,
+    "Cat 2 (83-95)": 3628,
+    "Cat 3 (96-112)": 2848,
+    "Cat 4 (113-136)": 2949,
+    "Cat 5 (>=137)": 594
+  }
+}

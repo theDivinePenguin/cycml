@@ -1,0 +1,38 @@
+# Model A: Current Baseline Forecaster (ResNet18 + Causal Temporal Transformer)
+experiment_id: "baseline_control_k5"
+priority: "essential"
+hypothesis: "Standard Causal ResNet18 + Temporal Transformer without residual formulation provides a baseline reference point."
+
+dataset:
+  name: "TCIR_All_Basins"
+  k_history: 5
+  cadence_hours: 3
+  channels: [0, 1, 2] # IR1, WV, VIS
+
+features:
+  group: "satellite_only"
+
+model:
+  type: "cnn_transformer"
+  backbone: "resnet18"
+  d_model: 256
+  num_layers: 2
+  nhead: 8
+  dropout: 0.1
+  pretrained: true
+
+training:
+  loss: "huber"
+  eval_metric: "val_mae"
+  precision: "bf16"
+  batch_size: 64
+  epochs: 25
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 6
+  num_workers: 4
+
+sanity:
+  min_intensity_kt: 0.0
+  max_plausible_kt: 200.0
+  large_step_change_kt: 45.0

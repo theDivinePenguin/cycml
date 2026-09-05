@@ -33,6 +33,7 @@ class DeltaEnvironmentalTemporalClassifier(EnvironmentalTemporalClassifier):
         num_layers: int = 2,
         dropout: float = 0.1,
         use_vis_channel: bool = True,
+        env_in_dim: int = 12,
     ):
         super().__init__(
             channels=channels,
@@ -44,6 +45,11 @@ class DeltaEnvironmentalTemporalClassifier(EnvironmentalTemporalClassifier):
             use_vis_channel=use_vis_channel,
         )
         self.mode = mode
+        self.env_in_dim = env_in_dim
+
+        if env_in_dim != 12:
+            from src.models.environmental_temporal_classifier import EnvironmentalEncoder
+            self.env_encoder = EnvironmentalEncoder(in_dim=env_in_dim, out_dim=64, dropout=dropout)
 
         # Explicit Delta V Head: predicts [+6h, +12h, +24h] intensity changes
         self.head_delta = nn.Sequential(
@@ -52,6 +58,25 @@ class DeltaEnvironmentalTemporalClassifier(EnvironmentalTemporalClassifier):
             nn.Dropout(dropout),
             nn.Linear(128, 3),
         )
+
+    def load_warm_start_with_expanded_env(self, checkpoint_path: str):
+        """Warm-start weights preserving all existing layers and expanding env input weights."""
+        ckpt = torch.load(checkpoint_path, map_location="cpu")
+        state_dict = ckpt["model_state_dict"] if "model_state_dict" in ckpt else ckpt
+        model_dict = self.state_dict()
+
+        loaded_keys = []
+        for k, v in state_dict.items():
+            if k == "env_encoder.net.0.weight" and self.env_in_dim > 12:
+                # Shape old: (128, 12), shape new: (128, env_in_dim)
+                model_dict[k][:, :12] = v
+                loaded_keys.append(f"{k} (expanded 12 -> {self.env_in_dim}, preserved first 12 cols)")
+            elif k in model_dict and model_dict[k].shape == v.shape:
+                model_dict[k] = v
+                loaded_keys.append(k)
+
+        self.load_state_dict(model_dict)
+        print(f"Warm-started {len(loaded_keys)} tensor weights from {checkpoint_path} with preserved env weights.")
 
     def forward(
         self,

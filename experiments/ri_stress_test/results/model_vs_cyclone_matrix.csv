@@ -1,0 +1,14 @@
+cyclone_id,cyclone_name,ri_steps,winner_ri_mae,winner_delta_mae,winner_peak_error,winner_directional_acc
+201015W,Super Typhoon Megi,14,Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12),Exp 2: Moderate (1/2/4)
+201614L,Hurricane Matthew,11,Exp 2: Strong (1/3/6),Exp 2: Moderate (1/2/4),Exp 2: Strong (1/3/6),Exp 2: Ultra (1/6/12)
+201003I,Super Cyclone Phet,13,Exp 2: Extreme (1/10/20),Exp 2: Extreme (1/10/20),Exp 1B: Delta-Only (1/1/1),Exp 1B: Delta-Only (1/1/1)
+200801I,VSCS Nargis,15,Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12),Exp 2: Moderate (1/2/4),Exp 2: Ultra (1/6/12)
+200413E,Hurricane Javier,11,Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12),Exp 2: Moderate (1/2/4),Exp 2: Moderate (1/2/4)
+200519S,Cyclone Percy,4,Exp 2: Ultra (1/6/12),Baseline Clean K=7,Exp 1B: Delta-Only (1/1/1),Exp 2: Ultra (1/6/12)
+201419W,Super Typhoon Vongfong,11,Exp 2: Moderate (1/2/4),Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12)
+200419W,Super Typhoon Chaba,14,Baseline Clean K=7,Baseline Clean K=7,Baseline Clean K=7,Baseline Clean K=7
+201011L,Hurricane Igor,10,Baseline Clean K=7,Exp 2: Ultra (1/6/12),Exp 2: Extreme (1/10/20),Exp 2: Ultra (1/6/12)
+201404S,Cyclone Bruce,16,Baseline Clean K=7,Baseline Clean K=7,Exp 2: Extreme (1/10/20),Baseline Clean K=7
+200522S,Cyclone Ingrid,24,Exp 2: Ultra (1/6/12),Exp 2: Extreme (1/10/20),Exp 2: Ultra (1/6/12),Exp 2: Ultra (1/6/12)
+201104W,Super Typhoon Songda,11,Exp 2: Extreme (1/10/20),Exp 2: Extreme (1/10/20),Baseline Clean K=7,Exp 2: Moderate (1/2/4)
+201305I,VSCS Lehar,0,N/A,Exp 2: Extreme (1/10/20),Exp 1B: Delta-Only (1/1/1),Exp 2: Moderate (1/2/4)

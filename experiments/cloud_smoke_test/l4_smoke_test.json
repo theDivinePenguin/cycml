@@ -1,0 +1,197 @@
+{
+  "timestamp": "2026-09-05 17:26:57",
+  "environment": {
+    "python_version": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "pytorch_version": "2.11.0+cu128",
+    "cuda_version_pytorch": "12.8",
+    "driver_version": "580.173.02",
+    "gpu_name": "NVIDIA H200 NVL",
+    "compute_capability": [
+      9,
+      0
+    ],
+    "total_vram_gb": 139.8,
+    "total_vram_bytes": 150109880320,
+    "bf16_support": true,
+    "fp16_support": true,
+    "cuda_available": true,
+    "tensor_test_passed": true,
+    "nvidia_smi": "Sat Sep  5 17:26:06 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA H200 NVL                On  |   00000000:06:00.0 Off |                    0 |\n| N/A   35C    P0             78W /  600W |     741MiB / 143771MiB |      3%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+"
+  },
+  "dependencies": {
+    "import_results": {
+      "torch": "OK",
+      "torchvision": "OK",
+      "h5py": "OK",
+      "pandas": "OK",
+      "numpy": "OK",
+      "scipy": "OK",
+      "sklearn": "OK",
+      "yaml": "OK",
+      "src.data.sequence_dataset": "OK",
+      "src.models.temporal_forecaster": "OK",
+      "src.models.residual_forecaster": "OK",
+      "src.models.ri_models": "OK",
+      "train": "OK"
+    },
+    "all_imports_passed": true,
+    "pytest_passed": false,
+    "pytest_output_snippet": "\ntests/test_trend_classification.py::test_temporal_classifier_forward_backward\n  /workspace/cycml/src/models/temporal_classifier.py:54: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True\n    self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/test_forecasting.py::test_sequence_dataset_item_and_vis_mask - I...\n================== 1 failed, 39 passed, 8 warnings in 10.25s ===================\n"
+  },
+  "data_access": {
+    "files": {
+      "data/raw/TCIR-ATLN_EPAC_WPAC.h5": {
+        "exists": true,
+        "size_mb": 14254.55,
+        "detail": "HDF5 dataset 'matrix' shape: (23118, 201, 201, 4)"
+      },
+      "data/raw/TCIR-CPAC_IO_SH.h5": {
+        "exists": true,
+        "size_mb": 14254.55,
+        "detail": "HDF5 dataset 'matrix' shape: (23118, 201, 201, 4)"
+      },
+      "data/metadata/metadata_all_basins.csv": {
+        "exists": true,
+        "size_mb": 8.91,
+        "detail": "CSV rows: 70,499, cols: 13"
+      },
+      "data/metadata/forecast_train_sequences_k5_aligned.csv": {
+        "exists": true,
+        "size_mb": 17.71,
+        "detail": "CSV rows: 31,280, cols: 18"
+      },
+      "data/metadata/forecast_val_sequences_k5_aligned.csv": {
+        "exists": true,
+        "size_mb": 4.09,
+        "detail": "CSV rows: 7,295, cols: 18"
+      },
+      "data/metadata/forecast_test_sequences_k5_aligned.csv": {
+        "exists": true,
+        "size_mb": 3.83,
+        "detail": "CSV rows: 6,825, cols: 18"
+      }
+    },
+    "all_files_accessible": true
+  },
+  "model_check": {
+    "checkpoint_path": "/workspace/cycml/experiments/forecasting/checkpoints/cnn_transformer_k5/best.pt",
+    "checkpoint_epoch": 18,
+    "best_val_mae": 9.138,
+    "input_shape": [
+      1,
+      5,
+      3,
+      201,
+      201
+    ],
+    "output_shape": [
+      1,
+      3
+    ],
+    "predictions": [
+      [
+        29.631900787353516,
+        30.396778106689453,
+        32.19055938720703
+      ]
+    ],
+    "is_finite": true
+  },
+  "micro_benchmark": [
+    {
+      "batch_size": 16,
+      "precision": "bf16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 384.9,
+      "peak_reserved_mb": 508.0,
+      "avg_forward_ms": 3.58,
+      "samples_per_sec": 4468.5
+    },
+    {
+      "batch_size": 16,
+      "precision": "fp16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 360.2,
+      "peak_reserved_mb": 484.0,
+      "avg_forward_ms": 3.15,
+      "samples_per_sec": 5083.1
+    },
+    {
+      "batch_size": 16,
+      "precision": "fp32",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 553.6,
+      "peak_reserved_mb": 568.0,
+      "avg_forward_ms": 4.19,
+      "samples_per_sec": 3822.8
+    },
+    {
+      "batch_size": 32,
+      "precision": "bf16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 689.4,
+      "peak_reserved_mb": 1000.0,
+      "avg_forward_ms": 6.28,
+      "samples_per_sec": 5092.4
+    },
+    {
+      "batch_size": 32,
+      "precision": "fp16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 639.9,
+      "peak_reserved_mb": 952.0,
+      "avg_forward_ms": 5.52,
+      "samples_per_sec": 5801.6
+    },
+    {
+      "batch_size": 32,
+      "precision": "fp32",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1025.3,
+      "peak_reserved_mb": 1168.0,
+      "avg_forward_ms": 7.67,
+      "samples_per_sec": 4169.4
+    },
+    {
+      "batch_size": 64,
+      "precision": "bf16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1296.8,
+      "peak_reserved_mb": 1904.0,
+      "avg_forward_ms": 11.43,
+      "samples_per_sec": 5599.7
+    },
+    {
+      "batch_size": 64,
+      "precision": "fp16",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1198.8,
+      "peak_reserved_mb": 1806.0,
+      "avg_forward_ms": 9.99,
+      "samples_per_sec": 6404.7
+    },
+    {
+      "batch_size": 64,
+      "precision": "fp32",
+      "fits_in_vram": true,
+      "peak_allocated_mb": 1970.2,
+      "peak_reserved_mb": 2240.0,
+      "avg_forward_ms": 14.22,
+      "samples_per_sec": 4499.6
+    }
+  ],
+  "training_smoke_test": {
+    "num_steps": 150,
+    "batch_size": 32,
+    "initial_loss": 56.7452,
+    "final_loss": 18.307,
+    "early_10_avg_loss": 55.3006,
+    "late_10_avg_loss": 20.0287,
+    "moving_avg_decreased": true,
+    "finite_gradients": true,
+    "parameters_updated": true,
+    "no_nans_or_infs": true,
+    "test_passed": true
+  },
+  "verdict": "FAIL"
+}

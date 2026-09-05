@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "canonical_training_entrypoint": "train.py",
+  "canonical_evaluation_entrypoint": "evaluate.py",
+  "dual_lock_flags_required": [
+    "--eval-test",
+    "--confirm-locked-test-eval"
+  ],
+  "table": [
+    {
+      "script": "train.py",
+      "can_access_test": "NO",
+      "used_for_training": "YES (Canonical Entrypoint)",
+      "safe": "YES (PASS)",
+      "action": "Preserve as canonical training entrypoint. Strictly zero test-set access during training, validation, or checkpoint selection."
+    },
+    {
+      "script": "evaluate.py",
+      "can_access_test": "YES (Opt-in only)",
+      "used_for_training": "NO (Evaluation only)",
+      "safe": "YES (PASS)",
+      "action": "Enforces mandatory dual lock flags (--eval-test AND --confirm-locked-test-eval). Blocks unconfirmed test evaluation with exit code 1."
+    },
+    {
+      "script": "scripts/train_forecasting.py",
+      "can_access_test": "Previously YES (Auto-eval) -> Now BLOCKED",
+      "used_for_training": "LEGACY",
+      "safe": "YES (LOCKED)",
+      "action": "DEPRECATED. Added explicit test-lock guard requiring --eval-test --confirm-locked-test-eval. Replaced by train.py for A100."
+    },
+    {
+      "script": "scripts/train_trend_classifier.py",
+      "can_access_test": "Previously YES (Auto-eval) -> Now BLOCKED",
+      "used_for_training": "LEGACY",
+      "safe": "YES (LOCKED)",
+      "action": "DEPRECATED. Added explicit test-lock guard requiring --eval-test --confirm-locked-test-eval. Replaced by train.py for A100."
+    },
+    {
+      "script": "scripts/train_environmental_classifier.py",
+      "can_access_test": "Previously loaded test_df -> Now CLEANED",
+      "used_for_training": "LEGACY",
+      "safe": "YES (PASS)",
+      "action": "DEPRECATED. Test loader was never evaluated in training loop; removed unused test loading."
+    },
+    {
+      "script": "scripts/train_modality_ablation.py",
+      "can_access_test": "Previously YES (Auto-eval) -> Now BLOCKED",
+      "used_for_training": "LEGACY",
+      "safe": "YES (LOCKED)",
+      "action": "DEPRECATED. Added test-lock guard requiring explicit dual opt-in flags."
+    },
+    {
+      "script": "scripts/evaluate_forecasting.py",
+      "can_access_test": "YES (Diagnostic only)",
+      "used_for_training": "NO",
+      "safe": "WARNING",
+      "action": "Post-hoc offline diagnostic tool. Does not affect model training."
+    },
+    {
+      "script": "scripts/evaluate_persistence.py",
+      "can_access_test": "YES (Baseline script)",
+      "used_for_training": "NO",
+      "safe": "PASS",
+      "action": "Deterministic baseline computation for persistence and trend. No learned parameters."
+    }
+  ]
+}
