@@ -473,9 +473,9 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
 
         {/* Live Scrub/Hover Telemetry HUD */}
         {activeHoverItem && (() => {
-          const forecast24 = smoothingMode === "ema" ? activeHoverItem.ema_24h : activeHoverItem.pred_24h;
-          const observed24 = activeHoverItem.actual_plus_24h;
-          const err = forecast24 - observed24;
+          const forecast24 = Math.round((smoothingMode === "ema" ? activeHoverItem.ema_24h : activeHoverItem.pred_24h) * 10) / 10;
+          const observed24 = Math.round(activeHoverItem.actual_plus_24h * 10) / 10;
+          const err = Math.round((forecast24 - observed24) * 10) / 10;
           return (
             <div className="flex flex-wrap items-center gap-2.5 font-mono text-[11px]">
               <span className="rounded-xs bg-[#F7F8F0] border border-[#7AAACE]/50 px-1.5 py-0.5 text-foreground font-semibold">

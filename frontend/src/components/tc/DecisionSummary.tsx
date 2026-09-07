@@ -7,9 +7,9 @@ interface Props {
 }
 
 export function DecisionSummary({ data }: Props) {
-  const currentKt = data.current_wind_kt;
-  const forecast24Kt = data.forecast["+24h"];
-  const delta24 = forecast24Kt - currentKt;
+  const currentKt = Math.round(data.current_wind_kt * 10) / 10;
+  const forecast24Kt = Math.round(data.forecast["+24h"] * 10) / 10;
+  const delta24 = Math.round((forecast24Kt - currentKt) * 10) / 10;
   const probPercent = (data.ri_probability * 100).toFixed(1);
 
   // Decision classification

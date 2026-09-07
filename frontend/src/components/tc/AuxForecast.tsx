@@ -6,11 +6,11 @@ interface Props {
 }
 
 export function AuxForecast({ data }: Props) {
-  const entries = (["+6h", "+12h", "+24h"] as const).map((k) => ({
-    k,
-    v: data.forecast[k],
-    delta: data.forecast[k] - data.current_wind_kt,
-  }));
+  const entries = (["+6h", "+12h", "+24h"] as const).map((k) => {
+    const v = Math.round(data.forecast[k] * 10) / 10;
+    const delta = Math.round((v - data.current_wind_kt) * 10) / 10;
+    return { k, v, delta };
+  });
 
   return (
     <section className="border border-hairline bg-panel shadow-xs">

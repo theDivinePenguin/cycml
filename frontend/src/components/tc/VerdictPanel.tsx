@@ -5,11 +5,11 @@ interface Props {
 }
 
 export function VerdictPanel({ data }: Props) {
-  const forecast24 = data.forecast["+24h"];
-  const observed24 = data.actual_outcome_kt;
-  const error24 = forecast24 - observed24;
+  const forecast24 = Math.round(data.forecast["+24h"] * 10) / 10;
+  const observed24 = Math.round(data.actual_outcome_kt * 10) / 10;
+  const error24 = Math.round((forecast24 - observed24) * 10) / 10;
 
-  const observedDelta = data.actual_outcome_kt - data.current_wind_kt;
+  const observedDelta = Math.round((data.actual_outcome_kt - data.current_wind_kt) * 10) / 10;
   const actuallyRI = observedDelta >= 30;
   const flagged = data.ri_probability >= 0.35;
   const hit = actuallyRI === flagged;
