@@ -213,19 +213,6 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         ctx.fill();
       }
 
-      // D. Ground-Truth Actual Outcome Corridor (Next 24h - Dashed Red)
-      ctx.strokeStyle = "rgba(220, 38, 38, 0.9)";
-      ctx.lineWidth = 1.8;
-      ctx.setLineDash([4, 3]);
-      ctx.beginPath();
-      for (let i = safeCurrentStep; i <= future24Idx; i++) {
-        const x = getX(i);
-        const y = getY(lifecycle[i]!.observed_kt);
-        if (i === safeCurrentStep) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-      ctx.setLineDash([]);
 
       // Primary Forecast Vector (Solid High-Contrast Marine Blue)
       ctx.strokeStyle = "#0284C7";
@@ -292,19 +279,6 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
       }
       ctx.stroke();
 
-      // 3. Actual +24h Ground Truth Target Path (Dashed Red)
-      ctx.strokeStyle = "rgba(220, 38, 38, 0.9)";
-      ctx.lineWidth = 1.6;
-      ctx.setLineDash([4, 3]);
-      ctx.beginPath();
-      for (let i = 0; i < N; i++) {
-        const x = getX(i);
-        const y = getY(lifecycle[i]!.actual_plus_24h);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-      ctx.setLineDash([]);
     }
 
     // "NOW" Vertical Timeline Marker Line
@@ -486,7 +460,6 @@ export function IntensityChart({ data, nowHour, currentStep = 0, onStepChange }:
         <div className="flex flex-wrap items-center gap-4">
           <LegendSwatch color="#0F172A" label="Observed Past" solid />
           <LegendSwatch color="#0284C7" label="Model Forecast (+24h)" solid />
-          <LegendSwatch color="#DC2626" label="Ground-Truth Verification (+24h)" dashed />
           {viewMode === "realtime" && (
             <LegendSwatch color="rgba(122, 170, 206, 0.6)" label="Truth Envelope" dashed />
           )}
