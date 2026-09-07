@@ -133,14 +133,42 @@ function normalizeTrend(trend: string): "Weakening" | "Stable" | "Intensifying" 
   return "Intensifying";
 }
 
+const MONTH_NAMES = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+function formatStormTime(ts?: string): string {
+  if (!ts || ts.length < 6) return "";
+  const year = ts.slice(0, 4);
+  const monthIdx = parseInt(ts.slice(4, 6), 10) - 1;
+  const month = MONTH_NAMES[monthIdx];
+  return month ? `${month} ${year}` : year;
+}
+
+function formatStormPlace(basin?: string): string {
+  if (!basin) return "Global";
+  const clean = basin.replace(/\s*\([^)]*\)/g, "").trim();
+  const primary = clean.split("/")[0]?.trim() || clean;
+  return primary;
+}
+
 export const STORMS: StormOption[] = Object.keys(defaultStorms).map((id) => {
   const s = defaultStorms[id]!;
   const firstTs = s.timesteps?.[0]?.timestamp;
+  const season = parseSeason(s.id, firstTs);
+  const timeStr = formatStormTime(firstTs) || `${season}`;
+  const place = formatStormPlace(s.basin);
+  const peak = s.peak_intensity ?? 0;
   return {
     id: s.id,
-    label: `${s.name} — Peak ${s.peak_intensity} kt`,
+    name: s.name,
+    label: `${s.name} — ${timeStr} · ${place} · Peak ${peak} kt`,
     basin: s.basin,
-    season: parseSeason(s.id, firstTs),
+    place,
+    timeStr,
+    season,
+    peakIntensity: peak,
     steps: Math.max(1, (s.timesteps?.length ?? 1) - 1),
   };
 });

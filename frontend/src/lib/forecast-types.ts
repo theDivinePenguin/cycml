@@ -35,9 +35,13 @@ export interface ForecastResponse {
 
 export interface StormOption {
   id: string;
+  name: string;
   label: string;
   basin: string;
+  place: string;
+  timeStr: string;
   season: number;
+  peakIntensity: number;
   /** number of 6-hourly synoptic steps available for this storm */
   steps: number;
 }

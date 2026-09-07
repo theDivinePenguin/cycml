@@ -43,21 +43,26 @@ export function StormSelector({
           <Select value={stormId} onValueChange={onStormChange}>
             <SelectTrigger
               id="storm"
-              className="h-9 w-[320px] rounded-xs border border-[#7AAACE]/50 bg-panel font-mono text-sm text-foreground shadow-xs"
+              className="h-9 w-[480px] max-w-full rounded-xs border border-[#7AAACE]/50 bg-panel font-mono text-xs text-foreground shadow-xs"
             >
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="rounded-xs border border-[#7AAACE]/50 bg-panel shadow-sm">
+            <SelectContent className="rounded-xs border border-[#7AAACE]/50 bg-panel shadow-sm min-w-[500px]">
               {storms.map((s) => (
-                <SelectItem key={s.id} value={s.id} className="font-mono text-sm text-foreground hover:bg-[#9CD5FF]/20">
-                  {s.label}
+                <SelectItem key={s.id} value={s.id} className="font-mono text-xs text-foreground hover:bg-[#9CD5FF]/20 py-2">
+                  <span className="flex items-center justify-between gap-4 w-full">
+                    <span className="font-semibold text-foreground">{s.name}</span>
+                    <span className="text-[11px] text-muted-foreground whitespace-nowrap">
+                      {s.timeStr} · {s.place} · Peak {s.peakIntensity} kt
+                    </span>
+                  </span>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
           {active && (
-            <span className="readout text-xs text-muted-foreground font-semibold">
-              {active.basin} · {active.season}
+            <span className="readout text-xs text-muted-foreground font-semibold hidden md:inline">
+              {active.basin}
             </span>
           )}
         </div>
